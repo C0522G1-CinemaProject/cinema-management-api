@@ -16,12 +16,12 @@ import projectbackend.service.customer.ICustomerService;
 @RequestMapping("/api/customer")
 public class CustomerRestController {
 
-@Autowired
+    @Autowired
     private ICustomerService customerService;
+
     @GetMapping("/statement")
-    public ResponseEntity<Page<ICustomerStatementDto>> getCustomerTop(
-                                                               @PageableDefault(value = 20) Pageable pageable    ) {
-        Page<ICustomerStatementDto> customerStatementDtoPage = customerService.getCustomerTop( pageable);
+    public ResponseEntity<Page<ICustomerStatementDto>> getCustomerTop(@PageableDefault(value = 20) Pageable pageable) {
+        Page<ICustomerStatementDto> customerStatementDtoPage = customerService.getCustomerTop(pageable);
         if (customerStatementDtoPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

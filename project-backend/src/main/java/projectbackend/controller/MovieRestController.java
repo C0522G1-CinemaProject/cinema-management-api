@@ -21,9 +21,8 @@ public class MovieRestController {
     private IMovieService movieService;
 
     @GetMapping("/statement")
-    public ResponseEntity<Page<IMovieStatementDto>> getCustomerTop(
-            @PageableDefault(value = 20) Pageable pageable    ) {
-        Page<IMovieStatementDto> customerStatementDtoPage = movieService.getMovieTop( pageable);
+    public ResponseEntity<Page<IMovieStatementDto>> getCustomerTop(@PageableDefault(value = 20) Pageable pageable) {
+        Page<IMovieStatementDto> customerStatementDtoPage = movieService.getMovieTop(pageable);
         if (customerStatementDtoPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
