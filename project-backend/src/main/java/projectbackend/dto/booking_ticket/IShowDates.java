@@ -1,4 +1,4 @@
-package projectbackend.dto.show_date;
+package projectbackend.dto.booking_ticket;
 
 public interface IShowDates {
     String getShowDate();
