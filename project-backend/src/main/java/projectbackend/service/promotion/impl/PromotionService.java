@@ -5,4 +5,5 @@ import projectbackend.service.promotion.IPromotionService;
 
 @Service
 public class PromotionService implements IPromotionService {
+
 }
