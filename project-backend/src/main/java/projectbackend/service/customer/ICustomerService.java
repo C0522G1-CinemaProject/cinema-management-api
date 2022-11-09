@@ -1,5 +1,6 @@
 package projectbackend.service.customer;
 
+import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.model.customer.Customer;
 
 import java.util.List;
@@ -11,6 +12,6 @@ public interface ICustomerService {
 
     void save(Customer customer);
 
-    Optional<Customer> findCustomerById(int id);
+    Optional<ICustomerDto> findCustomerById(Integer id);
 
 }
