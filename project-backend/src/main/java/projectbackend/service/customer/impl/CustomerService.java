@@ -8,7 +8,6 @@ import projectbackend.model.customer.Customer;
 import projectbackend.repository.customer.ICustomerRepository;
 import projectbackend.service.customer.ICustomerService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,18 +17,13 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository iCustomerRepository;
 
     @Override
-    public List<Customer> findAll() {
-        return iCustomerRepository.findAll();
-    }
-
-    @Override
     public void save(Customer customer) {
         iCustomerRepository.save(customer);
     }
 
     @Override
-    public Optional<Customer> findById(Integer id) {
-        return iCustomerRepository.findById(id);
+    public Optional<Customer> findByIdCustomer(Integer id) {
+        return iCustomerRepository.findByIdCustomer(id);
     }
 
     @Override
@@ -39,6 +33,6 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Page<Customer> searchCustomer(String nameSearch, String addressSearch, String phoneSearch, Pageable pageable) {
-        return null;
+        return iCustomerRepository.searchCustomer(nameSearch, addressSearch, phoneSearch, pageable);
     }
 }

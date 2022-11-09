@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerService {
-    List<Customer> findAll();
 
     void save(Customer customer);
 
-    Optional<Customer> findById(Integer id);
+    Optional<Customer> findByIdCustomer(Integer id);
 
     void update(Customer customer);
 

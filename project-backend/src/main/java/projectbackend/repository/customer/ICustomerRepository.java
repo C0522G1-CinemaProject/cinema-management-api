@@ -8,17 +8,23 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.model.customer.Customer;
 
-import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
-    @Query(value = "select * from customer where customer_name like %:nameSearch% and " +
-            "customer_address like %:addressSearch% and customer_phone like %:phoneSearch% and is_delete = false",
+
+    @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
+            " from customer " +
+            "where name like %:nameSearch% and address like %:addressSearch% " +
+            "and phone_number like %:phoneSearch% and is_delete = 0",
+            countQuery = "select count(*) from customer  " +
+                    "where name like %:nameSearch% and address like %:addressSearch% " +
+                    "and phone_number like %:phoneSearch% and is_delete = 0 ",
             nativeQuery = true)
     Page<Customer> searchCustomer(@Param("nameSearch") String nameSearch, @Param("addressSearch") String addressSearch,
                                   @Param("phoneSearch") String phoneSearch, Pageable pageable);
 
-    @Query(value = "select * from customer where is_delete = false", nativeQuery = true)
-    List<Customer> findAll();
-
+    @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
+            " from customer  where id =:id and is_delete = 0", nativeQuery = true)
+    Optional<Customer> findByIdCustomer(@Param("id") int id);
 }
