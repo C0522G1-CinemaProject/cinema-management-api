@@ -17,6 +17,6 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update Movie as m set m.isDelete = true where m.id = :idDelete", nativeQuery = true)
+    @Query(value = "update movie set is_delete = true where id=:idDelete", nativeQuery = true)
     void deleteById(@Param("idDelete") int idDelete);
 }
