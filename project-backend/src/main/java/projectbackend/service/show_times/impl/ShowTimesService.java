@@ -7,6 +7,7 @@ import projectbackend.repository.show_times.IShowTimesRepository;
 import projectbackend.service.show_times.IShowTimesService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShowTimesService implements IShowTimesService {
@@ -27,5 +28,10 @@ public class ShowTimesService implements IShowTimesService {
     @Override
     public void editShowTime(ShowTimes showTimes) {
         showTimesRepository.save(showTimes);
+    }
+
+    @Override
+    public Optional<ShowTimes> findById(Integer id) {
+        return showTimesRepository.findById(id);
     }
 }
