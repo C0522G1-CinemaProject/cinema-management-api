@@ -12,15 +12,15 @@ import projectbackend.service.movie.IMovieService;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
-@RequestMapping("movie/")
+@CrossOrigin("*")
+@RequestMapping("/api/movie/")
 public class MovieRestController {
     @Autowired
     private IMovieService iMovieService;
 
     @GetMapping(value = "list")
-    public ResponseEntity<Page<Movie>> getList(Pageable pageable, String keyword) {
-        Page<Movie> movieList = iMovieService.findAllMovie(pageable, keyword);
+    public ResponseEntity<Page<Movie>> getList(Pageable pageable,@RequestParam(value = "name",defaultValue = "") String name) {
+        Page<Movie> movieList = iMovieService.findAllMovie(pageable, name);
         if (movieList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

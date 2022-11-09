@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
     @Query(value = "SELECT m.name, m.startDay, m.filmStudio, m.filmTime,m.version FROM Movie as m WHERE m.name" +
-            " LIKE '%keyword%' AND m.isDelete = false ")
-    Page<Movie> findAllMovie(Pageable pageable, String keyword);
+            " LIKE %:keyword% AND m.isDelete = false ")
+    Page<Movie> findAllMovie(Pageable pageable,@Param("keyword") String name);
 
     @Transactional
     @Modifying
