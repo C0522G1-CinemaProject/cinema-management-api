@@ -23,6 +23,6 @@ public class PromotionService implements IPromotionService {
 
     @Override
     public Optional<Promotion> findById(int id) {
-        return iPromotionRepository.findById(id);
+        return iPromotionRepository.findPromotionById(id);
     }
 }
