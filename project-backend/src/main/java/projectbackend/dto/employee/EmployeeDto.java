@@ -21,7 +21,6 @@ public class EmployeeDto {
     private Integer gender;
 
     @NotBlank
-    @Email
     private String email;
 
     @NotBlank
@@ -42,15 +41,14 @@ public class EmployeeDto {
 
     private boolean isDelete;
 
-    @NotBlank
-    private UserDto userDto;
+    private User user;
 
 
     public EmployeeDto() {
     }
 
     public EmployeeDto(Integer id, String name, Integer gender, String email, String address, String phoneNumber,
-                       String idCard, String dayOfBirth, String image, boolean isDelete, UserDto userDto) {
+                       String idCard, String dayOfBirth, String image, boolean isDelete, User user) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -61,7 +59,7 @@ public class EmployeeDto {
         this.dayOfBirth = dayOfBirth;
         this.image = image;
         this.isDelete = isDelete;
-        this.userDto = userDto;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -144,11 +142,11 @@ public class EmployeeDto {
         isDelete = delete;
     }
 
-    public UserDto getUserDto() {
-        return userDto;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserDto(UserDto userDto) {
-        this.userDto = userDto;
+    public void setUserDto(User user) {
+        this.user = user;
     }
 }

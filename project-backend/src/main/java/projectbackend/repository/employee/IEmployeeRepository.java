@@ -18,9 +18,9 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 //    IEmployeeDto findById(@Param("keyId") Integer id);
 
     @Query(value = "select e.id, e.name, e.gender , e.email, e.address , e.phone_number, " +
-            " e.id_card , e.day_of_birth , e.image , u.username , u.password , e.is_delete  "
+            " e.id_card , e.day_of_birth , e.image , e.username , u.password , e.is_delete  "
             + "from employee as e "
-            + "join `user` as u on e.username = u.username "
+            + "join user as u on e.username = u.username "
             + "where e.is_delete = 0 and e.id = :keyId ", nativeQuery = true)
     Optional<Employee> findEmployeeById(@Param("keyId") Integer id);
 
