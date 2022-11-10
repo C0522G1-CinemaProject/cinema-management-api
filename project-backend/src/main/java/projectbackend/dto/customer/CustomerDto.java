@@ -19,6 +19,7 @@ public class CustomerDto implements Validator {
 
     private boolean isDelete;
 
+    @NotNull
     @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])$",
             message = "Ngày sinh phải đúng định dạng DD/MM/YYYY.")
     private String dayOfBirth;
@@ -38,6 +39,9 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Địa chỉ không được để trống.")
     private String address;
 
+    @NotNull
+    @Size(min = 10)
+    @Size(max = 14)
     @NotBlank(message = "Số điện thoại không được để trống.")
     @Pattern(regexp = "^((0|[(]84[)][+])9[01]\\d{7})| *$", message =
             "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.")
