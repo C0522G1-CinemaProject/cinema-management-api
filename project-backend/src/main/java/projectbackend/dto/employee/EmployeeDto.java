@@ -1,25 +1,56 @@
 package projectbackend.dto.employee;
 
+import projectbackend.dto.decentralization.UserDto;
 import projectbackend.model.decentralization.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class EmployeeDto {
+
     private Integer id;
+
+    @NotBlank
+    @Size(min = 5, max = 100, message = "5 or more characters (< 100)")
+    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$",
+            message = "Each first letter must be capitalized (ex: Jack...)")
     private String name;
+
     private Integer gender;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String address;
+
+    @NotBlank
     private String phoneNumber;
+
+    @NotBlank
+    @Pattern(regexp = "\\d{9}|\\d{12}",message = "Identity card must be in the correct format of 9 and 12 numbers")
     private String idCard;
+
+    @NotBlank
     private String dayOfBirth;
+
+    @NotBlank
     private String image;
+
     private boolean isDelete;
-    private User user;
+
+    @NotBlank
+    private UserDto userDto;
+
 
     public EmployeeDto() {
     }
 
     public EmployeeDto(Integer id, String name, Integer gender, String email, String address, String phoneNumber,
-                       String idCard, String dayOfBirth, String image, boolean isDelete, User user) {
+                       String idCard, String dayOfBirth, String image, boolean isDelete, UserDto userDto) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -30,7 +61,7 @@ public class EmployeeDto {
         this.dayOfBirth = dayOfBirth;
         this.image = image;
         this.isDelete = isDelete;
-        this.user = user;
+        this.userDto = userDto;
     }
 
     public Integer getId() {
@@ -113,11 +144,11 @@ public class EmployeeDto {
         isDelete = delete;
     }
 
-    public User getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 }

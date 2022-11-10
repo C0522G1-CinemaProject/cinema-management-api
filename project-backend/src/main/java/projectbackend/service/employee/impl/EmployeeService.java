@@ -2,6 +2,8 @@ package projectbackend.service.employee.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import projectbackend.dto.employee.EmployeeDto;
+import projectbackend.dto.employee.IEmployeeDto;
 import projectbackend.model.employee.Employee;
 import projectbackend.repository.employee.IEmployeeRepository;
 import projectbackend.service.employee.IEmployeeService;
@@ -19,7 +21,17 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Optional<Employee> findById(int id) {
+    public Optional<Employee> findEmployeeById(Integer id) {
+        return employeeRepository.findEmployeeById(id);
+    }
+
+    @Override
+    public Optional<Employee> findById(Integer id) {
         return employeeRepository.findById(id);
     }
+
+//    @Override
+//    public IEmployeeDto findById(Integer id) {
+//        return employeeRepository.findEmployeeById(id);
+//    }
 }
