@@ -17,8 +17,25 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             "user.username as customerUserName,user.`password` as customerPassword,customer.customer_type_id as customerTypeId  " +
             "from customer " +
             "join user on customer.username = user.username " +
-            " where id =:keyWord and customer.is_delete",
+            " where user.username like %:username% and customer.is_delete=0",
             countQuery = " select  count(*)",
             nativeQuery = true)
-    Optional<ICustomerDto> findCustomerById(@Param("keyWord") Integer id);
+    Optional<ICustomerDto> findCustomerByUsername(@Param("username") String username);
+
+
+    @Query(value = "select user.username as customerUserName,user.password as customerPassword  " +
+            "from customer " +
+            "join user on customer.username = user.username " +
+            " where user.username like %:username% and customer.is_delete=0",
+            countQuery = " select  count(*)",
+            nativeQuery = true)
+    Optional<ICustomerDto> findUserByUsername(@Param("username") String username);
+
+
+
+//    @Query(value = " select customer.id, customer.name,customer.day_of_birth,customer.gender,customer.id_card," +
+//            "customer.email,customer.address,customer.phone_number, customer.customer_type_id " +
+//            "from customer where id =:id and is_delete =0", nativeQuery = true)
+//    Optional<Customer> findById(int id);
+
 }

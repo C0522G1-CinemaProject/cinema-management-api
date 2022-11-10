@@ -12,6 +12,10 @@ public interface ICustomerService {
 
     void save(Customer customer);
 
-    Optional<ICustomerDto> findCustomerById(Integer id);
+    Optional<ICustomerDto> findCustomerByUsername(String username);
+
+    Optional<Customer> findById(int id);
+
+    Optional<ICustomerDto> findUserByUsername(String username);
 
 }

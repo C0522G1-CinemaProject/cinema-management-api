@@ -27,8 +27,19 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Optional<ICustomerDto> findCustomerById(Integer id) {
-        return customerRepository.findCustomerById(id);
+    public Optional<ICustomerDto> findCustomerByUsername(String username) {
+        return customerRepository.findCustomerByUsername(username);
+    }
+
+
+    @Override
+    public Optional<Customer> findById(int id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
+    public Optional<ICustomerDto> findUserByUsername(String username) {
+        return customerRepository.findUserByUsername(username);
     }
 
 }
