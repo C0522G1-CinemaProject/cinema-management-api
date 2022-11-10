@@ -18,7 +18,7 @@ public class PromotionService implements IPromotionService {
 
     @Override
     public Page<Promotion> findAll(Pageable pageable, String name) {
-        return repository.findAllPromotion(pageable,name);
+        return repository.findAllPromotion(pageable, name);
     }
 
     @Override
@@ -29,5 +29,10 @@ public class PromotionService implements IPromotionService {
     @Override
     public void delete(int id) {
         repository.deletePromotion(id);
+    }
+
+    @Override
+    public void save(Promotion promotion) {
+        repository.save(promotion);
     }
 }

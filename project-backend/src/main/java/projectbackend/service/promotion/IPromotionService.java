@@ -14,4 +14,5 @@ public interface IPromotionService {
 
     void delete(int id);
 
+    void save(Promotion promotion);
 }
