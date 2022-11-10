@@ -3,10 +3,13 @@ package projectbackend.service.movie.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.ITimeDto;
 import projectbackend.model.movie.Movie;
+import projectbackend.model.show_times.Times;
 import projectbackend.repository.movie.IMovieRepository;
 import projectbackend.service.movie.IMovieService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +30,7 @@ public class MovieService implements IMovieService {
 
     @Override
     public IMovieDto getMovie(Integer id) {
-        return movieRepository.findMovieId(id);
+        return movieRepository.findMovieById(id);
     }
 
     @Override

@@ -2,6 +2,7 @@ package projectbackend.service.show_times.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import projectbackend.dto.movie.IShowTimeDto;
 import projectbackend.model.show_times.ShowTimes;
 import projectbackend.repository.show_times.IShowTimesRepository;
 import projectbackend.service.show_times.IShowTimesService;
@@ -16,8 +17,8 @@ public class ShowTimesService implements IShowTimesService {
     private IShowTimesRepository showTimesRepository;
 
     @Override
-    public List<ShowTimes> getListShowTime() {
-        return showTimesRepository.findAll();
+    public List<IShowTimeDto> getShowTime(Integer id) {
+        return showTimesRepository.getShowTime(id);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package projectbackend.service.show_times;
 
+import projectbackend.dto.movie.IShowTimeDto;
 import projectbackend.model.show_times.ShowTimes;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Optional;
 
 public interface IShowTimesService {
 
-    List<ShowTimes> getListShowTime();
+    List<IShowTimeDto> getShowTime(Integer id);
 
     void addShowTime(ShowTimes showTimes);
 

@@ -13,7 +13,5 @@ public interface IMovieDto {
     String getFilmStudio();
     String getActor();
     String getVersion();
-    String getRoom();
-    String getTimes();
-    String getDateProjection();
+
 }

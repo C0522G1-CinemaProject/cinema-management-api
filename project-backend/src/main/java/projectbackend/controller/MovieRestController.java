@@ -4,11 +4,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.ITimeDto;
 import projectbackend.dto.movie.MovieDto;
 import projectbackend.model.movie.Movie;
+import projectbackend.model.show_times.Times;
 import projectbackend.service.movie.IMovieService;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -25,7 +32,13 @@ public class MovieRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Movie> addMovie(@RequestBody MovieDto movieDto) {
+    public ResponseEntity<List<FieldError>> addMovie(@RequestBody @Valid MovieDto movieDto,
+                                                     BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+                    HttpStatus.BAD_REQUEST);
+        }
         Movie movie = new Movie();
         BeanUtils.copyProperties(movieDto, movie);
         movieService.addMovie(movie);
