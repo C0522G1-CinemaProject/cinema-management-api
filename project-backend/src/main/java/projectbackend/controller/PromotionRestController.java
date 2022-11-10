@@ -36,7 +36,7 @@ public class PromotionRestController {
     @PostMapping("/save")
     public ResponseEntity<Promotion> saveAdding(@RequestBody PromotionDto promotionDto) {
         Promotion promotion = new Promotion();
-        BeanUtils.copyProperties(promotionDto, promotionDto);
+        BeanUtils.copyProperties(promotionDto, promotion);
         service.save(promotion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -50,13 +50,13 @@ public class PromotionRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detail/{id}")
     public ResponseEntity<Promotion> getInfo(@PathVariable int id) {
         Optional<Promotion> promotion = service.findById(id);
         if (promotion.isPresent()) {
             return new ResponseEntity<>(promotion.get(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -66,7 +66,7 @@ public class PromotionRestController {
             service.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

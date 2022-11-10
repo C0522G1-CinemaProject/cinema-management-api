@@ -33,6 +33,6 @@ public class PromotionService implements IPromotionService {
 
     @Override
     public void save(Promotion promotion) {
-        repository.save(promotion);
+        repository.savePromotion(promotion);
     }
 }

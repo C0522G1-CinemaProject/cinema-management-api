@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.model.promotion.Promotion;
 
@@ -29,7 +30,8 @@ public interface IPromotionRepository extends JpaRepository<Promotion, Integer> 
             , nativeQuery = true)
     Optional<Promotion> findById(int id);
 
-    @Query(value = "insert into Promotion(Promotion.name , Promotion.detail, Promotion.start_time, Promotion.end_time, Promotion.discount, Promotion.id, Promotion.image, Promotion.is_delete)" +
-            "VALUES (:promotion.name , :promotion.detail, :promotion.start_time, :promotion.end_time, :promotion.discount, :promotion.id, :promotion.image, 0)", nativeQuery = true)
-    Promotion save(Promotion promotion);
+    @Modifying
+    @Query(value = "insert into Promotion(name ,detail, start_time, end_time, discount, image, is_delete) " +
+            "VALUES (:#{#promotion.name} , :#{#promotion.detail}, :#{#promotion.startTime}, :#{#promotion.endTime}, :#{#promotion.discount}, :#{#promotion.image}, 0 )", nativeQuery = true)
+    void savePromotion(@Param("promotion") Promotion promotion);
 }
