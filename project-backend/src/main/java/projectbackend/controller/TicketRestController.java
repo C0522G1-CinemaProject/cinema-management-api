@@ -74,13 +74,11 @@ public class TicketRestController {
         return new ResponseEntity<>(seatDetails, HttpStatus.OK);
     }
 
-    @PostMapping("/add-pending-ticket/{idSeatDetail}")
-    public ResponseEntity<Ticket> addPendingTicket(@RequestBody TicketDto ticketDto,
-                                                   @PathVariable Integer idSeatDetail) {
+    @PostMapping("/add-pending-ticket")
+    public ResponseEntity<Ticket> addPendingTicket(@RequestBody TicketDto ticketDto) {
         Ticket ticket = new Ticket();
         BeanUtils.copyProperties(ticketDto, ticket);
         ticketService.saveTicket(ticket);
-        seatDetailService.setStatusSeatIsPending(idSeatDetail);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
