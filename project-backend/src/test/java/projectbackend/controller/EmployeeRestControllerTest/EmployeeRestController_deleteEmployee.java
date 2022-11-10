@@ -46,7 +46,7 @@ this.mockMvc.perform(MockMvcRequestBuilders.delete("/employee/delete/null"))
     /**
      * creator Nguyen Van Phu
      * create date : 10/11/2022
-     * content: test deleteEmployee by id = "300"
+     * content: test deleteEmployee by id = "32" not in database
      * */
 
     @Test
@@ -59,7 +59,7 @@ this.mockMvc.perform(MockMvcRequestBuilders.delete("/employee/delete/null"))
     /**
      * creator Nguyen Van Phu
      * create date : 10/11/2022
-     * content: test deleteEmployee by id = "2" not in database
+     * content: test deleteEmployee by id = "30"  in database
      * */
 
     @Test
