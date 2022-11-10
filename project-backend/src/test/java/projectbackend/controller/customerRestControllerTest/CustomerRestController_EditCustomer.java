@@ -118,4 +118,85 @@ public class CustomerRestController_EditCustomer {
                 .andExpect(status().isBadRequest());
     }
 
+    //test dayOfBirth = null
+    @Test
+    public void createCustomer_dayOfBirth_13() throws Exception {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("phuc");
+        customerDto.setDayOfBirth(null);
+        customerDto.setGender(1);
+        customerDto.setIdCard("9876549898");
+        customerDto.setEmail("ahsgdjkasgd@gmail.com");
+        customerDto.setAddress("Nghe An");
+        customerDto.setPhoneNumber("0912123123");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/customer/add")
+                        .content(this.objectMapper.writeValueAsString(customerDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+    //test dateOfBirth = ""
+    @Test
+    public void createCustomer_dayOfBirth_14() throws Exception {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("phuc");
+        customerDto.setDayOfBirth("");
+        customerDto.setGender(1);
+        customerDto.setIdCard("9876549898");
+        customerDto.setEmail("ahsgdjkasgd@gmail.com");
+        customerDto.setAddress("Nghe An");
+        customerDto.setPhoneNumber("0912123123");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/customer/add")
+                        .content(this.objectMapper.writeValueAsString(customerDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+    //test dateOfBirth invalid format
+    @Test
+    public void createCustomer_dayOfBirth_15() throws Exception {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("phuc");
+        customerDto.setDayOfBirth("05-1998-11");
+        customerDto.setGender(1);
+        customerDto.setIdCard("9876549898");
+        customerDto.setEmail("ahsgdjkasgd@gmail.com");
+        customerDto.setAddress("Nghe An");
+        customerDto.setPhoneNumber("0912123123");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/customer/add")
+                        .content(this.objectMapper.writeValueAsString(customerDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    //test gender null
+    @Test
+    public void createCustomer_gender_13() throws Exception {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("phuc");
+        customerDto.setDayOfBirth("1998-12-05");
+        customerDto.setGender(null);
+        customerDto.setIdCard("9876549898");
+        customerDto.setEmail("ahsgdjkasgd@gmail.com");
+        customerDto.setAddress("Nghe An");
+        customerDto.setPhoneNumber("0912123123");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/customer/add")
+                        .content(this.objectMapper.writeValueAsString(customerDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+
+
+
 }

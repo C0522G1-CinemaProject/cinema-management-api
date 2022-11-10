@@ -606,5 +606,24 @@ public class CustomerRestController_addCustomer {
                 .andExpect(status().isBadRequest());
     }
 
+    //test All
+    @Test
+    public void createCustomer_18() throws Exception {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("phuc");
+        customerDto.setDayOfBirth("1998-12-05");
+        customerDto.setGender(1);
+        customerDto.setIdCard("187658129");
+        customerDto.setEmail("nguyenvanphuc@gmail.com");
+        customerDto.setAddress("Nghệ An");
+        customerDto.setPhoneNumber("0912345678");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/customer/add")
+                        .content(this.objectMapper.writeValueAsString(customerDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
 
 }
