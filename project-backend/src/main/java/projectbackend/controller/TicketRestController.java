@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.dto.ticket.TicketDto;
@@ -41,12 +42,19 @@ public class TicketRestController {
         }
     }
 
-    @GetMapping("/ticket/{id}")
-    public ResponseEntity<Ticket> findTicketById(@RequestBody TicketDto ticketDto, @PathVariable int id){
-        Ticket ticket = iTicketService.findTicketById(id);
+    @PatchMapping("/ticket/edit/{id}")
+    public ResponseEntity<?> findTicketById(@RequestBody TicketDto ticketDto,
+                                            @PathVariable Integer id,
+                                            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        }
+        Ticket ticket = new Ticket();
+        ticket.setId(id);
         BeanUtils.copyProperties(ticketDto, ticket);
         iTicketService.saveTicket(ticket);
-        return new ResponseEntity<Ticket>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
