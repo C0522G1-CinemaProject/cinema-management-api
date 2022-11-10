@@ -8,6 +8,8 @@ import projectbackend.dto.movie.IMovieStatementDto;
 import projectbackend.repository.movie.IMovieRepository;
 import projectbackend.service.movie.IMovieService;
 
+import java.util.List;
+
 @Service
 public class MovieService implements IMovieService {
 
@@ -17,5 +19,18 @@ public class MovieService implements IMovieService {
     @Override
     public Page<IMovieStatementDto> getMovieTop(Pageable pageable) {
         return movieRepository.getMovieTop(pageable);
+    }
+
+    @Override
+    public List<IMovieStatementDto> getMovieTop() {
+        return movieRepository.getMovieTop();
+    }
+
+    @Override
+    public List<IMovieStatementDto> getMovieTop(int numberMonth) {
+        if (numberMonth == 0) {
+            return movieRepository.getMovieTop();
+        }
+        return movieRepository.getMovieTop(numberMonth);
     }
 }
