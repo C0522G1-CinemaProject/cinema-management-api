@@ -69,7 +69,8 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "join room on room.id = show_times.room_id " +
             "join seat_room on seat_room.room_id = room.id " +
             "join seat_type on seat_type.id = seat_room.seat_type_id " +
-            "where customer.username = :username and ticket.ticket_booking_time like :booKingTime and ticket.is_delete = :value ",
+            "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% " +
+            "and seat_type.price = :price ",
             countQuery = "select count(*) from ticket " +
                     "join customer on customer.id = ticket.customer_id " +
                     "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -79,13 +80,12 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "join room on room.id = show_times.room_id " +
                     "join seat_room on seat_room.room_id = room.id " +
                     "join seat_type on seat_type.id = seat_room.seat_type_id " +
-                    "where customer.username = :username and ticket.ticket_booking_time like :booKingTime and " +
-                    "ticket.is_delete = :value", nativeQuery = true)
-    Page<ITicketDto> findAllHistoryPoint(@Param("username") String username,
-                                         @Param("booKingTime") String bookingTime,
-                                         @Param("value") int value,
-                                         Pageable pageable);
-
+                    "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% and " +
+                    "seat_type.price = :price ", nativeQuery = true)
+    Page<ITicketDto> findAllHistoryPointSearch(@Param("username") String username,
+                                               @Param("bookingTime") String bookingTime,
+                                               @Param("price") int value,
+                                               Pageable pageable);
 
 
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
@@ -99,7 +99,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "join room on room.id = show_times.room_id " +
             "join seat_room on seat_room.room_id = room.id " +
             "join seat_type on seat_type.id = seat_room.seat_type_id " +
-            "where customer.username = :username and ticket.ticket_booking_time like :booKingTime ",
+            "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% ",
             countQuery = "select count(*) from ticket " +
                     "join customer on customer.id = ticket.customer_id " +
                     "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -109,10 +109,10 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "join room on room.id = show_times.room_id " +
                     "join seat_room on seat_room.room_id = room.id " +
                     "join seat_type on seat_type.id = seat_room.seat_type_id " +
-                    "where customer.username = :username and ticket.ticket_booking_time like :booKingTime and "
+                    "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% "
             , nativeQuery = true)
-    Page<ITicketDto> findAllHistoryPointSearch(@Param("username") String username,
-                                               @Param("booKingTime") String bookingTime,
-                                               Pageable pageable);
+    Page<ITicketDto> findAllHistoryPoint(@Param("username") String username,
+                                         @Param("bookingTime") String bookingTime,
+                                         Pageable pageable);
 
 }

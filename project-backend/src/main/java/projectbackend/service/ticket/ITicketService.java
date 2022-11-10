@@ -9,7 +9,7 @@ public interface ITicketService {
 
     Page<ITicketDto> findAllCanceledTickets(Pageable pageable, String username);
 
-    Page<ITicketDto> findAllHistoryPoint(String username, String bookingTime, int price, Pageable pageable);
+    Page<ITicketDto> findAllHistoryPointSearch(String username, String bookingTime, int value, Pageable pageable);
 
-    Page<ITicketDto> findAllHistoryPointSearch(String username, String bookingTime, Pageable pageable);
+    Page<ITicketDto> findAllHistoryPoint(String username, String bookingTime, Pageable pageable);
 }
