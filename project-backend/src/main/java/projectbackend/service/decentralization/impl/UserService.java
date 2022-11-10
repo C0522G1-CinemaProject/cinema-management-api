@@ -16,6 +16,10 @@ public class UserService implements IUserService {
     @Autowired
     private IUserRepository iUserRepository;
 
+    @Override
+    public String existsByUserName(String username) {
+        return iUserRepository.existsByUserName(username);
+    }
 
     @Override
     public List<User> findAll() {

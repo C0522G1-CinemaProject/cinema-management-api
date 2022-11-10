@@ -7,15 +7,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import projectbackend.jwt.JwtTokenUtil;
-import projectbackend.payload.LoginRequest;
-import projectbackend.payload.LoginResponse;
+import projectbackend.payload.request.LoginRequest;
+import projectbackend.payload.request.LoginResponse;
 import projectbackend.service.decentralization.impl.MyUserDetails;
+import projectbackend.service.decentralization.impl.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,6 +32,11 @@ public class SecurityController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     public String home() {

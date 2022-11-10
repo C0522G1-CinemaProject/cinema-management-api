@@ -1,4 +1,4 @@
-package projectbackend.payload;
+package projectbackend.payload.request;
 
 import java.util.List;
 
