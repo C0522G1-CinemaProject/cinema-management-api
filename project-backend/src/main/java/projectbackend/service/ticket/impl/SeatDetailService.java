@@ -21,7 +21,12 @@ public class SeatDetailService implements ISeatDetailService {
     }
 
     @Override
-    public List<ISeatDetail> findAllSeatDetail(Integer idShowTime, Integer idRoom) {
-        return seatDetailRepository.findAllSeatDetail(idShowTime, idRoom);
+    public List<ISeatDetail> findAllSeatDetail(Integer idShowTime) {
+        return seatDetailRepository.findAllSeatDetail(idShowTime);
+    }
+
+    @Override
+    public void setStatusSeatIsPending(Integer idSeatDetail) {
+        seatDetailRepository.setStatusSeatIsPending(idSeatDetail);
     }
 }

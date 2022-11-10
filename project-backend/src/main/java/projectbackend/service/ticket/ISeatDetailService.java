@@ -1,5 +1,6 @@
 package projectbackend.service.ticket;
 
+import org.springframework.data.repository.query.Param;
 import projectbackend.dto.booking_ticket.ISeatDetail;
 import projectbackend.model.ticket.SeatDetail;
 
@@ -9,5 +10,7 @@ import java.util.Optional;
 public interface ISeatDetailService {
     Optional<SeatDetail> findById(Integer id);
 
-    List<ISeatDetail> findAllSeatDetail(Integer idShowTime, Integer idRoom);
+    List<ISeatDetail> findAllSeatDetail(Integer idShowTime);
+
+    void setStatusSeatIsPending(Integer idSeatDetail);
 }

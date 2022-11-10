@@ -7,5 +7,5 @@ public interface ISeatDetail {
     String getSeatName();
     Integer getPrice();
     Integer getShowTimeId();
-    Integer getSeatStatus();
+    Boolean getSeatStatus();
 }
