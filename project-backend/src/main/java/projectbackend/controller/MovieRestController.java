@@ -8,10 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.movie.IMovieDto;
-import projectbackend.dto.movie.ITimeDto;
 import projectbackend.dto.movie.MovieDto;
 import projectbackend.model.movie.Movie;
-import projectbackend.model.show_times.Times;
 import projectbackend.service.movie.IMovieService;
 
 import javax.validation.Valid;
@@ -46,8 +44,13 @@ public class MovieRestController {
     }
 
     @PatchMapping("/edit/{id}")
-    public ResponseEntity<Movie> editMovie(@RequestBody MovieDto movieDto,
+    public ResponseEntity<List<FieldError>> editMovie(@RequestBody @Valid MovieDto movieDto,
+                                           BindingResult bindingResult,
                                            @PathVariable Integer id) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+                    HttpStatus.BAD_REQUEST);
+        }
         Movie movie = movieService.finById(id).get();
         BeanUtils.copyProperties(movieDto, movie);
         movieService.editMovie(movie);
