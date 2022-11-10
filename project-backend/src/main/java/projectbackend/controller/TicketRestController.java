@@ -22,8 +22,8 @@ public class TicketRestController {
 
     @GetMapping("/ticket/list")
     public ResponseEntity<Page<ITicketDto>> findAllTicket(
-            @RequestParam(value = "id", defaultValue = "") Integer ticketId,
-            @RequestParam(value = "id", defaultValue = "") Integer customerId,
+            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
+            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
             @RequestParam(value = "idCard", defaultValue = "") String idCard,
             @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber,
             Pageable pageable) {
@@ -45,7 +45,8 @@ public class TicketRestController {
     public ResponseEntity<Ticket> findTicketById(@RequestBody TicketDto ticketDto, @PathVariable int id){
         Ticket ticket = iTicketService.findTicketById(id);
         BeanUtils.copyProperties(ticketDto, ticket);
-        return new ResponseEntity<Ticket>(iTicketService.findTicketById(id), HttpStatus.OK);
+        iTicketService.saveTicket(ticket);
+        return new ResponseEntity<Ticket>(HttpStatus.OK);
     }
 
 }

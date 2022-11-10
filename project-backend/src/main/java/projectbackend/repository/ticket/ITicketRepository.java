@@ -76,7 +76,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "AND ticket.status_ticket = 1 "
             , nativeQuery = true)
     Page<ITicketDto> findAllByQuery(@Param("ticketCodeSearch") Integer ticketId,
-                                    @Param("customerCodeSearch")Integer customerID,
+                                    @Param("customerCodeSearch")Integer customerId,
                                     @Param("idCardSearch") String idCard,
                                     @Param("phoneSearch") String phoneNumber,
                                     Pageable pageable);
