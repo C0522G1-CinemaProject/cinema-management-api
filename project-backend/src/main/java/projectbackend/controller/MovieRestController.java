@@ -20,7 +20,7 @@ public class MovieRestController {
     public ResponseEntity<Optional<IMovieDto>> getMovieDetail(@PathVariable Integer id) {
         Optional<IMovieDto> movie = iMovieService.movieDetail(id);
         if (!movie.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
