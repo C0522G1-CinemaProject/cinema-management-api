@@ -349,11 +349,30 @@ public class PromotionRestController_createPromotion {
     @Test
     public void createPromotion_name_16() throws Exception {
         PromotionDto promotionDto = new PromotionDto();
-        promotionDto.setName("Khuyến mãi năm mới");
+        promotionDto.setName("K");
         promotionDto.setImage("https://static.mservice.io/blogscontents/momo-upload-api-200528143622-637262733826352434.jpg");
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
-        promotionDto.setDetail("G");
+        promotionDto.setDetail("Giảm giá vé");
+        promotionDto.setDiscount("5");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/promotion/create")
+                        .content(this.objectMapper.writeValueAsString(promotionDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    //test startTime minlength
+    @Test
+    public void createPromotion_startTime_16() throws Exception {
+        PromotionDto promotionDto = new PromotionDto();
+        promotionDto.setName("Khuyến mãi năm mới");
+        promotionDto.setImage("https://static.mservice.io/blogscontents/momo-upload-api-200528143622-637262733826352434.jpg");
+        promotionDto.setStartTime("2");
+        promotionDto.setEndTime("2022-01-05");
+        promotionDto.setDetail("Giảm giá vé");
         promotionDto.setDiscount("5");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -368,12 +387,12 @@ public class PromotionRestController_createPromotion {
     @Test
     public void createPromotion_detail_16() throws Exception {
         PromotionDto promotionDto = new PromotionDto();
-        promotionDto.setName("K");
+        promotionDto.setName("Khuyến mãi năm mới");
         promotionDto.setImage("https://static.mservice.io/blogscontents/momo-upload-api-200528143622-637262733826352434.jpg");
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
-        promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5sfsr");
+        promotionDto.setDetail("G");
+        promotionDto.setDiscount("5");
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/promotion/create")
@@ -420,5 +439,24 @@ public class PromotionRestController_createPromotion {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
-    
+
+    //test all [item] đều hợp lệ
+    @Test
+    public void createPromotion_18() throws Exception {
+        PromotionDto promotionDto = new PromotionDto();
+        promotionDto.setName("Khuyến mãi năm mới");
+        promotionDto.setImage("https://static.mservice.io/blogscontents/momo-upload-api-200528143622-637262733826352434.jpg");
+        promotionDto.setStartTime("2022-01-01");
+        promotionDto.setEndTime("2022-01-05");
+        promotionDto.setDetail("giảm giá vé");
+        promotionDto.setDiscount("5");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/promotion/create")
+                        .content(this.objectMapper.writeValueAsString(promotionDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
 }

@@ -34,7 +34,7 @@ public class PromotionRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @PatchMapping("/edit/{id}")
+    //    @PatchMapping("/edit/{id}")
 //    public ResponseEntity<Promotion> editPromotion(@RequestBody PromotionDto promotionDto,
 //                                                @PathVariable Integer id) {
 //        Promotion promotion = iPromotionService.findById(id).get();
@@ -43,25 +43,25 @@ public class PromotionRestController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
     @PatchMapping("/edit/{id}")
-public ResponseEntity<?> editPromotion(@RequestBody @Valid PromotionDto promotionDto,
-                                      BindingResult bindingResult,
-                                      Integer id
-) {
-    if (bindingResult.hasErrors()) {
-        return new ResponseEntity<>(bindingResult.getFieldError(),
-                HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> editPromotion(@RequestBody @Valid PromotionDto promotionDto,
+                                           BindingResult bindingResult,
+                                           Integer id
+    ) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        Promotion promotion = new Promotion();
+        promotion.setId(id);
+        BeanUtils.copyProperties(promotionDto, promotion);
+        iPromotionService.updatePromotion(promotion);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    Promotion promotion = new Promotion();
-    promotion.setId(id);
-    BeanUtils.copyProperties(promotionDto, promotion);
-    iPromotionService.updatePromotion(promotion);
-    return new ResponseEntity<>(HttpStatus.OK);
-}
-
     @GetMapping("/{id}")
-    public ResponseEntity<IPromotionDto> editPromotion(@PathVariable Integer id){
-        IPromotionDto iPromotionDto= iPromotionService.findPromotionById(id);
-        return new ResponseEntity<>(iPromotionDto,HttpStatus.OK);
+    public ResponseEntity<IPromotionDto> editPromotion(@PathVariable Integer id) {
+        IPromotionDto iPromotionDto = iPromotionService.findPromotionById(id);
+        return new ResponseEntity<>(iPromotionDto, HttpStatus.OK);
     }
 }
