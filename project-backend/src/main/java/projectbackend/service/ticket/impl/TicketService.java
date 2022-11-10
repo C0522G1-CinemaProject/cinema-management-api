@@ -15,18 +15,23 @@ public class TicketService implements ITicketService {
     ITicketRepository iTicketRepository;
 
     @Override
-    public Page<ITicketDto> findAllBookingTickets(Pageable pageable , Integer id) {
-        return iTicketRepository.findAllBookingTickets(id,pageable);
+    public Page<ITicketDto> findAllBookingTickets(Pageable pageable, String username) {
+        return iTicketRepository.findAllBookingTickets(username, pageable);
     }
 
     @Override
-    public Page<ITicketDto> findAllCanceledTickets(Pageable pageable , Integer id) {
-        return iTicketRepository.findAllCanceledTickets(id,pageable);
+    public Page<ITicketDto> findAllCanceledTickets(Pageable pageable, String username) {
+        return iTicketRepository.findAllCanceledTickets(username, pageable);
     }
 
     @Override
-    public Page<ITicketDto> findAllHistoryPoint(Integer id, String bookingTime, int price, Pageable pageable) {
-        return findAllHistoryPoint(id,bookingTime,price,pageable);
+    public Page<ITicketDto> findAllHistoryPoint(String username, String bookingTime, int price, Pageable pageable) {
+        return iTicketRepository.findAllHistoryPoint(username, bookingTime, price, pageable);
+    }
+
+    @Override
+    public Page<ITicketDto> findAllHistoryPointSearch(String username, String bookingTime, Pageable pageable) {
+        return iTicketRepository.findAllHistoryPointSearch(username, bookingTime, pageable);
     }
 
 

@@ -12,24 +12,25 @@ import projectbackend.service.ticket.ITicketService;
 
 @CrossOrigin("*")
 @RequestMapping("api")
+@RestController
 public class TicketRestController {
     @Autowired
     ITicketService iTicketService;
 
-    @GetMapping("/booking/ticket/{id}")
-    public ResponseEntity<Page<ITicketDto>> showListBookingTicket(@PathVariable Integer id,
+    @GetMapping("/booking/ticket/{username}")
+    public ResponseEntity<Page<ITicketDto>> showListBookingTicket(@PathVariable String username,
                                                                   @PageableDefault(value = 5) Pageable pageable) {
-        Page<ITicketDto> ticketPage = iTicketService.findAllBookingTickets(pageable, id);
+        Page<ITicketDto> ticketPage = iTicketService.findAllBookingTickets(pageable, username);
         if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }
 
-    @GetMapping("/canceled/ticket/{id}")
-    public ResponseEntity<Page<ITicketDto>> showListCanceledTicket(@PathVariable Integer id,
+    @GetMapping("/canceled/ticket/{username}")
+    public ResponseEntity<Page<ITicketDto>> showListCanceledTicket(@PathVariable String username,
                                                                    @PageableDefault(value = 5) Pageable pageable) {
-        Page<ITicketDto> ticketPage = iTicketService.findAllCanceledTickets(pageable, id);
+        Page<ITicketDto> ticketPage = iTicketService.findAllCanceledTickets(pageable, username);
         if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -37,16 +38,26 @@ public class TicketRestController {
     }
 
 
-    @GetMapping("/history/point/{id}")
-    public ResponseEntity<Page<ITicketDto>> showListHistoryPoint(@PathVariable Integer id,
-                                                                 @PageableDefault(value = 5) Pageable pageable,
-                                                                 @RequestParam(value = "booKingTime", defaultValue = "") String bookingTime,
-                                                                 @RequestParam(value = "price", defaultValue = "") int price) {
-        Page<ITicketDto> ticketPage = iTicketService.findAllHistoryPoint(id, bookingTime, price, pageable);
-        if (ticketPage.isEmpty()) {
+    @GetMapping("/history/point/{username}")
+    public ResponseEntity<Page<ITicketDto>> showListHistoryPoint(
+            @PathVariable String username,
+            @PageableDefault(value = 5) Pageable pageable,
+            @RequestParam(value = "booKingTime", defaultValue = "") String bookingTime,
+            @RequestParam(value = "price", defaultValue = "0") int price) {
+
+        Page<ITicketDto> historyPointSearch ;
+        if(price ==0){
+            historyPointSearch = iTicketService.findAllHistoryPointSearch(username, bookingTime, pageable);
+        }
+        else{
+            historyPointSearch = iTicketService.findAllHistoryPoint(username, bookingTime, price, pageable);
+        }
+
+        if (historyPointSearch.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(ticketPage, HttpStatus.OK);
+        return new ResponseEntity<>(historyPointSearch, HttpStatus.OK);
+
     }
 
 }
