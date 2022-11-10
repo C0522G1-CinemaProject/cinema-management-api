@@ -7,12 +7,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.customer.CustomerDto;
 import projectbackend.model.customer.Customer;
 import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.customer.ICustomerTypeService;
+
+import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
@@ -37,17 +39,25 @@ public class CustomerRestController {
         return new ResponseEntity<>(customerPage, HttpStatus.OK);
     }
 
-    @GetMapping("/edit/{id}")
-    public ResponseEntity<Customer> editCustomer(@PathVariable Integer id, Model model) {
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<?> editCustomer(@RequestBody @Valid CustomerDto customerDto,
+                                          BindingResult bindingResult,
+                                          Integer id
+    ) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        } else {
+            Customer customer = new Customer();
+            customer.setId(id);
+            BeanUtils.copyProperties(customerDto, customer);
+            iCustomerService.update(customer);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Customer> editCustomer(@PathVariable Integer id) {
         Customer customer = iCustomerService.findByIdCustomer(id).get();
-
-        CustomerDto customerDto = new CustomerDto();
-        BeanUtils.copyProperties(customer, customerDto);
-//        if (customer == null) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-        iCustomerService.update(customer);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-
 }
