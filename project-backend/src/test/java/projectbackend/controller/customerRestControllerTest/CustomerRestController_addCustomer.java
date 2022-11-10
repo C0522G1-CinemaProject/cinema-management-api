@@ -626,4 +626,19 @@ public class CustomerRestController_addCustomer {
                 .andExpect(status().isBadRequest());
     }
 
+
+    //test user
+    @Test
+    public void createCustomer_user_18() throws Exception {
+        UserDto userDto = new UserDto();
+        userDto.setUsername("van phuc");
+        userDto.setPassword("123456abc");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/user/add")
+                        .content(this.objectMapper.writeValueAsString(userDto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }

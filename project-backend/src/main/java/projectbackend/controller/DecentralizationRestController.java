@@ -7,12 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import projectbackend.dto.customer.CustomerDto;
+import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.dto.decentralization.UserDto;
+import projectbackend.model.customer.Customer;
 import projectbackend.model.decentralization.User;
 import projectbackend.service.decentralization.IUserService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,13 +26,28 @@ public class DecentralizationRestController {
     @Autowired
     private IUserService userService;
 
-    @PatchMapping("/update/{username}")
-    public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable String username) {
-        User user = userService.findByUsername(username).get();
-        BeanUtils.copyProperties(userDto, user);
-        userService.updateUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PatchMapping("/edit/{username}")
+    public ResponseEntity<?> editUser(@RequestBody @Valid UserDto userDto,
+                                      BindingResult bindingResult,
+                                      String userName) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        } else {
+            User user = new User();
+            user.setUsername(userName);
+            BeanUtils.copyProperties(userDto, user);
+            userService.saveUser(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
+
+    @GetMapping("/find/{username}")
+    public ResponseEntity<User> editusername(@PathVariable String username) {
+        User user = userService.findByUsername(username).get();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 
     @PostMapping("/add")
     public ResponseEntity<List<FieldError>> saveUser(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
@@ -41,8 +60,6 @@ public class DecentralizationRestController {
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
 
 }
