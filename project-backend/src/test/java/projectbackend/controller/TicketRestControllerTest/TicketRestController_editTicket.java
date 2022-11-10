@@ -28,7 +28,7 @@ public class TicketRestController_editTicket {
         TicketDto ticketDto = new TicketDto();
         ticketDto.setStatusTicket(null);
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/v3/ticket/edit/")
+                        .post("/api/v3/ticket/edit/1")
                         .content(this.objectMapper.writeValueAsString(ticketDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -38,11 +38,11 @@ public class TicketRestController_editTicket {
 
     //test statusTicket = number => OK
     @Test
-    public void editTicket_statusTicket_15() throws Exception {
+    public void editTicket_statusTicket_14() throws Exception {
         TicketDto ticketDto = new TicketDto();
         ticketDto.setStatusTicket(2);
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/v3/ticket/edit/1?statusTicket=2")
+                        .post("/api/v3/ticket/edit/1")
                         .content(this.objectMapper.writeValueAsString(ticketDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
