@@ -6,14 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import projectbackend.dto.movie.IMovieDto;
 import projectbackend.model.movie.Movie;
 
 import javax.transaction.Transactional;
 
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
-    @Query(value = "SELECT m.name, m.startDay, m.filmStudio, m.filmTime,m.version FROM Movie as m WHERE m.name" +
-            " LIKE %:keyword% AND m.isDelete = false ")
-    Page<Movie> findAllMovie(Pageable pageable,@Param("keyword") String name);
+    @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version FROM movie  WHERE name" +
+            " LIKE %:keyword% AND is_delete = false", nativeQuery = true)
+    Page<IMovieDto> findAllMovie(Pageable pageable,@Param("keyword") String name);
 
     @Transactional
     @Modifying

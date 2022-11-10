@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projectbackend.dto.movie.IMovieDto;
 import projectbackend.model.movie.Movie;
 import projectbackend.service.movie.IMovieService;
 
@@ -16,11 +17,11 @@ import java.util.Optional;
 @RequestMapping("/api/movie/")
 public class MovieRestController {
     @Autowired
-    private IMovieService iMovieService;
+    private IMovieService movieService;
 
     @GetMapping(value = "list")
-    public ResponseEntity<Page<Movie>> getList(Pageable pageable,@RequestParam(value = "name",defaultValue = "") String name) {
-        Page<Movie> movieList = iMovieService.findAllMovie(pageable, name);
+    public ResponseEntity<Page<IMovieDto>> getList(Pageable pageable,@RequestParam(value = "name",defaultValue = "") String name) {
+        Page<IMovieDto> movieList = movieService.findAllMovie(pageable, name);
         if (movieList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -29,9 +30,9 @@ public class MovieRestController {
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Movie> deleteMovie(@PathVariable int id) {
-        Optional<Movie> movie = iMovieService.findById(id);
+        Optional<Movie> movie = movieService.findById(id);
         if (movie.isPresent()) {
-            iMovieService.deleteById(id);
+            movieService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
