@@ -24,7 +24,7 @@ public class Customer {
     private CustomerType customerType;
 
     @OneToOne
-    @JoinColumn(name = "user_name", referencedColumnName = "userName")
+    @JoinColumn(name = "username", referencedColumnName = "userName")
     private User user;
 
     public Customer() {
