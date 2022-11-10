@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface ISeatRoomService {
 
-    void updateSeatRoom(Integer idSeatRoom);
+    void updateSeatRoom(Integer idSeatRoom, Integer idSeatType);
 
-    List<ISeatRoomDto> findAllBySeat(Integer id);
+    ISeatRoomDto findSeatRoomById(Integer id);
 
+    List<ISeatRoomDto> findSeatRoomByRoomId(Integer id);
 }

@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.room.IRoomDto;
 import projectbackend.dto.room.ISeatRoomDto;
+import projectbackend.dto.room.IdSeatTypeDTo;
+import projectbackend.dto.room.SeatRoomDto;
 import projectbackend.service.room.IRoomService;
 import projectbackend.service.room.ISeatRoomService;
 
@@ -24,7 +26,7 @@ public class RoomRestController {
     private ISeatRoomService iSeatRoomService;
 
     @GetMapping(value = "")
-    public ResponseEntity<List<IRoomDto>> displayPawnItem(@RequestParam Optional<String> name) {
+    public ResponseEntity<List<IRoomDto>> getAllRoom(@RequestParam Optional<String> name) {
 
         String keywordName = name.orElse("");
 
@@ -37,7 +39,7 @@ public class RoomRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<IRoomDto> displayPawnItem(@PathVariable String id) {
+    public ResponseEntity<IRoomDto> findRoomById(@PathVariable String id) {
 
         IRoomDto room = iRoomService.findRoomById(id);
         if (room == null) {
@@ -48,13 +50,24 @@ public class RoomRestController {
     }
 
     @GetMapping(value = "/seat-room/{id}")
-    public ResponseEntity<List<ISeatRoomDto>> findAllBySeat(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<List<ISeatRoomDto>> findSeatRoomByRoomId(@PathVariable(value = "id") Integer id) {
 
-        List<ISeatRoomDto> seatList = iSeatRoomService.findAllBySeat(id);
+        List<ISeatRoomDto> seatList = iSeatRoomService.findSeatRoomByRoomId(id);
         if (seatList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(seatList, HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/updateStatusSeatRoom/{idSeatRoom}", name = "/updateStatusSeatRoom")
+    public ResponseEntity<IdSeatTypeDTo> updateSeatRoom(@PathVariable("idSeatRoom") Integer idSeatRoom, @RequestBody IdSeatTypeDTo idSeatTypeDto) {
+        if (idSeatRoom == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (iSeatRoomService.findSeatRoomById(idSeatRoom) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        this.iSeatRoomService.updateSeatRoom(idSeatRoom, idSeatTypeDto.getIdSeatType());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

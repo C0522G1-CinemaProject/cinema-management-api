@@ -15,12 +15,17 @@ public class SeatRoomService implements ISeatRoomService {
     ISeatRoomRepository iSeatRoomRepository;
 
     @Override
-    public void updateSeatRoom(Integer idSeatRoom) {
-        iSeatRoomRepository.updateSeatRoom(idSeatRoom);
+    public void updateSeatRoom(Integer idSeatRoom,Integer idSeatType) {
+        iSeatRoomRepository.updateSeatRoom(idSeatRoom,idSeatType);
     }
 
     @Override
-    public List<ISeatRoomDto> findAllBySeat(Integer id) {
-        return iSeatRoomRepository.findAllBySeat(id);
+    public ISeatRoomDto findSeatRoomById(Integer id) {
+        return iSeatRoomRepository.findSeatRoomById(id);
+    }
+
+    @Override
+    public List<ISeatRoomDto> findSeatRoomByRoomId(Integer id) {
+         return iSeatRoomRepository.findSeatRoomByRoomId(id);
     }
 }
