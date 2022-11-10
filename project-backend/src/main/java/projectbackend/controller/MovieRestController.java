@@ -21,7 +21,7 @@ public class MovieRestController {
 
     @GetMapping("/list")
     public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
-                                                   @PageableDefault(value = 5) Pageable pageable) {
+                                                   @PageableDefault(value = 2) Pageable pageable) {
         Page<IMovieDto> moviePage = movieService.findAllMovie(name, pageable);
         if (moviePage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
