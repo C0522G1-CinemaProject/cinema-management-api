@@ -7,6 +7,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.dto.ticket.TicketDto;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.service.ticket.ITicketService;
@@ -30,8 +31,8 @@ public class TicketRestController {
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Ticket> updateTicket(@PathVariable int id) {
+    @PutMapping("/update-ticket/{id}")
+    public ResponseEntity<Ticket> updateStatusTicket(@PathVariable int id) {
         Optional<Ticket> ticket = iTicketService.findById(id);
         if (ticket.isPresent()) {
             iTicketService.updateTicketById(id);
@@ -41,11 +42,12 @@ public class TicketRestController {
         }
     }
 
-    @GetMapping("/list-ticket/{id}")
-    public ResponseEntity<Page<TicketDto>> showInformationTicket(@PageableDefault Pageable pageable, @PathVariable int id) {
-        Page<TicketDto> ticketDto = iTicketService.findTicketById(pageable, id);
-        if (ticketDto.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    @RequestMapping(value = "/list-ticket/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Optional<ITicketDto>> showInformationTicket(@PathVariable Integer id) {
+        Optional<ITicketDto> ticketDto = iTicketService.findTicketById(id);
+        if (!ticketDto.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(ticketDto, HttpStatus.OK);
     }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import projectbackend.dto.ticket.TicketDto;
+import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.repository.ticket.ITicketRepository;
 import projectbackend.service.ticket.ITicketService;
@@ -22,7 +22,7 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Optional<Ticket> findById(int id) {
+    public Optional<Ticket> findById(Integer id) {
         return iTicketRepository.findById(id);
     }
 
@@ -32,7 +32,9 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Page<TicketDto> findTicketById(Pageable pageable, int id) {
-        return iTicketRepository.findTicketById(pageable, id);
+    public Optional<ITicketDto> findTicketById(int id) {
+        return iTicketRepository.findTicketById(id);
     }
+
+
 }
