@@ -38,8 +38,12 @@ public class EmployeeRestController {
 
 
     @PatchMapping("/edit/{id}")
-    public ResponseEntity<Employee> saveEditing(@RequestBody EmployeeDto employeeDto,
-                                                @PathVariable int id) {
+    public ResponseEntity<List<FieldError>> saveEditing(@Valid @RequestBody EmployeeDto employeeDto,
+                                                @PathVariable Integer id, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+                    HttpStatus.BAD_REQUEST);
+        }
         Employee employee = employeeService.findEmployeeById(id).get();
         BeanUtils.copyProperties(employeeDto, employee);
         employeeService.saveEmployee(employee);
@@ -47,7 +51,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> getEmployee(@PathVariable int id) {
+    public ResponseEntity<EmployeeDto> getEmployee(@PathVariable Integer id) {
         Employee employee = employeeService.findEmployeeById(id).get();
         EmployeeDto employeeDto = new EmployeeDto();
         BeanUtils.copyProperties(employee, employeeDto);

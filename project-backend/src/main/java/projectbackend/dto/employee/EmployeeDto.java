@@ -21,9 +21,11 @@ public class EmployeeDto {
     private Integer gender;
 
     @NotBlank
+    @Size(min = 28, max = 50)
     private String email;
 
     @NotBlank
+    @Size(min = 1, max = 100)
     private String address;
 
     @NotBlank
@@ -37,6 +39,7 @@ public class EmployeeDto {
     private String dayOfBirth;
 
     @NotBlank
+    @Size( max = 255)
     private String image;
 
     private boolean isDelete;

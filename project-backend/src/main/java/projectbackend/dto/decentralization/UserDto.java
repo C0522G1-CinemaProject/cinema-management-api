@@ -3,8 +3,16 @@ package projectbackend.dto.decentralization;
 import projectbackend.model.customer.Customer;
 import projectbackend.model.employee.Employee;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserDto {
+    @NotBlank
+    @Size(min = 3, max = 15)
     private String username;
+
+    @NotBlank
+    @Size(min = 3, max = 15)
     private String password;
     private boolean isDelete;
 
