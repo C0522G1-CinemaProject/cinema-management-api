@@ -72,7 +72,7 @@ public class MovieRestController {
     }
 
 
-//QuyetND function
+    //QuyetND function
     @GetMapping("/{id}")
     public ResponseEntity<IMovieDto> getMovie(@PathVariable int id) {
         IMovieDto iMovieDto = iMovieService.getMovie(id);

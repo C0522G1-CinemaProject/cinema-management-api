@@ -9,15 +9,14 @@ import projectbackend.model.movie.Movie;
 import java.util.Optional;
 
 public interface IMovieService {
-    Optional<IMovieDto> getMovieDetail(Integer id);
 
+    Optional<IMovieDto> getMovieDetail(Integer id);
 
     Page<IMovieDto> findAllHome(String name, Pageable pageable);
 
     Page<IMovieDto> findAllMovie(Pageable pageable, String keyword);
 
     void deleteById(int idDelete);
-
 
     void addMovie(Movie movie);
 

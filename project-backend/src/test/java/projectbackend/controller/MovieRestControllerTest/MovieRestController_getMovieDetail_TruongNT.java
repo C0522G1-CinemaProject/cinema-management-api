@@ -17,23 +17,23 @@ public class MovieRestController_getMovieDetail_TruongNT {
     @Autowired
     private MockMvc mockMvc;
 
-    //test id = null => Not Found
+    //test id = null => Bad Request
     @Test
     public void getMovieDetail_1() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/movie/detail/"))
+                .get("/api/movie/detail/null"))
                 .andDo(print())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
     }
 
 
-    // test id = "" => Not Found;
+    // test id = "" => Bad Request
     @Test
     public void getMovieDetail_2() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/movie/detail/"))
+                .get("/api/movie/detail/"))
                 .andDo(print())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
     }
 
     //test id = 500 => No Content
@@ -41,7 +41,7 @@ public class MovieRestController_getMovieDetail_TruongNT {
     @Test
     public void getMovieDetail_3() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/movie/detail/500"))
+                .get("/api/movie/detail/500"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -50,7 +50,7 @@ public class MovieRestController_getMovieDetail_TruongNT {
     @Test
     public void getMovieDetail_4() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/movie/detail/1"))
+                .get("/api/movie/detail/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("Alfie"))
