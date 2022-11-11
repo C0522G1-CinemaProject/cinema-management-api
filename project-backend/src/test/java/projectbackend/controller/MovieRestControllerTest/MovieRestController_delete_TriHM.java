@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MovieRestController_delete {
+public class MovieRestController_delete_TriHM {
 
     @Autowired
     private MockMvc mockMvc;

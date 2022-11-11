@@ -1,4 +1,4 @@
-package projectbackend.projectbackend.controller.MovieRestControllerTest;
+package projectbackend.controller.MovieRestControllerTest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MovieRestController_getAllMovie {
+public class MovieRestController_getAllMovie_NamHV {
 
     @Autowired
     private MockMvc mockMvc;

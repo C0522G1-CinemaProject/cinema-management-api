@@ -3,18 +3,13 @@ package projectbackend.repository.movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.movie.IMovieDto;
-
-import org.springframework.data.jpa.repository.Modifying;
-
-
 import projectbackend.model.movie.Movie;
-
 
 import java.util.Optional;
 
@@ -22,6 +17,7 @@ import java.util.Optional;
 @Transactional
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
+    //TruongNT
     @Query(value = "SELECT movie.start_day AS startDay, " +
             "movie.name AS name, " +
             "movie.image AS image, " +
@@ -40,9 +36,8 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
     Optional<IMovieDto> movieDetail(@Param("id") Integer id);
 
 
-
-
-    @Query(value = "select  movie.name as name,movie.image as image,show_times.date_projection as showTimeDate" +
+    //NamHV
+    @Query(value = "select movie.name as name,movie.image as image,show_times.date_projection as showTimeDate" +
             ",movie.film_time as filmTime from movie " +
             "join show_times on movie.id = show_times.movie_id " +
             "where ((day(show_times.date_projection)+3) >= day(curdate()) " +
@@ -66,15 +61,18 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
                     "and movie.is_delete=0", nativeQuery = true)
     Page<IMovieDto> findAllHome(@Param("keywordName") String name, Pageable pageable);
 
+    //TriHM
     @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version FROM movie  WHERE name" +
             " LIKE %:keyword% AND is_delete = false", nativeQuery = true)
-    Page<IMovieDto> findAllMovie(Pageable pageable,@Param("keyword") String name);
+    Page<IMovieDto> findAllMovie(Pageable pageable, @Param("keyword") String name);
 
-
+    //TriHM
     @Modifying
     @Query(value = "update movie set is_delete = true where id=:idDelete", nativeQuery = true)
     void deleteById(@Param("idDelete") int idDelete);
 
+
+    //QuyetND
     @Query(value = "select m.name, m.image, m.start_day as startDay, m.end_day as endDay, m.director, m.film_time as filmTime," +
             " m.trailer, m.movie_type_id as movieType, m.content, m.film_studio as filmStudio, m.actor, m.version " +
             "from movie as m " +
