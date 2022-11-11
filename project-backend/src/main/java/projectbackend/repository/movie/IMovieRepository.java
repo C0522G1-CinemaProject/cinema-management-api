@@ -14,11 +14,7 @@ import org.springframework.data.jpa.repository.Modifying;
 
 
 import projectbackend.model.movie.Movie;
-import projectbackend.model.show_times.Times;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
 
 import java.util.Optional;
 
@@ -68,7 +64,7 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
                     "AND (year(show_times.date_projection) = year(curdate())) " +
                     "and name like %:keywordName% " +
                     "and movie.is_delete=0", nativeQuery = true)
-    Page<IMovieDto> findAllMovie(@Param("keywordName") String name, Pageable pageable);
+    Page<IMovieDto> findAllHome(@Param("keywordName") String name, Pageable pageable);
 
     @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version FROM movie  WHERE name" +
             " LIKE %:keyword% AND is_delete = false", nativeQuery = true)

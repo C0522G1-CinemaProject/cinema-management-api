@@ -2,14 +2,18 @@ package projectbackend.controller;
 
 
 import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.MovieDto;
 import projectbackend.service.movie.IMovieService;
 
 import projectbackend.model.movie.Movie;
@@ -17,7 +21,6 @@ import org.springframework.validation.FieldError;
 import javax.validation.Valid;
 import java.util.List;
 
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -28,7 +31,7 @@ public class MovieRestController {
 
     @GetMapping(value = "/detail/{id}")
     public ResponseEntity<Optional<IMovieDto>> getMovieDetail(@PathVariable Integer id) {
-        Optional<IMovieDto> movie = iMovieService.movieDetail(id);
+        Optional<IMovieDto> movie = iMovieService.getMovieDetail(id);
         if (!movie.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -39,7 +42,7 @@ public class MovieRestController {
     @GetMapping("/list/home")
     public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
                                                    @PageableDefault(value = 5) Pageable pageable) {
-        Page<IMovieDto> moviePage = movieService.findAllMovie(name, pageable);
+        Page<IMovieDto> moviePage = iMovieService.findAllHome(name, pageable);
         if (moviePage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -49,7 +52,7 @@ public class MovieRestController {
 
     @GetMapping(value = "/list")
     public ResponseEntity<Page<IMovieDto>> getList(Pageable pageable,@RequestParam(value = "name",defaultValue = "") String name) {
-        Page<IMovieDto> movieList = movieService.findAllMovie(pageable, name);
+        Page<IMovieDto> movieList = iMovieService.findAllMovie(pageable, name);
         if (movieList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -57,10 +60,10 @@ public class MovieRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Movie> deleteMovie(@PathVariable int id) {
-        Optional<Movie> movie = movieService.findById(id);
+    public ResponseEntity<Movie> deleteMovie(@PathVariable Integer id) {
+        Optional<Movie> movie = iMovieService.finById(id);
         if (movie.isPresent()) {
-            movieService.deleteById(id);
+            iMovieService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -69,7 +72,7 @@ public class MovieRestController {
  
     @GetMapping("/{id}")
     public ResponseEntity<IMovieDto> getMovie(@PathVariable int id) {
-        IMovieDto iMovieDto = movieService.getMovie(id);
+        IMovieDto iMovieDto = iMovieService.getMovie(id);
         return new ResponseEntity<>(iMovieDto, HttpStatus.OK);
     }
 
@@ -83,7 +86,7 @@ public class MovieRestController {
         }
         Movie movie = new Movie();
         BeanUtils.copyProperties(movieDto, movie);
-        movieService.addMovie(movie);
+        iMovieService.addMovie(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -95,9 +98,9 @@ public class MovieRestController {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
         }
-        Movie movie = movieService.finById(id).get();
+        Movie movie = iMovieService.finById(id).get();
         BeanUtils.copyProperties(movieDto, movie);
-        movieService.editMovie(movie);
+        iMovieService.editMovie(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
