@@ -22,15 +22,8 @@ public class TicketRestController {
     @Autowired
     private ITicketService iTicketService;
 
-    @GetMapping("/list")
-    public ResponseEntity<Page<Ticket>> showAllTicket(@PageableDefault Pageable pageable) {
-        Page<Ticket> ticket = iTicketService.findAllTicket(pageable);
-        if (ticket.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(ticket, HttpStatus.OK);
-    }
 
+ 
     @PutMapping("/update-ticket/{id}")
     public ResponseEntity<Ticket> updateStatusTicket(@PathVariable int id) {
         Optional<Ticket> ticket = iTicketService.findById(id);
@@ -51,4 +44,42 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(ticketDto, HttpStatus.OK);
     }
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<ITicketManagerDto>> findAllTicket(
+            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
+            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
+            @RequestParam(value = "idCard", defaultValue = "") String idCard,
+            @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber,
+            Pageable pageable) {
+        Page<ITicketManagerDto> blogList = this.iTicketService.findAllByQuery(
+                ticketId,
+                customerId,
+                idCard,
+                phoneNumber,
+                pageable
+        );
+        if (blogList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(blogList, HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<?> findTicketById(@RequestBody ITicketManagerDto ticketDto,
+                                            @PathVariable Integer id,
+                                            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        }
+        Ticket ticket = new Ticket();
+        ticket.setId(id);
+        BeanUtils.copyProperties(ticketDto, ticket);
+        iTicketService.saveTicket(ticket);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }

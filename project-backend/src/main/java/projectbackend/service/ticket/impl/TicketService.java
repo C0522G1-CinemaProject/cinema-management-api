@@ -17,6 +17,7 @@ public class TicketService implements ITicketService {
     private ITicketRepository iTicketRepository;
 
     @Override
+//THanh Nt
     public Page<Ticket> findAllTicket(Pageable pageable) {
         return iTicketRepository.findAllTicket(pageable);
     }
@@ -37,4 +38,27 @@ public class TicketService implements ITicketService {
     }
 
 
+//Hung B
+    public Page<ITicketManagerDto> findAllByQuery(Integer ticketId,
+                                           Integer customerId,
+                                           String idCard,
+                                           String phoneNumber,
+                                           Pageable pageable) {
+        return iTicketRepository.findAllByQuery(ticketId,
+                customerId,
+                idCard,
+                phoneNumber,
+                pageable);
+    }
+
+    @Override
+    public Ticket findTicketById(Integer id) {
+        return iTicketRepository.findById(id).get();
+    }
+
+    @Override
+    public void saveTicket(Ticket ticket) {
+        iTicketRepository.save(ticket);
+    }
+//THanh Nt
 }
