@@ -1,7 +1,11 @@
 package projectbackend.model.decentralization;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+
 
 @Entity
 public class User {
@@ -11,6 +15,11 @@ public class User {
     private String password;
     private boolean isDelete;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
+
     public User() {
     }
 
@@ -18,6 +27,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
+
+        this.roles = roles;
+
     }
 
     public String getUsername() {
@@ -36,12 +48,20 @@ public class User {
         this.password = password;
     }
 
-    public boolean isDelete() {
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isIsDelete() {
         return isDelete;
     }
 
-    public void setDelete(boolean delete) {
-        isDelete = delete;
+    public void setIsDelete(boolean is_Delete) {
+        this.isDelete = is_Delete;
     }
-
 }

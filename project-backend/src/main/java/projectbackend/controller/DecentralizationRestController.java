@@ -1,5 +1,6 @@
 package projectbackend.controller;
 
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,7 @@ public class DecentralizationRestController {
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 
 }

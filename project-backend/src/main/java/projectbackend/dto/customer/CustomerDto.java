@@ -1,42 +1,52 @@
 package projectbackend.dto.customer;
 
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import projectbackend.model.customer.CustomerType;
 import projectbackend.model.decentralization.User;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
-public class CustomerDto {
+public class CustomerDto implements Validator {
     private Integer id;
-    @NotBlank(message = "không được để trống")
-    @Size(min = 3, max = 32)
-    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$", message = "tên phải đúng định dạng, không chứa kí tự đặc biệt")
+
+    @NotBlank(message = "vui lòng nhập tên!")
+    @Size(min = 10)
+    @Size(max = 28)
+    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$",
+            message = "Tên khách hàng không được chứa số, và các kí tự đầu tiên của mỗi từ phải viết hoa.")
     private String name;
+
     private boolean isDelete;
-    @NotBlank(message = "Không được để trống")
-    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])| *$",
+
+    @NotNull
+    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])$",
             message = "Ngày sinh phải đúng định dạng DD/MM/YYYY.")
     private String dayOfBirth;
-    @NotNull(message = "Không được để trống")
+
+    @NotNull(message = "Vui lòng chọn giới tính.")
     private Integer gender;
 
-    @NotBlank(message = "không được trống")
-    @Size(min = 9, max = 12)
-    @Pattern(regexp = "^(\\d{9}|\\d{12})| *$", message = "Số CMND phải đúng định dạng XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
+    @NotBlank(message = "Số CMND/CCCD không được để trống.")
+    @Pattern(regexp = "^(\\d{9}|\\d{12})| *$",
+            message = "Số CMND/CCCD phải đúng định dạng XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
     private String idCard;
 
-    @NotBlank(message = "Email không được để trống")
-    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}| *$", message = " Email phải đúng định dạng xxxx@.xxx")
+    @NotBlank(message = "Email không được để trống.")
+    @Email(message = "Địa chỉ email phải đúng định dạng.")
     private String email;
 
-    @NotBlank(message = "không được trống")
+    @NotBlank(message = "Địa chỉ không được để trống.")
     private String address;
 
-    @NotBlank(message = "không được trống")
-    @Pattern(regexp = "^((\\(\\+84\\-\\))|0)(90|91)[0-9]{7}| *$",
-            message = "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.")
+    @NotNull
+    @Size(min = 10)
+    @Size(max = 14)
+    @NotBlank(message = "Số điện thoại không được để trống.")
+    @Pattern(regexp = "^((0|[(]84[)][+])9[01]\\d{7})| *$", message =
+            "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.")
+
     private String phoneNumber;
     private CustomerType customerType;
     private User user;
@@ -146,5 +156,21 @@ public class CustomerDto {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+
+        if (!customerDto.name.matches("[A-Za-z ]+")){
+            errors.rejectValue("name", "name.invalidFormat");
+
+        }
     }
 }

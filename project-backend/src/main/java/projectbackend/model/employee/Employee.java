@@ -21,7 +21,8 @@ public class Employee {
     private boolean isDelete;
 
     @OneToOne
-    @JoinColumn(name = "user_name", referencedColumnName = "userName")
+    @JoinColumn(name = "username", referencedColumnName = "username")
+
     private User user;
 
     public Employee() {
