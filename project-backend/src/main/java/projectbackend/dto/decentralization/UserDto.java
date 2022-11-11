@@ -4,7 +4,7 @@ import projectbackend.model.customer.Customer;
 import projectbackend.model.employee.Employee;
 
 public class UserDto {
-    private String userName;
+    private String username;
     private String password;
     private boolean isDelete;
 
@@ -12,17 +12,17 @@ public class UserDto {
     }
 
     public UserDto(String userName, String password, boolean isDelete) {
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
         this.isDelete = isDelete;
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getPassword() {

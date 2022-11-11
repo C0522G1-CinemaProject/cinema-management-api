@@ -42,8 +42,8 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
 
 
-    @Query(value = "select  movie.name as movieName,movie.image as movieImage,show_times.date_projection as showTimeDate" +
-            ",movie.film_time as movieFilmTime from movie " +
+    @Query(value = "select  movie.name as name,movie.image as image,show_times.date_projection as showTimeDate" +
+            ",movie.film_time as filmTime from movie " +
             "join show_times on movie.id = show_times.movie_id " +
             "where ((day(show_times.date_projection)+3) >= day(curdate()) " +
             "    and  month(show_times.date_projection) >= month(curdate())) " +
