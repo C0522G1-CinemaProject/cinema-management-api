@@ -1,5 +1,6 @@
 package projectbackend.service.ticket.impl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class TicketService implements ITicketService {
+
 
     @Autowired
     ITicketRepository iTicketRepository;
@@ -46,6 +48,4 @@ public class TicketService implements ITicketService {
     public void deleteTicket(Integer id) {
         iTicketRepository.deleteTicket(id);
     }
-
-
 }

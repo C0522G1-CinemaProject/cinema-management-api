@@ -1,5 +1,6 @@
 package projectbackend.dto.customer;
 
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import projectbackend.model.customer.CustomerType;
@@ -10,7 +11,7 @@ import javax.validation.constraints.*;
 public class CustomerDto implements Validator {
     private Integer id;
 
-    @NotBlank(message = "Làm ơn nhập tên!")
+    @NotBlank(message = "vui lòng nhập tên!")
     @Size(min = 10)
     @Size(max = 28)
     @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$",
@@ -45,6 +46,7 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Số điện thoại không được để trống.")
     @Pattern(regexp = "^((0|[(]84[)][+])9[01]\\d{7})| *$", message =
             "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.")
+
     private String phoneNumber;
     private CustomerType customerType;
     private User user;
@@ -155,6 +157,7 @@ public class CustomerDto implements Validator {
     public void setUser(User user) {
         this.user = user;
     }
+
 
     @Override
     public boolean supports(Class<?> clazz) {

@@ -2,6 +2,11 @@ package projectbackend.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.validation.FieldError;
+import projectbackend.dto.customer.CustomerTypeDto;
+import projectbackend.dto.customer.ICustomerDto;
+import projectbackend.model.customer.CustomerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +21,10 @@ import projectbackend.service.customer.ICustomerTypeService;
 
 import javax.validation.Valid;
 
+import java.util.List;
+import java.util.Optional;
+@CrossOrigin(origins = "http://localhost:4200")
+
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerRestController {
@@ -27,6 +36,29 @@ public class CustomerRestController {
     private ICustomerTypeService iCustomerTypeService;
 
     @GetMapping("")
+
+    public ResponseEntity<ICustomerDto> getCustomer() {
+        Optional<ICustomerDto> customerDto = iCustomerService.findCustomerByUsername("addmin");
+        if (customerDto.isPresent()) {
+            return new ResponseEntity<>(customerDto.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @PostMapping("/add")
+    public ResponseEntity<List<FieldError>> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+                    HttpStatus.BAD_REQUEST);
+        }
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerDto, customer);
+        iCustomerService.save(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
     public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
                                                    @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
                                                    @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,
@@ -61,3 +93,4 @@ public class CustomerRestController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 }
+

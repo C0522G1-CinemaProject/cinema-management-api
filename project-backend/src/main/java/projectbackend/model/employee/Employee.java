@@ -22,6 +22,7 @@ public class Employee {
 
     @OneToOne
     @JoinColumn(name = "username", referencedColumnName = "username")
+
     private User user;
 
     public Employee() {
