@@ -14,7 +14,8 @@ import java.util.Optional;
 public class PromotionService implements IPromotionService {
 
     @Autowired
-    private IPromotionRepository repository;
+    private IPromotionRepository iPromotionRepository;
+
 
     @Override
     public Page<Promotion> findAll(Pageable pageable, String name) {
@@ -23,7 +24,7 @@ public class PromotionService implements IPromotionService {
 
     @Override
     public Optional<Promotion> findById(int id) {
-        return repository.findById(id);
+        return iPromotionRepository.findPromotionById(id);
     }
 
     @Override

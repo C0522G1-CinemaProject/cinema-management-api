@@ -1,6 +1,8 @@
 package projectbackend.controller;
 
+
 import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,26 +20,14 @@ import java.util.Optional;
 @RequestMapping("/api/promotion")
 @CrossOrigin("*")
 public class PromotionRestController {
-
     @Autowired
-    private IPromotionService service;
-
-    @GetMapping("/list")
-    public ResponseEntity<Page<Promotion>> showList(@RequestParam(value = "name", defaultValue = "") String name,
-                                                    @PageableDefault Pageable pageable) {
-        Page<Promotion> promotions = service.findAll(pageable, name);
-        if (promotions.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(promotions, HttpStatus.OK);
-
-    }
+    private IPromotionService iPromotionService;
 
     @PostMapping("/save")
     public ResponseEntity<Promotion> saveAdding(@RequestBody PromotionDto promotionDto) {
         Promotion promotion = new Promotion();
         BeanUtils.copyProperties(promotionDto, promotion);
-        service.save(promotion);
+        iPromotionService.save(promotion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -46,13 +36,13 @@ public class PromotionRestController {
                                                  @PathVariable int id) {
         Promotion promotion = service.findById(id).get();
         BeanUtils.copyProperties(promotionDto, promotion);
-        service.save(promotion);
+        iPromotionService.save(promotion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<Promotion> getInfo(@PathVariable int id) {
-        Optional<Promotion> promotion = service.findById(id);
+        Optional<Promotion> promotion = iPromotionService.findById(id);
         if (promotion.isPresent()) {
             return new ResponseEntity<>(promotion.get(), HttpStatus.OK);
         }
@@ -61,13 +51,26 @@ public class PromotionRestController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Promotion> delete(@PathVariable int id) {
-        Optional<Promotion> promotion = service.findById(id);
+        Optional<Promotion> promotion = iPromotionService.findById(id);
         if (promotion.isPresent()) {
-            service.delete(id);
+            iPromotionService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<Promotion>> showPromotion(@RequestParam(value = "name", defaultValue = "") String name,
+                                                         @PageableDefault(value = 4)Pageable pageable) {
+        Page<Promotion> promotions = iPromotionService.findAll(pageable, name);
+        if (promotions.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(promotions, HttpStatus.OK);
         }
     }
+
+   
 
 }
