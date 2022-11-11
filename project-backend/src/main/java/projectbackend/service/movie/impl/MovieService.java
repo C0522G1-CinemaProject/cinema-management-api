@@ -22,6 +22,9 @@ public class MovieService implements IMovieService {
         return iMovieRepository.movieDetail(id);
     }
 
+    //NamHV
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
     @Override
     public Page<IMovieDto> findAllHome(String name, Pageable pageable) {
         return iMovieRepository.findAllHome(name, pageable);

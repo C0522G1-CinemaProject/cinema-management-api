@@ -11,7 +11,9 @@ import java.util.Optional;
 public interface IMovieService {
     Optional<IMovieDto> getMovieDetail(Integer id);
 
-
+    //NamHV
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
     Page<IMovieDto> findAllHome(String name, Pageable pageable);
 
     Page<IMovieDto> findAllMovie(Pageable pageable, String keyword);

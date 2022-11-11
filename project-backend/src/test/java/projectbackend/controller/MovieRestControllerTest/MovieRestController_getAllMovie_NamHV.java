@@ -11,9 +11,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+//NamHV
+//6.5.1.1. Danh Sách Phim – Xem danh sách phim
+//6.5.1.3. Danh sách Phim – Tìm kiếm Phim
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MovieRestController_getAllMovie_NamHV {
+
 
     @Autowired
     private MockMvc mockMvc;

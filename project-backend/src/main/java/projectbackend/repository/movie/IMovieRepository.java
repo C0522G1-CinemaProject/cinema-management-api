@@ -37,6 +37,8 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
 
     //NamHV
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
     @Query(value = "select movie.name as name,movie.image as image,show_times.date_projection as showTimeDate" +
             ",movie.film_time as filmTime from movie " +
             "join show_times on movie.id = show_times.movie_id " +

@@ -39,6 +39,8 @@ public class MovieRestController {
     }
 
     //NamHV function
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
     @GetMapping("/list/home")
     public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
                                                        @PageableDefault(value = 5) Pageable pageable) {
