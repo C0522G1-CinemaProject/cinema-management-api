@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projectbackend.dto.ticket.ITicketDto;
+import projectbackend.dto.ticket.ITicketManagerDto;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.repository.ticket.ITicketRepository;
 import projectbackend.service.ticket.ITicketService;
@@ -16,12 +17,7 @@ public class TicketService implements ITicketService {
     @Autowired
     private ITicketRepository iTicketRepository;
 
-    @Override
-//THanh Nt
-    public Page<Ticket> findAllTicket(Pageable pageable) {
-        return iTicketRepository.findAllTicket(pageable);
-    }
-
+    //THanh Nt
     @Override
     public Optional<Ticket> findById(Integer id) {
         return iTicketRepository.findById(id);
@@ -33,17 +29,17 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Optional<ITicketDto> findTicketById(int id) {
-        return iTicketRepository.findTicketById(id);
+    public Optional<ITicketDto> findInfoTicketById(int id) {
+        return iTicketRepository.findInfoTicketById(id);
     }
 
 
 //Hung B
     public Page<ITicketManagerDto> findAllByQuery(Integer ticketId,
-                                           Integer customerId,
-                                           String idCard,
-                                           String phoneNumber,
-                                           Pageable pageable) {
+                                                  Integer customerId,
+                                                  String idCard,
+                                                  String phoneNumber,
+                                                  Pageable pageable) {
         return iTicketRepository.findAllByQuery(ticketId,
                 customerId,
                 idCard,

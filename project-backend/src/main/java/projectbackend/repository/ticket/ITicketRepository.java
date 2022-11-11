@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.ticket.ITicketDto;
+import projectbackend.dto.ticket.ITicketManagerDto;
 import projectbackend.dto.ticket.TicketDto;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,7 +40,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "INNER JOIN seat ON seat_room.seat_id = seat.id\n" +
             "INNER JOIN seat_type ON seat_room.seat_type_id = seat_type.id\n" +
             "WHERE ticket.id=:id AND ticket.is_delete = 0 limit 1", nativeQuery = true)
-    Optional<ITicketDto> findTicketById(@Param("id") int id);
+    Optional<ITicketDto> findInfoTicketById(@Param("id") int id);
 
 
     @Query(value = "SELECT " +
@@ -80,36 +81,36 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "AND ticket.is_delete = 0 " +
             "AND ticket.status_ticket = 1 ",
             countQuery = "SELECT " +
-            "count(*) " +
-            "FROM " +
-            "ticket " +
-            "JOIN " +
-            "customer ON ticket.customer_id = customer.id " +
-            "JOIN " +
-            "seat_detail ON ticket.seat_detail_id = seat_detail.id " +
-            "JOIN " +
-            "show_times ON seat_detail.show_time_id = show_times.id " +
-            "JOIN " +
-            "movie ON show_times.movie_id = movie.id " +
-            "JOIN " +
-            "times ON show_times.times_id = times.id " +
-            "JOIN " +
-            "room ON show_times.room_id = room.id " +
-            "JOIN " +
-            "seat_room ON seat_detail.seat_room_id = seat_room.id " +
-            "JOIN " +
-            "seat ON seat_room.seat_id = seat.id " +
-            "WHERE " +
-            "ticket.id like %:ticketCodeSearch% " +
-            "AND customer.id like %:customerCodeSearch% " +
-            "AND customer.id_card like %:idCardSearch% " +
-            "AND customer.phone_number like %:phoneSearch% " +
-            "AND ticket.is_delete = 0 " +
-            "AND ticket.status_ticket = 1 "
+                    "count(*) " +
+                    "FROM " +
+                    "ticket " +
+                    "JOIN " +
+                    "customer ON ticket.customer_id = customer.id " +
+                    "JOIN " +
+                    "seat_detail ON ticket.seat_detail_id = seat_detail.id " +
+                    "JOIN " +
+                    "show_times ON seat_detail.show_time_id = show_times.id " +
+                    "JOIN " +
+                    "movie ON show_times.movie_id = movie.id " +
+                    "JOIN " +
+                    "times ON show_times.times_id = times.id " +
+                    "JOIN " +
+                    "room ON show_times.room_id = room.id " +
+                    "JOIN " +
+                    "seat_room ON seat_detail.seat_room_id = seat_room.id " +
+                    "JOIN " +
+                    "seat ON seat_room.seat_id = seat.id " +
+                    "WHERE " +
+                    "ticket.id like %:ticketCodeSearch% " +
+                    "AND customer.id like %:customerCodeSearch% " +
+                    "AND customer.id_card like %:idCardSearch% " +
+                    "AND customer.phone_number like %:phoneSearch% " +
+                    "AND ticket.is_delete = 0 " +
+                    "AND ticket.status_ticket = 1 "
             , nativeQuery = true)
     Page<ITicketManagerDto> findAllByQuery(@Param("ticketCodeSearch") Integer ticketId,
-                                    @Param("customerCodeSearch")Integer customerId,
-                                    @Param("idCardSearch") String idCard,
-                                    @Param("phoneSearch") String phoneNumber,
-                                    Pageable pageable);
+                                           @Param("customerCodeSearch") Integer customerId,
+                                           @Param("idCardSearch") String idCard,
+                                           @Param("phoneSearch") String phoneNumber,
+                                           Pageable pageable);
 }
