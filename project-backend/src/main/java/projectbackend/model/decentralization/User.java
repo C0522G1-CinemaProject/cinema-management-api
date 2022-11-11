@@ -1,7 +1,11 @@
 package projectbackend.model.decentralization;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.*;
 import java.util.List;
+
 
 @Entity
 public class User {
@@ -23,7 +27,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
+
         this.roles = roles;
+
     }
 
     public String getUsername() {
@@ -41,6 +47,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public List<Role> getRoles() {
         return roles;

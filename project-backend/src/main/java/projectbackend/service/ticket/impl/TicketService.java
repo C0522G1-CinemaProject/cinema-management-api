@@ -1,5 +1,6 @@
 package projectbackend.service.ticket.impl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import projectbackend.service.ticket.ITicketService;
 
 @Service
 public class TicketService implements ITicketService {
+
 
     @Autowired
     ITicketRepository iTicketRepository;
@@ -33,6 +35,5 @@ public class TicketService implements ITicketService {
     public Page<ITicketDto> findAllHistoryPoint(String username, String bookingTime, Pageable pageable) {
         return iTicketRepository.findAllHistoryPoint(username, bookingTime, pageable);
     }
-
 
 }
