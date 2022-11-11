@@ -7,10 +7,9 @@ import projectbackend.dto.movie.IMovieDto;
 import projectbackend.model.movie.Movie;
 import java.util.Optional;
 
-
-
-
 public interface IMovieService {
+    Optional<IMovieDto> getMovieDetail(Integer id);
+
 
 Page<IMovieDto> findAllHome(String name, Pageable pageable);
 
@@ -26,5 +25,6 @@ Page<IMovieDto> findAllHome(String name, Pageable pageable);
     IMovieDto getMovie(Integer id);
 
     Optional<Movie> finById(Integer id);
+
 
 }

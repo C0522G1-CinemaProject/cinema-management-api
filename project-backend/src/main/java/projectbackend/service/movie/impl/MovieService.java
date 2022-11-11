@@ -2,7 +2,6 @@ package projectbackend.service.movie.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +17,15 @@ import java.util.Optional;
 
 @Service
 public class MovieService implements IMovieService {
-
     @Autowired
-private IMovieRepository movieRepository;
+    private IMovieRepository  iMovieRepository;
+
+
+    @Override
+    public Optional<IMovieDto> movieDetail(Integer id) {
+        return iMovieRepository.movieDetail(id);
+
+
 
     @Override
     public Page<IMovieDto> findAllMovie(String name, Pageable pageable) {

@@ -10,20 +10,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.movie.IMovieDto;
-import projectbackend.model.movie.Movie;
 import projectbackend.service.movie.IMovieService;
+
+import projectbackend.model.movie.Movie;
 import org.springframework.validation.FieldError;
-import projectbackend.dto.movie.MovieDto;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
-@RequestMapping("api/movie")
-@CrossOrigin("*")
-public class MovieRestController {
+import java.util.Optional;
 
+@RestController
+@CrossOrigin("*")
+@RequestMapping("/api/movie")
+public class MovieRestController {
     @Autowired
-    private  IMovieService movieService;
+    private IMovieService iMovieService;
+
+    @GetMapping(value = "/detail/{id}")
+    public ResponseEntity<Optional<IMovieDto>> getMovieDetail(@PathVariable Integer id) {
+        Optional<IMovieDto> movie = iMovieService.movieDetail(id);
+        if (!movie.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
+
 
     @GetMapping("/list/home")
     public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
@@ -34,13 +45,6 @@ public class MovieRestController {
         }
         return new ResponseEntity<>(moviePage, HttpStatus.OK);
     }
-
-
-
-
-
-
-
 
 
     @GetMapping(value = "/list")
@@ -96,6 +100,5 @@ public class MovieRestController {
         movieService.editMovie(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
 

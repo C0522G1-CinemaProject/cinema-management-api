@@ -7,6 +7,8 @@ import projectbackend.model.room.Room;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface IMovieTypeRepository extends JpaRepository<MovieType, Integer> {
 
     @Query(value = "select name from movie_type where is_delete = 0", nativeQuery = true)
