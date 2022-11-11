@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.model.ticket.Ticket;
 
+import java.util.Optional;
+
 public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
             "ticket.status_ticket as statusTicket " +
@@ -116,4 +118,12 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                                          @Param("bookingTime") String bookingTime,
                                          Pageable pageable);
 
+    @Query(value = "select id,is_delete,customer_id,seat_detail_id,status_ticket,ticket_booking_time " +
+            "from ticket " +
+            "where id = :isDelete ", countQuery = "select count (*) from ticke " +
+            "where id = :isDelete ", nativeQuery = true)
+    Optional<Ticket> findByIdTicket(@Param("isDelete") Integer id);
+
+    @Query(value = "update ticket set is_delete = 1 where id = :id", nativeQuery = true)
+    void deleteTicket(@Param("id") Integer id);
 }

@@ -11,7 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.ticket.ITicketDto;
+import projectbackend.model.room.SeatType;
+import projectbackend.model.ticket.Ticket;
 import projectbackend.service.ticket.ITicketService;
+
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RequestMapping("api")
@@ -40,15 +44,15 @@ public class TicketRestController {
 
 
     @GetMapping("/history/point")
-    public ResponseEntity<Page<ITicketDto>> showListHistoryPoint(@PageableDefault(value = 5) Pageable pageable,
-            @RequestParam(value = "bookingTime", defaultValue = "",required = false) String bookingTime,
+    public ResponseEntity<Page<ITicketDto>> showListHistoryPoint(
+            @PageableDefault(value = 5) Pageable pageable,
+            @RequestParam(value = "bookingTime", defaultValue = "", required = false) String bookingTime,
             @RequestParam(value = "price", defaultValue = "0") int value) {
 
-        Page<ITicketDto> historyPointSearch ;
-        if(value ==0){
+        Page<ITicketDto> historyPointSearch;
+        if (value == 0) {
             historyPointSearch = iTicketService.findAllHistoryPoint("abristog", bookingTime, pageable);
-        }
-        else{
+        } else {
             historyPointSearch = iTicketService.findAllHistoryPointSearch("abristog", bookingTime, value, pageable);
         }
 
@@ -59,4 +63,15 @@ public class TicketRestController {
 
     }
 
+    @DeleteMapping("delete/ticket/{id}")
+    public ResponseEntity<Ticket> deleteTicket(@PathVariable Integer id) {
+        Optional<Ticket> ticket = iTicketService.findByIdTicKet(id);
+        System.out.println(iTicketService.findByIdTicKet(id).get());
+        if (ticket.isPresent()) {
+            iTicketService.deleteTicket(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
+
