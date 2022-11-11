@@ -16,13 +16,24 @@ public class PromotionService implements IPromotionService {
     @Autowired
     private IPromotionRepository iPromotionRepository;
 
+
     @Override
     public Page<Promotion> findAll(Pageable pageable, String name) {
-        return iPromotionRepository.findPromotion(pageable, name);
+        return repository.findAllPromotion(pageable, name);
     }
 
     @Override
     public Optional<Promotion> findById(int id) {
         return iPromotionRepository.findPromotionById(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        repository.deletePromotion(id);
+    }
+
+    @Override
+    public void save(Promotion promotion) {
+        repository.savePromotion(promotion);
     }
 }

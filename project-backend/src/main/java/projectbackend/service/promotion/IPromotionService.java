@@ -8,7 +8,11 @@ import java.util.Optional;
 
 public interface IPromotionService {
 
-    Page<Promotion> findAll(Pageable pageable, String name);
+    Page<Promotion> findAll(Pageable pageable,String name);
 
     Optional<Promotion> findById(int id);
+
+    void delete(int id);
+
+    void save(Promotion promotion);
 }
