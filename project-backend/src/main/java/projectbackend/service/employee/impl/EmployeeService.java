@@ -1,6 +1,8 @@
 package projectbackend.service.employee.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projectbackend.dto.employee.EmployeeDto;
 import projectbackend.dto.employee.IEmployeeDto;
@@ -12,6 +14,22 @@ import java.util.Optional;
 
 @Service
 public class EmployeeService implements IEmployeeService {
+
+    @Override
+    public Page<Employee> findAllEmployee(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Employee> findAllEmployee(Pageable pageable, String search) {
+        return employeeRepository.findEmployeeByNameContaining(pageable, search);
+    }
+
+    @Override
+    public void deleteEmployee(Integer id) {
+        employeeRepository.deleteById(id);
+    }
+
     @Autowired
     private IEmployeeRepository employeeRepository;
 
