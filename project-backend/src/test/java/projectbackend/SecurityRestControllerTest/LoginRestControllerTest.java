@@ -51,7 +51,6 @@ public class LoginRestControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-
     //test username invalid format
     @Test
     public void login_username_15() throws Exception {

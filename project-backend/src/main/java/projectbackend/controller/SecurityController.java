@@ -9,10 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import projectbackend.jwt.JwtTokenUtil;
 import projectbackend.payload.request.LoginRequest;
 import projectbackend.payload.request.LoginResponse;
@@ -24,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@CrossOrigin("*")
 @RequestMapping("api/public")
 public class SecurityController {
 
@@ -45,6 +43,7 @@ public class SecurityController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        System.out.println(loginRequest.getUsername()+loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
