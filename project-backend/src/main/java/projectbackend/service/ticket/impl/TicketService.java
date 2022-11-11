@@ -34,7 +34,7 @@ public class TicketService implements ITicketService {
     }
 
 
-//Hung B
+    //Hung B
     public Page<ITicketManagerDto> findAllByQuery(Integer ticketId,
                                                   Integer customerId,
                                                   String idCard,
@@ -48,13 +48,13 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Ticket findTicketById(Integer id) {
-        return iTicketRepository.findById(id).get();
+    public Optional<Ticket> findTicketManagerById(Integer id) {
+        return iTicketRepository.findTicketManagerById(id);
     }
 
     @Override
-    public void saveTicket(Ticket ticket) {
-        iTicketRepository.save(ticket);
+    public void editTicketManager(Integer id) {
+        iTicketRepository.editTicketManager(id);
     }
-//THanh Nt
+
 }

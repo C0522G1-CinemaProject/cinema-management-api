@@ -9,10 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.dto.ticket.ITicketManagerDto;
-import projectbackend.dto.ticket.TicketDto;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.model.ticket.Ticket;
 
 import java.util.Optional;
@@ -113,4 +109,12 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                                            @Param("idCardSearch") String idCard,
                                            @Param("phoneSearch") String phoneNumber,
                                            Pageable pageable);
+
+    @Query(value = "SELECT id, is_delete, customer_id, seat_detail_id, status_ticket, ticket_booking_time " +
+            "FROM ticket WHERE id =:id AND is_delete = 0 ", nativeQuery = true)
+    Optional<Ticket> findTicketManagerById(@Param("id") Integer id);
+
+    @Modifying
+    @Query(value = "UPDATE ticket SET status_ticket = 2 WHERE id =:idEdit ", nativeQuery = true)
+    void editTicketManager(@Param("idEdit") Integer id);
 }

@@ -1,17 +1,13 @@
 package projectbackend.controller;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.dto.ticket.ITicketManagerDto;
-import projectbackend.dto.ticket.TicketDto;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.service.ticket.ITicketService;
 
@@ -70,19 +66,14 @@ public class TicketRestController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> findTicketById(@RequestBody TicketDto ticketDto,
-                                            @PathVariable Integer id,
-                                            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError(),
-                    HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Ticket> editTicketManager(@PathVariable Integer id) {
+        Optional<Ticket> ticket = iTicketService.findTicketManagerById(id);
+        if (ticket.isPresent()) {
+            iTicketService.editTicketManager(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Ticket ticket = new Ticket();
-        ticket.setId(id);
-        BeanUtils.copyProperties(ticketDto, ticket);
-        iTicketService.saveTicket(ticket);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 }

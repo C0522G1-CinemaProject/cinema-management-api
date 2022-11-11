@@ -24,8 +24,7 @@ public interface ITicketService {
                                            String phoneNumber,
                                            Pageable pageable);
 
-    Ticket findTicketById(Integer id);
+    Optional<Ticket> findTicketManagerById(Integer id);
 
-    void saveTicket(Ticket ticket);
-
+    void editTicketManager(Integer id);
 }
