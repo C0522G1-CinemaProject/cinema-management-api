@@ -10,6 +10,10 @@ public class User {
     private String username;
     private String password;
     private boolean isDelete;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"),
@@ -19,10 +23,18 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, boolean isEnable, boolean isDelete, List<Role> roles) {
+    public User(String username, String password, boolean isDelete, List<Role> roles) {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
+        this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -30,8 +42,8 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {
