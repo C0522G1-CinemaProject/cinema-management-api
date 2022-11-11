@@ -19,7 +19,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, boolean isEnable, boolean isDelete, List<Role> roles) {
+    public User(String username, String password, boolean isDelete) {
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
@@ -57,5 +57,4 @@ public class User {
     public void setIsDelete(boolean is_Delete) {
         this.isDelete = is_Delete;
     }
-
 }
