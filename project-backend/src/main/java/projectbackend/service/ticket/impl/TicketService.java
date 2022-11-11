@@ -13,12 +13,33 @@ import java.util.Optional;
 
 @Service
 public class TicketService implements ITicketService {
-
     @Autowired
     private ITicketRepository iTicketRepository;
 
     @Override
-    public Page<ITicketDto> findAllByQuery(Integer ticketId,
+//THanh Nt
+    public Page<Ticket> findAllTicket(Pageable pageable) {
+        return iTicketRepository.findAllTicket(pageable);
+    }
+
+    @Override
+    public Optional<Ticket> findById(Integer id) {
+        return iTicketRepository.findById(id);
+    }
+
+    @Override
+    public void updateTicketById(int id) {
+        iTicketRepository.updateTicketById(id);
+    }
+
+    @Override
+    public Optional<ITicketDto> findTicketById(int id) {
+        return iTicketRepository.findTicketById(id);
+    }
+
+
+//Hung B
+    public Page<ITicketManagerDto> findAllByQuery(Integer ticketId,
                                            Integer customerId,
                                            String idCard,
                                            String phoneNumber,
@@ -39,4 +60,5 @@ public class TicketService implements ITicketService {
     public void saveTicket(Ticket ticket) {
         iTicketRepository.save(ticket);
     }
+//THanh Nt
 }

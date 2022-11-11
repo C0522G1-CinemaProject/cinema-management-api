@@ -8,7 +8,16 @@ import projectbackend.model.ticket.Ticket;
 import java.util.Optional;
 
 public interface ITicketService {
-    Page<ITicketDto> findAllByQuery(Integer ticketId,
+//thanhNT
+    Page<Ticket> findAllTicket(Pageable pageable);
+
+    Optional<Ticket> findById(Integer id);
+
+    void updateTicketById(int id);
+
+    Optional<ITicketDto> findTicketById(int id);
+//Hung B
+    Page<ITicketManagerDto> findAllByQuery(Integer ticketId,
                                     Integer customerId,
                                     String idCard,
                                     String phoneNumber,
@@ -16,4 +25,5 @@ public interface ITicketService {
 
     Ticket findTicketById(Integer id);
     void saveTicket(Ticket ticket);
+
 }
