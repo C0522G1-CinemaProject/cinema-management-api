@@ -1,13 +1,36 @@
 package projectbackend.dto.promotion;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class PromotionDto {
     private Integer id;
+
+    @NotBlank(message = "Vui lòng nhập tên tiêu đề")
+    @Pattern(regexp = "^(([\\\\p{Lu}][\\\\p{Ll}]{1,8})(\\\\s([\\\\p{Lu}]|[\\\\p{Lu}][\\\\p{Ll}]{1,10})){0,5})| *$")
+    @Size(min =2, max=32)
     private String name;
+
     private boolean isDelete;
+
+    @NotBlank(message = "Vui lòng chọn hình ảnh")
     private String image;
+
+    @NotBlank(message = "Vui lòng nhập thời gian bắt đầu")
+    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])| *$", message = "Vui lòng nhập đúng định dạng dd/mm/yy")
     private String startTime;
+
+    @NotBlank(message = "Vui lòng nhập thời gian kết thúc")
+    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])| *$", message = "Vui lòng nhập đúng định dạng dd/mm/yy")
     private String endTime;
+
+    @NotBlank(message = "Vui lòng nhập vào chi tiết")
+    @Pattern(regexp = "^([A-Z]{3,120})$")
     private String detail;
+
+    @NotBlank(message = "Vui lòng nhập vào giảm giá")
+    @Pattern(regexp = "^[0-9]+$", message = "Vui lòng nhập đúng định dạng số!")
     private String discount;
 
     public PromotionDto() {

@@ -7,15 +7,24 @@ import org.springframework.stereotype.Service;
 import projectbackend.model.promotion.Promotion;
 import projectbackend.repository.promotion.IPromotionRepository;
 import projectbackend.service.promotion.IPromotionService;
-
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PromotionService implements IPromotionService {
-
     @Autowired
     private IPromotionRepository iPromotionRepository;
 
+
+    @Override
+    public void savePromotion(Promotion promotion) {
+        iPromotionRepository.save(promotion);
+    }
+
+    @Override
+    public void updatePromotion(Promotion promotion) {
+        iPromotionRepository.save(promotion);
+    }
 
     @Override
     public Page<Promotion> findAll(Pageable pageable, String name) {
@@ -32,8 +41,4 @@ public class PromotionService implements IPromotionService {
         repository.deletePromotion(id);
     }
 
-    @Override
-    public void save(Promotion promotion) {
-        repository.savePromotion(promotion);
-    }
 }

@@ -2,19 +2,21 @@ package projectbackend.controller;
 
 
 import org.springframework.beans.BeanUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+import projectbackend.dto.promotion.IPromotionDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.promotion.PromotionDto;
 import projectbackend.model.promotion.Promotion;
 import projectbackend.service.promotion.IPromotionService;
-
-import java.util.Optional;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/promotion")
@@ -24,21 +26,35 @@ public class PromotionRestController {
     private IPromotionService iPromotionService;
 
     @PostMapping("/save")
-    public ResponseEntity<Promotion> saveAdding(@RequestBody PromotionDto promotionDto) {
+    public ResponseEntity<List<FieldError>> createPromotion(@RequestBody @Valid PromotionDto promotionDto,
+                                                            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+                    HttpStatus.BAD_REQUEST);
+        }
         Promotion promotion = new Promotion();
         BeanUtils.copyProperties(promotionDto, promotion);
-        iPromotionService.save(promotion);
+        iPromotionService.savePromotion(promotion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
     @PatchMapping("/edit/{id}")
-    public ResponseEntity<Promotion> saveEditing(@RequestBody PromotionDto promotionDto,
-                                                 @PathVariable int id) {
-        Promotion promotion = service.findById(id).get();
+    public ResponseEntity<?> editPromotion(@RequestBody @Valid PromotionDto promotionDto,
+                                           BindingResult bindingResult,
+                                           Integer id
+    ) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        Promotion promotion = new Promotion();
+        promotion.setId(id);
         BeanUtils.copyProperties(promotionDto, promotion);
-        iPromotionService.save(promotion);
+        iPromotionService.updatePromotion(promotion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+   
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<Promotion> getInfo(@PathVariable int id) {
@@ -70,7 +86,5 @@ public class PromotionRestController {
             return new ResponseEntity<>(promotions, HttpStatus.OK);
         }
     }
-
-   
 
 }
