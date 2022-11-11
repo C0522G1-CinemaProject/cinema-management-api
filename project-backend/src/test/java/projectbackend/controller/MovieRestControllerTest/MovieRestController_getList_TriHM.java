@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MovieRestController_getList {
+public class MovieRestController_getList_TriHM {
     @Autowired
     private MockMvc mockMvc;
 

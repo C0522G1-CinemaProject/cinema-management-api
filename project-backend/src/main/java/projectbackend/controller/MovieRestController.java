@@ -1,8 +1,6 @@
 package projectbackend.controller;
 
 
-import java.util.Optional;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,15 +9,16 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.movie.IMovieDto;
 import projectbackend.dto.movie.MovieDto;
+import projectbackend.model.movie.Movie;
 import projectbackend.service.movie.IMovieService;
 
-import projectbackend.model.movie.Movie;
-import org.springframework.validation.FieldError;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -29,6 +28,7 @@ public class MovieRestController {
     @Autowired
     private IMovieService iMovieService;
 
+    //TruongNT function
     @GetMapping(value = "/detail/{id}")
     public ResponseEntity<Optional<IMovieDto>> getMovieDetail(@PathVariable Integer id) {
         Optional<IMovieDto> movie = iMovieService.getMovieDetail(id);
@@ -38,10 +38,10 @@ public class MovieRestController {
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
-
+    //NamHV function
     @GetMapping("/list/home")
     public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
-                                                   @PageableDefault(value = 5) Pageable pageable) {
+                                                       @PageableDefault(value = 5) Pageable pageable) {
         Page<IMovieDto> moviePage = iMovieService.findAllHome(name, pageable);
         if (moviePage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -50,8 +50,9 @@ public class MovieRestController {
     }
 
 
+    //TriHM function
     @GetMapping(value = "/list")
-    public ResponseEntity<Page<IMovieDto>> getList(Pageable pageable,@RequestParam(value = "name",defaultValue = "") String name) {
+    public ResponseEntity<Page<IMovieDto>> getList(Pageable pageable, @RequestParam(value = "name", defaultValue = "") String name) {
         Page<IMovieDto> movieList = iMovieService.findAllMovie(pageable, name);
         if (movieList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -59,6 +60,7 @@ public class MovieRestController {
         return new ResponseEntity<>(movieList, HttpStatus.OK);
     }
 
+    //TriHM function
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Movie> deleteMovie(@PathVariable Integer id) {
         Optional<Movie> movie = iMovieService.finById(id);
@@ -69,7 +71,8 @@ public class MovieRestController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
- 
+
+//QuyetND function
     @GetMapping("/{id}")
     public ResponseEntity<IMovieDto> getMovie(@PathVariable int id) {
         IMovieDto iMovieDto = iMovieService.getMovie(id);
@@ -90,10 +93,11 @@ public class MovieRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //QuyetND function
     @PatchMapping("/edit/{id}")
     public ResponseEntity<List<FieldError>> editMovie(@RequestBody @Valid MovieDto movieDto,
-                                           BindingResult bindingResult,
-                                           @PathVariable Integer id) {
+                                                      BindingResult bindingResult,
+                                                      @PathVariable Integer id) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
