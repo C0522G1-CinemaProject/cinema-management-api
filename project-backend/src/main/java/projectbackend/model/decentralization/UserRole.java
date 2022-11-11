@@ -18,7 +18,7 @@ public class UserRole implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "userName")
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
 
     @Column(name = "is_delete")
