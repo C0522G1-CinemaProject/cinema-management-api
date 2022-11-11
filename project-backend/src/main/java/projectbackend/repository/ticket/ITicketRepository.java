@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
-            "ticket.status_ticket as statusTicket " +
+            "ticket.status_ticket as statusTicket, seat_type.price as price, ticket.id as ticketId   " +
             "from ticket " +
             "join customer on customer.id = ticket.customer_id " +
             "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -23,7 +23,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "join seat_room on seat_room.room_id = room.id " +
             "join seat_type on seat_type.id = seat_room.seat_type_id " +
             "where customer.username = :username " +
-            "and ticket.is_delete = 0 ",
+            "and ticket.is_delete = 0 group by ticket.id ",
             countQuery = "select count(*) from ticket " +
                     "join customer on customer.id = ticket.customer_id " +
                     "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -33,11 +33,11 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "join seat_room on seat_room.room_id = room.id " +
                     "join seat_type on seat_type.id = seat_room.seat_type_id " +
                     "where customer.username = :username " +
-                    "and ticket.is_delete = 0 ", nativeQuery = true)
+                    "and ticket.is_delete = 0 group by ticket.id ", nativeQuery = true)
     Page<ITicketDto> findAllBookingTickets(@Param("username") String username, Pageable pageable);
 
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
-            "ticket.status_ticket as statusTicket " +
+            "ticket.status_ticket as statusTicket, seat_type.price as price, ticket.id as ticketId " +
             "from ticket " +
             "join customer on customer.id = ticket.customer_id " +
             "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -47,7 +47,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "join seat_room on seat_room.room_id = room.id " +
             "join seat_type on seat_type.id = seat_room.seat_type_id " +
             "where customer.username = :username " +
-            "and ticket.is_delete = 1 ",
+            "and ticket.is_delete = 1 group by ticket.id",
             countQuery = "select count(*) from ticket " +
                     "join customer on customer.id = ticket.customer_id " +
                     "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -57,7 +57,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "join seat_room on seat_room.room_id = room.id " +
                     "join seat_type on seat_type.id = seat_room.seat_type_id " +
                     "where customer.username = :username " +
-                    "and ticket.is_delete = 1 ", nativeQuery = true)
+                    "and ticket.is_delete = 1  group by ticket.id", nativeQuery = true)
     Page<ITicketDto> findAllCanceledTickets(@Param("username") String username, Pageable pageable);
 
 
@@ -73,7 +73,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "join seat_room on seat_room.room_id = room.id " +
             "join seat_type on seat_type.id = seat_room.seat_type_id " +
             "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% " +
-            "and seat_type.price = :price ",
+            "and saving_point.point = :point group by ticket.id",
             countQuery = "select count(*) from ticket " +
                     "join customer on customer.id = ticket.customer_id " +
                     "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -84,15 +84,15 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "join seat_room on seat_room.room_id = room.id " +
                     "join seat_type on seat_type.id = seat_room.seat_type_id " +
                     "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% and " +
-                    "seat_type.price = :price ", nativeQuery = true)
+                    "saving_point.point = :point group by ticket.id", nativeQuery = true)
     Page<ITicketDto> findAllHistoryPointSearch(@Param("username") String username,
                                                @Param("bookingTime") String bookingTime,
-                                               @Param("price") int value,
+                                               @Param("point") int value,
                                                Pageable pageable);
 
 
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
-            "ticket.status_ticket as statusTicket, saving_point.point as point , seat_type.price as price " +
+            "ticket.status_ticket as statusTicket, saving_point.point as point , seat_type.price as price, ticket.is_delete as isDeleteTicket " +
             "from ticket " +
             "join customer on customer.id = ticket.customer_id " +
             "join saving_point on saving_point.customer_id = customer.id " +
@@ -102,7 +102,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "join room on room.id = show_times.room_id " +
             "join seat_room on seat_room.room_id = room.id " +
             "join seat_type on seat_type.id = seat_room.seat_type_id " +
-            "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% ",
+            "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% group by ticket.id ",
             countQuery = "select count(*) from ticket " +
                     "join customer on customer.id = ticket.customer_id " +
                     "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -112,7 +112,8 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "join room on room.id = show_times.room_id " +
                     "join seat_room on seat_room.room_id = room.id " +
                     "join seat_type on seat_type.id = seat_room.seat_type_id " +
-                    "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% "
+                    "where customer.username = :username and ticket.ticket_booking_time like %:bookingTime% " +
+                    " group by ticket.id"
             , nativeQuery = true)
     Page<ITicketDto> findAllHistoryPoint(@Param("username") String username,
                                          @Param("bookingTime") String bookingTime,
@@ -120,9 +121,9 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
 
     @Query(value = "select id,is_delete,customer_id,seat_detail_id,status_ticket,ticket_booking_time " +
             "from ticket " +
-            "where id = :isDelete ", countQuery = "select count (*) from ticke " +
-            "where id = :isDelete ", nativeQuery = true)
-    Optional<Ticket> findByIdTicket(@Param("isDelete") Integer id);
+            "where id = :id ", countQuery = "select count (*) from ticke " +
+            "where id = :id ", nativeQuery = true)
+    Optional<Ticket> findByIdTicket(@Param("id") Integer id);
 
     @Query(value = "update ticket set is_delete = 1 where id = :id", nativeQuery = true)
     void deleteTicket(@Param("id") Integer id);

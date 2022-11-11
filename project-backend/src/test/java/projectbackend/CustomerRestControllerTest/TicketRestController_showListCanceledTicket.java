@@ -53,13 +53,46 @@ public class TicketRestController_showListCanceledTicket {
                         .get("/api/canceled/ticket?page=0"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("totalPages").value(10))
-                .andExpect(jsonPath("totalElements").value(48))
+                .andExpect(jsonPath("totalPages").value(1))
+                .andExpect(jsonPath("totalElements").value(2))
                 .andExpect(jsonPath("content[0].statusTicket").value(0))
                 .andExpect(jsonPath("content[0].movieName").value("Reincarnated"))
-                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-04 00:00:00.0"));
+                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-04 00:00:00.0"))
+                .andExpect(jsonPath("content[0].ticketId").value(38));
 
     }
+
+    //test size = 0, element = 2 == ok
+    @Test
+    public void showListBookingTicket_5() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/canceled/ticket?size=0"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("totalPages").value(1))
+                .andExpect(jsonPath("totalElements").value(2))
+                .andExpect(jsonPath("content[0].statusTicket").value(0))
+                .andExpect(jsonPath("content[0].movieName").value("Reincarnated"))
+                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-04 00:00:00.0"))
+                .andExpect(jsonPath("content[0].ticketId").value(38));
+
+    }
+    //test size = 2, element = 2 == ok
+    @Test
+    public void showListBookingTicket_6() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/canceled/ticket?size=2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("totalPages").value(1))
+                .andExpect(jsonPath("totalElements").value(2))
+                .andExpect(jsonPath("content[0].statusTicket").value(0))
+                .andExpect(jsonPath("content[0].movieName").value("Reincarnated"))
+                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-04 00:00:00.0"))
+                .andExpect(jsonPath("content[0].ticketId").value(38));
+
+    }
+
 
 
 }

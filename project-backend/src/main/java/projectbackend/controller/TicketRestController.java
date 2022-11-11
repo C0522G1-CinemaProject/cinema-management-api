@@ -47,7 +47,7 @@ public class TicketRestController {
     public ResponseEntity<Page<ITicketDto>> showListHistoryPoint(
             @PageableDefault(value = 5) Pageable pageable,
             @RequestParam(value = "bookingTime", defaultValue = "", required = false) String bookingTime,
-            @RequestParam(value = "price", defaultValue = "0") int value) {
+            @RequestParam(value = "point", defaultValue = "0") int value) {
 
         Page<ITicketDto> historyPointSearch;
         if (value == 0) {

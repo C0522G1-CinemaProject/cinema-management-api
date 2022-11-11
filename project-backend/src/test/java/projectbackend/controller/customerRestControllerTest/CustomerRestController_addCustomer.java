@@ -493,7 +493,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_username_13() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername(null);
+        userDto.setUserName(null);
         userDto.setPassword("123456");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -507,7 +507,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_username_14() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("");
+        userDto.setUserName("");
         userDto.setPassword("123456");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -521,7 +521,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_username_15() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("vanphuc_!");
+        userDto.setUserName("vanphuc_!");
         userDto.setPassword("123456");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -536,7 +536,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_password_13() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("vanphuc");
+        userDto.setUserName("vanphuc");
         userDto.setPassword(null);
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -551,7 +551,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_password_14() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("vanphuc");
+        userDto.setUserName("vanphuc");
         userDto.setPassword("");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -566,7 +566,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_password_15() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("vanphuc");
+        userDto.setUserName("vanphuc");
         userDto.setPassword("12345555555555");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -580,7 +580,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_password_16() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("vanphuc");
+        userDto.setUserName("vanphuc");
         userDto.setPassword("123");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -595,7 +595,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_password_17() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("vanphuc");
+        userDto.setUserName("vanphuc");
         userDto.setPassword("1234567891234567890");
 
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -631,7 +631,7 @@ public class CustomerRestController_addCustomer {
     @Test
     public void createCustomer_user_18() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("van phuc");
+        userDto.setUserName("van phuc");
         userDto.setPassword("123456abc");
 
         this.mockMvc.perform(MockMvcRequestBuilders
