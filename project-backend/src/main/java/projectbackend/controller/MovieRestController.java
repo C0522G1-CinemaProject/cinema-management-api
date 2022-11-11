@@ -1,6 +1,11 @@
 package projectbackend.controller;
 
-import org.springframework.beans.BeanUtils;
+
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +17,37 @@ import projectbackend.dto.movie.MovieDto;
 import projectbackend.model.movie.Movie;
 import projectbackend.service.movie.IMovieService;
 
+
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin
 @RestController
-@RequestMapping("/movie")
+@CrossOrigin("*")
+@RequestMapping("/api/movie")
 public class MovieRestController {
-
     @Autowired
     private IMovieService movieService;
 
+    @GetMapping(value = "/list")
+    public ResponseEntity<Page<IMovieDto>> getList(Pageable pageable,@RequestParam(value = "name",defaultValue = "") String name) {
+        Page<IMovieDto> movieList = movieService.findAllMovie(pageable, name);
+        if (movieList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(movieList, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Movie> deleteMovie(@PathVariable int id) {
+        Optional<Movie> movie = movieService.findById(id);
+        if (movie.isPresent()) {
+            movieService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+ 
     @GetMapping("/{id}")
     public ResponseEntity<IMovieDto> getMovie(@PathVariable int id) {
         IMovieDto iMovieDto = movieService.getMovie(id);
@@ -58,3 +83,4 @@ public class MovieRestController {
     }
 
 }
+

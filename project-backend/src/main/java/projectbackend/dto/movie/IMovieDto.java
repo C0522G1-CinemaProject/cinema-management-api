@@ -1,6 +1,10 @@
 package projectbackend.dto.movie;
 
 public interface IMovieDto {
+
+   
+
+    int getId();
     String getName();
     String getImage();
     String getStartDay();
@@ -13,5 +17,6 @@ public interface IMovieDto {
     String getFilmStudio();
     String getActor();
     String getVersion();
+
 
 }
