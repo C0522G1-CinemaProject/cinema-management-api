@@ -2,29 +2,25 @@ package projectbackend.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.validation.FieldError;
-import projectbackend.dto.customer.CustomerTypeDto;
-import projectbackend.dto.customer.ICustomerDto;
-import projectbackend.model.customer.CustomerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.customer.CustomerDto;
+import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.model.customer.Customer;
 import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.customer.ICustomerTypeService;
 
 import javax.validation.Valid;
-
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin(origins = "http://localhost:4200")
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerRestController {
@@ -36,7 +32,6 @@ public class CustomerRestController {
     private ICustomerTypeService iCustomerTypeService;
 
     @GetMapping("")
-
     public ResponseEntity<ICustomerDto> getCustomer() {
         Optional<ICustomerDto> customerDto = iCustomerService.findCustomerByUsername("addmin");
         if (customerDto.isPresent()) {
@@ -59,6 +54,7 @@ public class CustomerRestController {
     }
 
 
+    @GetMapping("/list")
     public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
                                                    @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
                                                    @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,

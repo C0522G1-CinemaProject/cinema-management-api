@@ -22,19 +22,19 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> findAll() {
-        return customerRepository.findAll();
+        return iCustomerRepository.findAll();
     }
 
 
     @Override
     public Optional<ICustomerDto> findCustomerByUsername(String username) {
-        return customerRepository.findCustomerByUsername(username);
+        return iCustomerRepository.findCustomerByUsername(username);
     }
 
 
     @Override
     public Optional<ICustomerDto> findUserByUsername(String username) {
-        return customerRepository.findUserByUsername(username);
+        return iCustomerRepository.findUserByUsername(username);
     }
 
 
