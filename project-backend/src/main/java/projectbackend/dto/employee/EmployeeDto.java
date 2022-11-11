@@ -1,19 +1,51 @@
 package projectbackend.dto.employee;
 
+import projectbackend.dto.decentralization.UserDto;
 import projectbackend.model.decentralization.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class EmployeeDto {
+
     private Integer id;
+
+    @NotBlank
+    @Size(min = 5, max = 100, message = "5 or more characters (< 100)")
+    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$",
+            message = "Each first letter must be capitalized (ex: Jack...)")
     private String name;
+
     private Integer gender;
+
+    @NotBlank
+    @Size(min = 28, max = 50)
     private String email;
+
+    @NotBlank
+    @Size(min = 1, max = 100)
     private String address;
+
+    @NotBlank
     private String phoneNumber;
+
+    @NotBlank
+    @Pattern(regexp = "\\d{9}|\\d{12}",message = "Identity card must be in the correct format of 9 and 12 numbers")
     private String idCard;
+
+    @NotBlank
     private String dayOfBirth;
+
+    @NotBlank
+    @Size( max = 255)
     private String image;
+
     private boolean isDelete;
+
     private User user;
+
 
     public EmployeeDto() {
     }
@@ -117,7 +149,7 @@ public class EmployeeDto {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUserDto(User user) {
         this.user = user;
     }
 }

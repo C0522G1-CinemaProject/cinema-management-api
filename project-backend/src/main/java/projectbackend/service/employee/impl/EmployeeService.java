@@ -1,9 +1,15 @@
 package projectbackend.service.employee.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+
 import org.springframework.stereotype.Service;
+import projectbackend.dto.employee.EmployeeDto;
+import projectbackend.dto.employee.IEmployeeDto;
+
 import projectbackend.model.employee.Employee;
 import projectbackend.repository.employee.IEmployeeRepository;
 import projectbackend.service.employee.IEmployeeService;
@@ -16,6 +22,7 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeRepository employeeRepository;
 
     @Override
+
     public Page<Employee> findAllEmployee(Pageable pageable) {
         return employeeRepository.findAll(pageable);
     }
@@ -25,13 +32,29 @@ public class EmployeeService implements IEmployeeService {
         return employeeRepository.findEmployeeByNameContaining(pageable, search);
     }
 
-    @Override
-    public Optional<Employee> findEmployeeById(Integer id) {
-        return employeeRepository.findById(id);
-    }
 
     @Override
     public void deleteEmployee(Integer id) {
         employeeRepository.deleteById(id);
     }
+
+    public void saveEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    @Override
+    public Optional<Employee> findEmployeeById(Integer id) {
+        return employeeRepository.findEmployeeById(id);
+    }
+
+    @Override
+    public Optional<Employee> findById(Integer id) {
+        return employeeRepository.findById(id);
+    }
+
+//    @Override
+//    public IEmployeeDto findById(Integer id) {
+//        return employeeRepository.findEmployeeById(id);
+//    }
+
 }

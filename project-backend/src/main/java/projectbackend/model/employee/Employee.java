@@ -17,11 +17,14 @@ public class Employee {
     private String phoneNumber;
     private String idCard;
     private String dayOfBirth;
+
+    @Column(columnDefinition = "text")
     private String image;
     private boolean isDelete;
 
     @OneToOne
-    @JoinColumn(name = "username", referencedColumnName = "userName")
+
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
 
     public Employee() {
