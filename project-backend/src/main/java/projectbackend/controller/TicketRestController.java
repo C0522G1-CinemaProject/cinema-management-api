@@ -2,83 +2,60 @@ package projectbackend.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import projectbackend.dto.booking_ticket.IMovie;
-import projectbackend.dto.booking_ticket.ISeatDetail;
-import projectbackend.dto.booking_ticket.IShowDates;
-import projectbackend.dto.booking_ticket.IShowTimes;
+import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.dto.ticket.TicketDto;
 import projectbackend.model.ticket.Ticket;
-import projectbackend.service.show_times.IShowTimesService;
-import projectbackend.service.ticket.ISeatDetailService;
 import projectbackend.service.ticket.ITicketService;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/booking-ticket")
+@RequestMapping("/api/v3")
 @CrossOrigin("*")
 public class TicketRestController {
-    @Autowired
-    private IShowTimesService showTimesService;
 
     @Autowired
-    private ISeatDetailService seatDetailService;
+    private ITicketService iTicketService;
 
-    @Autowired
-    private ITicketService ticketService;
-
-    @GetMapping("/movie")
-    public ResponseEntity<List<IMovie>> showMovieIn7NextDay() {
-        List<IMovie> movies = showTimesService.findAllMovie();
-
-        if (movies.isEmpty()) {
+    @GetMapping("/ticket/list")
+    public ResponseEntity<Page<ITicketDto>> findAllTicket(
+            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
+            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
+            @RequestParam(value = "idCard", defaultValue = "") String idCard,
+            @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber,
+            Pageable pageable) {
+        Page<ITicketDto> blogList = this.iTicketService.findAllByQuery(
+                ticketId,
+                customerId,
+                idCard,
+                phoneNumber,
+                pageable
+        );
+        if (blogList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(blogList, HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
-    @GetMapping("/show-date/{idMovie}")
-    public ResponseEntity<List<IShowDates>> showDateByMovie(@PathVariable Integer idMovie) {
-        List<IShowDates> showDates = showTimesService.findAllShowDate(idMovie);
-
-        if (showDates.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PatchMapping("/ticket/edit/{id}")
+    public ResponseEntity<?> findTicketById(@RequestBody TicketDto ticketDto,
+                                            @PathVariable Integer id,
+                                            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity<>(showDates, HttpStatus.OK);
-    }
-
-    @GetMapping("/showtime/{showDate}")
-    public ResponseEntity<List<IShowTimes>> showTimeByShowDate(@PathVariable String showDate) {
-        List<IShowTimes> showTimes = showTimesService.findAllShowTimesInDay(showDate);
-
-        if (showTimes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(showTimes, HttpStatus.OK);
-    }
-
-    @GetMapping("/seat-detail/{idShowTime}")
-    public ResponseEntity<List<ISeatDetail>> showAllSeatDetail(@PathVariable Integer idShowTime) {
-        List<ISeatDetail> seatDetails = seatDetailService.findAllSeatDetail(idShowTime);
-
-        if (seatDetails.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(seatDetails, HttpStatus.OK);
-    }
-
-    @PostMapping("/add-pending-ticket")
-    public ResponseEntity<Ticket> addPendingTicket(@RequestBody TicketDto ticketDto) {
         Ticket ticket = new Ticket();
+        ticket.setId(id);
         BeanUtils.copyProperties(ticketDto, ticket);
-        ticketService.saveTicket(ticket);
+        iTicketService.saveTicket(ticket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
