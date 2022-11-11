@@ -2,31 +2,46 @@ package projectbackend.controller;
 
 
 import java.util.Optional;
-
-import org.springframework.beans.BeanUtils
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.movie.IMovieDto;
-import projectbackend.dto.movie.MovieDto;
 import projectbackend.model.movie.Movie;
 import projectbackend.service.movie.IMovieService;
-
-
+import org.springframework.validation.FieldError;
+import projectbackend.dto.movie.MovieDto;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("api/movie")
 @CrossOrigin("*")
-@RequestMapping("/api/movie")
 public class MovieRestController {
+
     @Autowired
-    private IMovieService movieService;
+    private  IMovieService movieService;
+
+    @GetMapping("/list/home")
+    public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
+                                                   @PageableDefault(value = 5) Pageable pageable) {
+        Page<IMovieDto> moviePage = movieService.findAllMovie(name, pageable);
+        if (moviePage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(moviePage, HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+
 
     @GetMapping(value = "/list")
     public ResponseEntity<Page<IMovieDto>> getList(Pageable pageable,@RequestParam(value = "name",defaultValue = "") String name) {
