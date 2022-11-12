@@ -32,7 +32,10 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
                     "order by sum(seat_type.price)", nativeQuery = true)
     Page<IMovieStatementDto> getMovieTop(Pageable pageable);
 
-
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top movie positive
+     * */
     @Query(value = "select movie.id as id, movie.name as name, count(ticket.id) as tickets, sum(seat_type.price) as turnover " +
             "from movie join show_times on movie.id = show_times.movie_id  " +
             "join seat_detail on show_times.id = seat_detail.show_time_id " +
@@ -46,6 +49,12 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
            , nativeQuery = true)
     List<IMovieStatementDto> getMovieTop( );
 
+
+
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top movie positive
+     * */
     @Query(value = "select movie.id as id, movie.name as name, count(ticket.id) as tickets, sum(seat_type.price) as turnover " +
             "from movie join show_times on movie.id = show_times.movie_id  " +
             "   join seat_detail on show_times.id = seat_detail.show_time_id " +

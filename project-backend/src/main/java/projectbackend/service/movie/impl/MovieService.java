@@ -16,16 +16,28 @@ public class MovieService implements IMovieService {
     @Autowired
     private IMovieRepository movieRepository;
 
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top movie positive
+     * */
     @Override
     public Page<IMovieStatementDto> getMovieTop(Pageable pageable) {
         return movieRepository.getMovieTop(pageable);
     }
 
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top movie positive
+     * */
     @Override
     public List<IMovieStatementDto> getMovieTop() {
         return movieRepository.getMovieTop();
     }
 
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top movie positive
+     * */
     @Override
     public List<IMovieStatementDto> getMovieTop(int numberMonth) {
         if (numberMonth == 0) {

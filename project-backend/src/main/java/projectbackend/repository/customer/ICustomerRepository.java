@@ -38,6 +38,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Page<ICustomerStatementDto> getCustomerTop(Pageable pageable);
 
 
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top customer positive
+     * */
     @Query(value = "select customer.id as id, customer.name as name, count(ticket.id) as tickets," +
             " sum(seat_type.price) as totalMoney, sum(saving_point.point) as accumulation " +
             " from customer join ticket on customer.id = ticket.customer_id " +
@@ -53,6 +57,11 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             nativeQuery = true)
     List<ICustomerStatementDto> getCustomerTop();
 
+
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top customer positive
+     * */
     @Query(value = "select customer.id as id, customer.name as name, count(ticket.id) as tickets," +
             " sum(seat_type.price) as totalMoney, sum(saving_point.point) as accumulation " +
             " from customer join ticket on customer.id = ticket.customer_id " +
