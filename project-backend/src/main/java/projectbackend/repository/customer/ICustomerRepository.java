@@ -1,5 +1,7 @@
 package projectbackend.repository.customer;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,19 +25,21 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<ICustomerDto> findCustomerByUsername(@Param("username") String username);
 
 
-    @Query(value = "select user.username as customerUserName,user.password as customerPassword  " +
-            "from customer " +
-            "join user on customer.username = user.username " +
-            " where user.username like %:username% and customer.is_delete=0",
-            countQuery = " select  count(*)",
+    @Query(value = "call insert_all(:username,:password,:name ,:dayOfBirth,:gender,:idCard,:email,:address,:phoneNumber,:customerType)", nativeQuery = true)
+    void saveCustomer(@Param("username") String username, @Param("password") String password,
+                      @Param("name") String name, @Param("dayOfBirth") String dayOfBirth,
+                      @Param("gender") int gender, @Param("idCard") String idCard,
+                      @Param("email") String email, @Param("address") String address,
+                      @Param("phoneNumber") String phoneNumber, @Param("customerType") int customerType);
+
+    @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
+            " from customer " +
+            "where name like %:nameSearch% and address like %:addressSearch% " +
+            "and phone_number like %:phoneSearch% and is_delete = 0",
+            countQuery = "select count(*) from customer  " +
+                    "where name like %:nameSearch% and address like %:addressSearch% " +
+                    "and phone_number like %:phoneSearch% and is_delete = 0 ",
             nativeQuery = true)
-    Optional<ICustomerDto> findUserByUsername(@Param("username") String username);
-
-
-
-//    @Query(value = " select customer.id, customer.name,customer.day_of_birth,customer.gender,customer.id_card," +
-//            "customer.email,customer.address,customer.phone_number, customer.customer_type_id " +
-//            "from customer where id =:id and is_delete =0", nativeQuery = true)
-//    Optional<Customer> findById(int id);
-
+    Page<Customer> searchCustomer(@Param("nameSearch") String nameSearch, @Param("addressSearch") String addressSearch,
+                                  @Param("phoneSearch") String phoneSearch, Pageable pageable);
 }
