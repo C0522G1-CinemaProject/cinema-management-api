@@ -41,9 +41,8 @@ public class CustomerService implements ICustomerService {
 
 
     @Override
-    public void saveCustomer(String username, String password, String name, String dayOfBirth, int gender,
-                                                     String idCard, String email, String address, String phoneNumber, int customerType) {
-         icustomerRepository.saveCustomer(username, password,name,dayOfBirth,gender,idCard,email,address,phoneNumber,customerType );
+    public void saveCustomer(Customer customer) {
+        icustomerRepository.saveCustomer(customer);
     }
 
     @Override

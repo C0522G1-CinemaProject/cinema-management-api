@@ -8,7 +8,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.customer.CustomerDto;
 import projectbackend.dto.customer.ICustomerDto;
@@ -54,18 +53,14 @@ public class CustomerRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<List<FieldError>> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
+    public ResponseEntity<?> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        iCustomerService.saveCustomer(customer.getUser().getUsername(),
-                customer.getUser().getPassword(), customer.getName(),
-                customer.getDayOfBirth(), customer.getGender(),
-                customer.getIdCard(), customer.getEmail(),
-                customer.getAddress(), customer.getPhoneNumber(), customer.getCustomerType().getId());
+        iCustomerService.saveCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

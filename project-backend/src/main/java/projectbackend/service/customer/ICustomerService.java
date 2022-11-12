@@ -19,8 +19,7 @@ public interface ICustomerService {
     Optional<Customer> findById(int id);
 
 
-        void saveCustomer(String username, String password, String name, String dayOfBirth, int gender,
-                                                  String idCard, String email, String address, String phoneNumber, int customerType);
+    void saveCustomer(Customer customer);
 
 
     Page<Customer> searchCustomer(String nameSearch, String addressSearch, String phoneSearch, Pageable pageable);

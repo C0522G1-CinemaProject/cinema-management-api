@@ -3,9 +3,11 @@ package projectbackend.repository.customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.model.customer.Customer;
 
@@ -24,13 +26,11 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             nativeQuery = true)
     Optional<ICustomerDto> findCustomerByUsername(@Param("username") String username);
 
-
-    @Query(value = "call insert_all(:username,:password,:name ,:dayOfBirth,:gender,:idCard,:email,:address,:phoneNumber,:customerType)", nativeQuery = true)
-    void saveCustomer(@Param("username") String username, @Param("password") String password,
-                      @Param("name") String name, @Param("dayOfBirth") String dayOfBirth,
-                      @Param("gender") int gender, @Param("idCard") String idCard,
-                      @Param("email") String email, @Param("address") String address,
-                      @Param("phoneNumber") String phoneNumber, @Param("customerType") int customerType);
+    @Modifying
+    @Transactional
+    @Query(value = "call insert_all(:#{#c.user.username},:#{#c.user.password},:#{#c.name} ,:#{#c.dayOfBirth},:#{#c.gender},:#{#c.idCard}," +
+            ":#{#c.email},:#{#c.address},:#{#c.phoneNumber},:#{#c.customerType.id})", nativeQuery = true)
+    void saveCustomer(@Param("c") Customer customer);
 
     @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
             " from customer " +

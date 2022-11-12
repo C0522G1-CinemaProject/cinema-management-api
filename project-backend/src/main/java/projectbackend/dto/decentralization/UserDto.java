@@ -7,11 +7,12 @@ import javax.validation.constraints.Size;
 public class UserDto {
     @NotBlank(message = "không được để trống")
     private String username;
+
     @NotBlank(message = "Không được để trống")
     @Size(min = 6, max = 12)
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", message = "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số")
     private String password;
-    private boolean isDelete;
+
 
     public UserDto() {
     }
@@ -19,7 +20,7 @@ public class UserDto {
     public UserDto(String username, String password, boolean isDelete) {
         this.username = username;
         this.password = password;
-        this.isDelete = isDelete;
+
     }
 
     public String getUsername() {
@@ -38,11 +39,4 @@ public class UserDto {
         this.password = password;
     }
 
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
 }
