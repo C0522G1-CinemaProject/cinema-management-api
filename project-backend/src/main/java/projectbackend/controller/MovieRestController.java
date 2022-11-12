@@ -22,6 +22,11 @@ public class MovieRestController {
     @Autowired
     private IMovieService movieService;
 
+
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top movie with turnover
+     * */
     @GetMapping("/statement")
     public ResponseEntity<List<IMovieStatementDto>> getCustomerTop(@RequestParam(defaultValue = "0") int numberMonth) {
         if(numberMonth<0){

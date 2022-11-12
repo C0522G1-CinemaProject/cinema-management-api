@@ -20,6 +20,11 @@ public class CustomerRestController {
     @Autowired
     private ICustomerService customerService;
 
+
+    /**
+     * creator: Phan Phước Đại
+     * method use statistical top customer positive
+     * */
     @GetMapping("/statement")
     public ResponseEntity<List<ICustomerStatementDto>> getCustomerTop(@RequestParam(defaultValue = "0") int numberMonth) {
         if(numberMonth<0){
