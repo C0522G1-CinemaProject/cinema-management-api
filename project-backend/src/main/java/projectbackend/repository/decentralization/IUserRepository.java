@@ -10,11 +10,7 @@ import projectbackend.model.decentralization.User;
 import java.util.Optional;
 
 @Repository
-<<<<<<< HEAD
 public interface IUserRepository extends JpaRepository<User, Integer> {
-=======
-public interface IUserRepository extends JpaRepository<User, String> {
->>>>>>> 70bc45875321c3b97279b42424e5c2797a79c900
     @Query(value = "select * from user where username like %:username% and is_delete = 0", nativeQuery = true)
     Optional<User> findByUsername(@Param("username") String username);
 

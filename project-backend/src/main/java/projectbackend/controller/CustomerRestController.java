@@ -2,12 +2,6 @@ package projectbackend.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-
-import org.springframework.validation.FieldError;
-import projectbackend.dto.customer.CustomerTypeDto;
-import projectbackend.model.customer.CustomerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.customer.CustomerDto;
 import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.model.customer.Customer;
+import projectbackend.model.customer.CustomerType;
 import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.customer.ICustomerTypeService;
 
@@ -47,17 +42,6 @@ public class CustomerRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
-                                                   @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
-                                                   @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,
-                                                   @RequestParam(value = "phoneSearch", defaultValue = "") String phoneSearch) {
-        Page<Customer> customerPage = iCustomerService.searchCustomer(nameSearch, addressSearch, phoneSearch, pageable);
-        if (customerPage.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(customerPage, HttpStatus.OK);
-    }
-
     @PostMapping("/add")
     public ResponseEntity<List<FieldError>> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -75,9 +59,7 @@ public class CustomerRestController {
     }
 
 
-
     @GetMapping("/list")
-
     public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
                                                    @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
                                                    @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,
