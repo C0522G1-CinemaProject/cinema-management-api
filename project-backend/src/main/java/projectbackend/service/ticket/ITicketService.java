@@ -17,6 +17,9 @@ public interface ITicketService {
 
     Page<ITicketDto> findAllHistoryPoint(String username, String bookingTime, Pageable pageable);
 
+    Page<ITicketDto> findAllBigPoint(String username, String bookingTime, Pageable pageable);
+    Page<ITicketDto> findAllSmallPoint(String username, String bookingTime, Pageable pageable);
+
     Optional<Ticket> findByIdTicKet(Integer id);
 
     void deleteTicket(Integer id);

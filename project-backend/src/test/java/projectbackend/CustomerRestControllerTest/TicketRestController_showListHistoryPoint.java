@@ -62,20 +62,13 @@ public class TicketRestController_showListHistoryPoint {
 
     }
 
-    //test size = 0, element = 6 == ok
+    //test size = 0
     @Test
     public void showListHistoryPoint_5() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/history/point?size=0"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("totalPages").value(2))
-                .andExpect(jsonPath("totalElements").value(6))
-                .andExpect(jsonPath("content[0].statusTicket").value(0))
-                .andExpect(jsonPath("content[0].movieName").value("Reincarnated"))
-                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-05 00:00:00.0"))
-                .andExpect(jsonPath("content[0].price").value(25000));
-
+                .andExpect(status().isBadRequest());
     }
 
     //test size = 3, element = 1 == ok

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.ticket.ITicketDto;
+import projectbackend.dto.ticket.TicketDto;
 import projectbackend.model.room.SeatType;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.service.ticket.ITicketService;
@@ -60,7 +61,32 @@ public class TicketRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(historyPointSearch, HttpStatus.OK);
+    }
 
+    @GetMapping("/history/bigPoint")
+    public ResponseEntity<Page<ITicketDto>> showListBigPoint(
+            @PageableDefault(value = 5) Pageable pageable,
+            @RequestParam(value = "bookingTime", defaultValue = "", required = false) String bookingTime) {
+
+        Page<ITicketDto> historyPigPointSearch = iTicketService.findAllBigPoint("abristog", bookingTime, pageable);
+
+        if (historyPigPointSearch.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(historyPigPointSearch, HttpStatus.OK);
+    }
+
+    @GetMapping("/history/smallPoint")
+    public ResponseEntity<Page<ITicketDto>> showListSmallPoint(
+            @PageableDefault(value = 5) Pageable pageable,
+            @RequestParam(value = "bookingTime", defaultValue = "", required = false) String bookingTime) {
+
+        Page<ITicketDto> historySmallPointSearch = iTicketService.findAllSmallPoint("abristog", bookingTime, pageable);
+
+        if (historySmallPointSearch.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(historySmallPointSearch, HttpStatus.OK);
     }
 
     @DeleteMapping("delete/ticket/{id}")

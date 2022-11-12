@@ -40,6 +40,16 @@ public class TicketService implements ITicketService {
     }
 
     @Override
+    public Page<ITicketDto> findAllBigPoint(String username, String bookingTime, Pageable pageable) {
+        return iTicketRepository.findAllBigPointSearch(username, bookingTime, pageable);
+    }
+
+    @Override
+    public Page<ITicketDto> findAllSmallPoint(String username, String bookingTime, Pageable pageable) {
+        return iTicketRepository.findAllSmallPointSearch(username, bookingTime, pageable);
+    }
+
+    @Override
     public Optional<Ticket> findByIdTicKet(Integer id) {
         return iTicketRepository.findByIdTicket(id);
     }
