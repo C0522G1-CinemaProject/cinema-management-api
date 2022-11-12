@@ -44,7 +44,7 @@ public class DecentralizationRestController {
     }
 
     @GetMapping("/find/{username}")
-    public ResponseEntity<User> editusername(@PathVariable String username) {
+    public ResponseEntity<User> findUserByUsername(@PathVariable String username) {
         User user = userService.findByUsername(username).get();
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -61,7 +61,5 @@ public class DecentralizationRestController {
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
 }

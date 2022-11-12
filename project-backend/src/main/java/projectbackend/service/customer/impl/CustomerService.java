@@ -2,6 +2,8 @@ package projectbackend.service.customer.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import projectbackend.dto.customer.ICustomerDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,17 +24,36 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> findAll() {
-        return iCustomerRepository.findAll();
+        return icustomerRepository.findAll();
+    }
+
+
+    @Override
+    public void save(Customer customer) {
+        icustomerRepository.save(customer);
     }
 
 
     @Override
     public Optional<ICustomerDto> findCustomerByUsername(String username) {
-        return iCustomerRepository.findCustomerByUsername(username);
+        return icustomerRepository.findCustomerByUsername(username);
     }
 
 
     @Override
+
+    public Optional<Customer> findById(int id) {
+        return icustomerRepository.findById(id);
+    }
+
+
+    @Override
+    public void saveCustomer(String username, String password, String name, String dayOfBirth, int gender,
+                                                     String idCard, String email, String address, String phoneNumber, int customerType) {
+         icustomerRepository.saveCustomer(username, password,name,dayOfBirth,gender,idCard,email,address,phoneNumber,customerType );
+    }
+
+
     public Optional<ICustomerDto> findUserByUsername(String username) {
         return iCustomerRepository.findUserByUsername(username);
     }

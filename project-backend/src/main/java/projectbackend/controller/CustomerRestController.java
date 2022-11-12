@@ -2,6 +2,12 @@ package projectbackend.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+
+import org.springframework.validation.FieldError;
+import projectbackend.dto.customer.CustomerTypeDto;
+import projectbackend.model.customer.CustomerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -25,6 +31,7 @@ import java.util.Optional;
 @RequestMapping("/api/customer")
 public class CustomerRestController {
 
+
     @Autowired
     private ICustomerService iCustomerService;
 
@@ -40,6 +47,16 @@ public class CustomerRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
+                                                   @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
+                                                   @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,
+                                                   @RequestParam(value = "phoneSearch", defaultValue = "") String phoneSearch) {
+        Page<Customer> customerPage = iCustomerService.searchCustomer(nameSearch, addressSearch, phoneSearch, pageable);
+        if (customerPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerPage, HttpStatus.OK);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<List<FieldError>> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
@@ -49,12 +66,18 @@ public class CustomerRestController {
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        iCustomerService.save(customer);
+        iCustomerService.saveCustomer(customer.getUser().getUsername(),
+                customer.getUser().getPassword(), customer.getName(),
+                customer.getDayOfBirth(), customer.getGender(),
+                customer.getIdCard(), customer.getEmail(),
+                customer.getAddress(), customer.getPhoneNumber(), customer.getCustomerType().getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
+
     @GetMapping("/list")
+
     public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
                                                    @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
                                                    @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,
@@ -87,6 +110,16 @@ public class CustomerRestController {
     public ResponseEntity<Customer> editCustomer(@PathVariable Integer id) {
         Customer customer = iCustomerService.findByIdCustomer(id).get();
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("/customerType")
+    public ResponseEntity<List<CustomerType>> getCustomerTypeList() {
+        List<CustomerType> customerTypes = iCustomerTypeService.findAllCustomerType();
+        if (customerTypes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(customerTypes, HttpStatus.OK);
+        }
     }
 }
 
