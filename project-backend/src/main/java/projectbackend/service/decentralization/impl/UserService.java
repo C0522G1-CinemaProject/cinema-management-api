@@ -1,5 +1,6 @@
 package projectbackend.service.decentralization.impl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projectbackend.model.decentralization.User;
@@ -27,4 +28,5 @@ public class UserService implements IUserService {
     public void updateUser(User user) {
         userRepository.save(user);
     }
+
 }
