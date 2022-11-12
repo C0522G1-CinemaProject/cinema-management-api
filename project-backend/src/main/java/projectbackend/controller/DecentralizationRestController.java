@@ -22,13 +22,28 @@ public class DecentralizationRestController {
     @Autowired
     private IUserService userService;
 
-    @PatchMapping("/update/{username}")
-    public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable String username) {
-        User user = userService.findByUsername(username).get();
-        BeanUtils.copyProperties(userDto, user);
-        userService.updateUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PatchMapping("/edit/{username}")
+    public ResponseEntity<?> editUser(@RequestBody @Valid UserDto userDto,
+                                      BindingResult bindingResult,
+                                      String userName) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        } else {
+            User user = new User();
+            user.setUsername(userName);
+            BeanUtils.copyProperties(userDto, user);
+            userService.saveUser(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
+
+    @GetMapping("/find/{username}")
+    public ResponseEntity<User> findUserByUsername(@PathVariable String username) {
+        User user = userService.findByUsername(username).get();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 
     @PostMapping("/add")
     public ResponseEntity<List<FieldError>> saveUser(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
@@ -41,8 +56,6 @@ public class DecentralizationRestController {
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
 
 }

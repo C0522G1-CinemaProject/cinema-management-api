@@ -1,5 +1,7 @@
 package projectbackend.service.customer;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.model.customer.Customer;
 
@@ -16,6 +18,11 @@ public interface ICustomerService {
 
     Optional<Customer> findById(int id);
 
-    Optional<ICustomerDto> findUserByUsername(String username);
+
+        void saveCustomer(String username, String password, String name, String dayOfBirth, int gender,
+                                                  String idCard, String email, String address, String phoneNumber, int customerType);
+
+
+    Page<Customer> searchCustomer(String nameSearch, String addressSearch, String phoneSearch, Pageable pageable);
 
 }
