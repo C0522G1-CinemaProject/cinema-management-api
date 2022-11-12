@@ -1,6 +1,7 @@
 package projectbackend.service.ticket.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import java.util.Optional;
 
 @Service
 public class TicketService implements ITicketService {
+
+
     @Autowired
     private ITicketRepository iTicketRepository;
 
@@ -55,6 +58,7 @@ public class TicketService implements ITicketService {
     @Override
     public void editTicketManager(Integer id) {
         iTicketRepository.editTicketManager(id);
+
     }
 
 }

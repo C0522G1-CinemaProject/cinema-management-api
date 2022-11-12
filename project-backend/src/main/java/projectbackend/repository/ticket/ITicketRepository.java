@@ -46,7 +46,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "customer.id_card AS idCard, " +
             "customer.phone_number AS phoneNumber, " +
             "movie.name AS movieName, " +
-            "show_times.date_projection as dateProjection, " +
+            "show_times.date_projection AS dateProjection, " +
             "times.start_time AS startTime, " +
             "room.name AS roomName, " +
             "seat.name AS seatName, " +
