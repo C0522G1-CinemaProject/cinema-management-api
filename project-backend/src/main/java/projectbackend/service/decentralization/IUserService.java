@@ -1,10 +1,10 @@
 package projectbackend.service.decentralization;
 
+import projectbackend.dto.decentralization.IUserEmailDto;
 import projectbackend.model.decentralization.User;
 
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface IUserService {
@@ -13,4 +13,11 @@ public interface IUserService {
     List<User> findAll();
 
     User findByUsername(String name);
+
+    Optional<IUserEmailDto> findByEmail(String email);
+
+    Optional<IUserEmailDto> findByUsernameDto(String username);
+
+    void updatePassword(User user, String newPassword);
+
 }

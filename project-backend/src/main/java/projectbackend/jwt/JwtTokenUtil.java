@@ -1,6 +1,7 @@
 package projectbackend.jwt;
 
 import io.jsonwebtoken.*;
+import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -15,13 +16,13 @@ public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
 
-//    public static final long JWT_TOKEN_VALIDITY = 100 * 60 * 60 * 24;
-    public static final long JWT_TOKEN_VALIDITY = 60;
+    public static final long JWT_TOKEN_VALIDITY = 100 * 60 * 60 * 24;
+//    public static final long JWT_TOKEN_VALIDITY = 60;
 
     private String jwtSecret = "project_module_6_v3";
 
     //get username form jwt token
-    public String getUserNameFromJwtToken(String token) {
+    public String getUsernameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 

@@ -11,7 +11,6 @@ public class ResetPassRequest {
 
     private String password;
 
-
     public String getPassword() {
         return password;
     }
@@ -19,5 +18,9 @@ public class ResetPassRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    private String confirmPassword;
+
+    private String token;
 
 }
