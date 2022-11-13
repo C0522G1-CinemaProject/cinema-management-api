@@ -12,11 +12,13 @@ import projectbackend.model.decentralization.User;
 import projectbackend.repository.customer.ICustomerRepository;
 import projectbackend.service.customer.ICustomerService;
 
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CustomerService implements ICustomerService {
+
 
     @Autowired
     private ICustomerRepository icustomerRepository;
@@ -28,21 +30,20 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void save(Customer customer) {
-        icustomerRepository.save(customer);
-    }
-
-    @Override
     public Optional<ICustomerDto> findCustomerByUsername(String username) {
         return icustomerRepository.findCustomerByUsername(username);
     }
 
 
     @Override
-    public Optional<Customer> findById(int id) {
-        return icustomerRepository.findById(id);
+    public Optional<Customer> findByIdCustomer(Integer id) {
+        return Optional.empty();
     }
 
+    @Override
+    public void update(Customer customer) {
+
+    }
 
     @Override
     public void saveCustomer(Customer customer) {
@@ -51,15 +52,15 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Page<Customer> searchCustomer(String nameSearch, String addressSearch, String phoneSearch, Pageable pageable) {
-        return icustomerRepository.searchCustomer(nameSearch, addressSearch, phoneSearch, pageable);
+        return null;
     }
 
     @Override
     public void updatePassword(User user, String newPassword) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
-        System.out.println(encodedPassword);
-//        customer.setPassword(encodedPassword);
-//        icustomerRepository.saveNewPassword(encodedPassword,customer.getUsername());
+        user.setPassword(encodedPassword);
+        icustomerRepository.saveNewPassword(encodedPassword, user.getUsername());
+
     }
 }

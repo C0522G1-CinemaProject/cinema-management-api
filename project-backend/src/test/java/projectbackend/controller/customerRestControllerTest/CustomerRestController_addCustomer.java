@@ -635,7 +635,11 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("123456abc");
 
         this.mockMvc.perform(MockMvcRequestBuilders
+<<<<<<< HEAD
                         .post("/api/customer/add")
+=======
+                        .post("/api/user/add")
+>>>>>>> 8a4a5c3c3d37a449dd52e6aa569b0fd047c250cb
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())

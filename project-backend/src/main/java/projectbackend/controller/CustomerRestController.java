@@ -20,8 +20,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api/customer")
 public class CustomerRestController {
 
@@ -41,16 +41,6 @@ public class CustomerRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
-                                                   @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
-                                                   @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,
-                                                   @RequestParam(value = "phoneSearch", defaultValue = "") String phoneSearch) {
-        Page<Customer> customerPage = iCustomerService.searchCustomer(nameSearch, addressSearch, phoneSearch, pageable);
-        if (customerPage.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(customerPage, HttpStatus.OK);
-    }
 
     @PostMapping("/add")
     public ResponseEntity<?> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
@@ -65,6 +55,18 @@ public class CustomerRestController {
     }
 
 
+    @GetMapping("/list")
+    public ResponseEntity<Page<Customer>> showList(@PageableDefault(value = 5) Pageable pageable,
+                                                   @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
+                                                   @RequestParam(value = "addressSearch", defaultValue = "") String addressSearch,
+                                                   @RequestParam(value = "phoneSearch", defaultValue = "") String phoneSearch) {
+        Page<Customer> customerPage = iCustomerService.searchCustomer(nameSearch, addressSearch, phoneSearch, pageable);
+        if (customerPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customerPage, HttpStatus.OK);
+    }
+
     @PatchMapping("/edit/{id}")
     public ResponseEntity<?> editCustomer(@RequestBody @Valid CustomerDto customerDto,
                                           BindingResult bindingResult,
@@ -77,14 +79,14 @@ public class CustomerRestController {
             Customer customer = new Customer();
             customer.setId(id);
             BeanUtils.copyProperties(customerDto, customer);
-            iCustomerService.save(customer);
+            iCustomerService.update(customer);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
     @GetMapping("/find/{id}")
     public ResponseEntity<Customer> editCustomer(@PathVariable Integer id) {
-        Customer customer = iCustomerService.findById(id).get();
+        Customer customer = iCustomerService.findByIdCustomer(id).get();
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
@@ -98,3 +100,4 @@ public class CustomerRestController {
         }
     }
 }
+

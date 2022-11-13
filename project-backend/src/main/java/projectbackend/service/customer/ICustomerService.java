@@ -13,12 +13,11 @@ public interface ICustomerService {
 
     List<Customer> findAll();
 
-    void save(Customer customer);
-
     Optional<ICustomerDto> findCustomerByUsername(String username);
 
-    Optional<Customer> findById(int id);
+    Optional<Customer> findByIdCustomer(Integer id);
 
+    void update(Customer customer);
 
     void saveCustomer(Customer customer);
 

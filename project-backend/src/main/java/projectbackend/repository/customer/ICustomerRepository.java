@@ -1,6 +1,6 @@
 package projectbackend.repository.customer;
 
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,6 +33,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             ":#{#c.email},:#{#c.address},:#{#c.phoneNumber},:#{#c.customerType.id})", nativeQuery = true)
     void saveCustomer(@Param("c") Customer customer);
 
+
     @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
             " from customer " +
             "where name like %:nameSearch% and address like %:addressSearch% " +
@@ -43,6 +44,13 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             nativeQuery = true)
     Page<Customer> searchCustomer(@Param("nameSearch") String nameSearch, @Param("addressSearch") String addressSearch,
                                   @Param("phoneSearch") String phoneSearch, Pageable pageable);
+
+
+
+    @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
+            " from customer  where id =:id and is_delete = 0", nativeQuery = true)
+    Optional<Customer> findByIdCustomer(@Param("id") int id);
+
 
     @Modifying
     @Transactional
