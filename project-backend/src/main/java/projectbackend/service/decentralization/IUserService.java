@@ -2,11 +2,16 @@ package projectbackend.service.decentralization;
 
 import projectbackend.model.decentralization.User;
 
+import java.util.Optional;
+
 public interface IUserService {
 
-    User getUser(String username);
 
     void saveUser(User user);
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
+
+    void updateUser(User user);
+
+
 }

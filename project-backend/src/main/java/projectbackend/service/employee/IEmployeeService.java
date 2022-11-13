@@ -16,10 +16,11 @@ public interface IEmployeeService {
 
     void deleteEmployee(Integer id);
 
-    void saveEmployee(Employee employee);
+    void saveEmployee(Employee employee );
 
     Optional<Employee> findEmployeeById(Integer id);
 
     Optional<Employee> findById(Integer id);
 
+    void updateEmployee(Employee employee);
 }
