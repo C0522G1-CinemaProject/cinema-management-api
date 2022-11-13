@@ -1,5 +1,6 @@
 package projectbackend.repository.customer;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -42,4 +43,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             nativeQuery = true)
     Page<Customer> searchCustomer(@Param("nameSearch") String nameSearch, @Param("addressSearch") String addressSearch,
                                   @Param("phoneSearch") String phoneSearch, Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update user set password =:newPassword where username =:username", nativeQuery = true)
+    void saveNewPassword(@Param("newPassword") String newPassword, @Param("username") String username);
 }

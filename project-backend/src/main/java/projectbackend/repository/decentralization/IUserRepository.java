@@ -13,4 +13,6 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select * from user where username like %:username% and is_delete = 0", nativeQuery = true)
     Optional<User> findByUsername(@Param("username") String username);
 
+
+
 }
