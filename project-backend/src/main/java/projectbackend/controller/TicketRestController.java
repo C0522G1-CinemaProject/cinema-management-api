@@ -10,12 +10,16 @@ import projectbackend.dto.booking_ticket.ISeatDetail;
 import projectbackend.dto.booking_ticket.IShowDates;
 import projectbackend.dto.booking_ticket.IShowTimes;
 import projectbackend.dto.ticket.TicketDto;
+import projectbackend.model.customer.Customer;
+import projectbackend.model.ticket.SeatDetail;
 import projectbackend.model.ticket.Ticket;
+import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.show_times.IShowTimesService;
 import projectbackend.service.ticket.ISeatDetailService;
 import projectbackend.service.ticket.ITicketService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/booking-ticket")
@@ -29,6 +33,9 @@ public class TicketRestController {
 
     @Autowired
     private ITicketService ticketService;
+
+    @Autowired
+    private ICustomerService customerService;
 
     @GetMapping("/movie")
     public ResponseEntity<List<IMovie>> showMovieIn7NextDay() {
@@ -80,5 +87,28 @@ public class TicketRestController {
         BeanUtils.copyProperties(ticketDto, ticket);
         ticketService.saveTicket(ticket);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/customer/{username}")
+    public ResponseEntity<Customer> getCustomerByUsername(@PathVariable String username) {
+        Customer customer = customerService.findByUsername(username);
+        return  new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("/seat/{idSeatDetail}")
+    public ResponseEntity<SeatDetail> getSeatDetailById(@PathVariable Integer idSeatDetail) {
+        Optional<SeatDetail> seatDetail = seatDetailService.findById(idSeatDetail);
+        return seatDetail.map(detail -> new ResponseEntity<>(detail, HttpStatus.OK)).orElseGet(()
+                -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/update-status-seat/{idSeatDetail}")
+    public ResponseEntity<SeatDetail> setStatusSeat(@PathVariable Integer idSeatDetail) {
+        Optional<SeatDetail> seatDetail = seatDetailService.findById(idSeatDetail);
+        if(seatDetail.isPresent()) {
+            seatDetailService.setStatusSeatIsPending(idSeatDetail);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
