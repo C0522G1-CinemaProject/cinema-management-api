@@ -1,10 +1,15 @@
 package projectbackend.service.room;
 
-import projectbackend.dto.booking_ticket.ISeatDetail;
-import projectbackend.model.room.SeatRoom;
+import projectbackend.dto.room.ISeatRoomDto;
 
 import java.util.List;
 
 public interface ISeatRoomService {
-    List<SeatRoom> findAll();
+
+    void updateSeatRoom(Integer idSeatRoom, Integer idSeatType);
+
+    ISeatRoomDto findSeatRoomById(Integer id);
+
+    List<ISeatRoomDto> findSeatRoomByRoomId(Integer id);
+
 }

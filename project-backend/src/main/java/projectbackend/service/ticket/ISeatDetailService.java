@@ -1,6 +1,5 @@
 package projectbackend.service.ticket;
 
-import org.springframework.data.repository.query.Param;
 import projectbackend.dto.booking_ticket.ISeatDetail;
 import projectbackend.model.ticket.SeatDetail;
 
