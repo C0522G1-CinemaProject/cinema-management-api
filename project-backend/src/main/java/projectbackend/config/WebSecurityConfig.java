@@ -18,44 +18,44 @@ import projectbackend.service.decentralization.impl.MyUserDetailService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MyUserDetailService userDetailService;
-    @Autowired
-    private JwtFilter jwtFilter;
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    /*cài đặt lấy thông tin của userDetail và mã hóa passs*/
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers("/api/public/**")
-                .permitAll()
-                .antMatchers("/api/user/**").hasAnyRole("USER","ADMIN")
-                .antMatchers("api/admin/**").hasRole("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60*60*24);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+//    @Autowired
+//    private MyUserDetailService userDetailService;
+//    @Autowired
+//    private JwtFilter jwtFilter;
+//
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
+//
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    /*cài đặt lấy thông tin của userDetail và mã hóa passs*/
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf()
+//                .disable()
+//                .authorizeRequests()
+//                .antMatchers("/api/public/**")
+//                .permitAll()
+//                .antMatchers("/api/user/**").hasAnyRole("USER","ADMIN")
+//                .antMatchers("api/admin/**").hasRole("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                    .and()
+//                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60*60*24);
+//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//    }
 }
