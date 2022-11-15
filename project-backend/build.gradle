@@ -2,7 +2,19 @@ plugins {
     id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
+    id 'org.sonarqube' version '3.0'
 }
+
+/*
+sonarqube{
+    properties{
+        property 'sonar.host.url', 'http://3.141.165.122:9000'
+        property 'sonar.login', ''
+        property 'sonar.projectKey', 'project_backend'
+        property 'sonar.projectName', 'project_backend'
+    }
+}
+*/
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'

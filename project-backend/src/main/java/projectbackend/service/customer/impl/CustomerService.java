@@ -1,8 +1,6 @@
 package projectbackend.service.customer.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projectbackend.dto.customer.ICustomerStatementDto;
 import projectbackend.repository.customer.ICustomerRepository;
@@ -12,22 +10,14 @@ import java.util.List;
 
 @Service
 public class CustomerService implements ICustomerService {
+
     @Autowired
     private ICustomerRepository customerRepository;
 
     /**
      * creator: Phan Phước Đại
      * method use statistical top movie positive
-     * */
-    @Override
-    public Page<ICustomerStatementDto> getCustomerTop(Pageable pageable) {
-        return customerRepository.getCustomerTop(pageable);
-    }
-
-    /**
-     * creator: Phan Phước Đại
-     * method use statistical top movie positive
-     * */
+     */
     @Override
     public List<ICustomerStatementDto> getCustomerTop() {
         return customerRepository.getCustomerTop();
@@ -36,7 +26,7 @@ public class CustomerService implements ICustomerService {
     /**
      * creator: Phan Phước Đại
      * method use statistical top movie positive
-     * */
+     */
     @Override
     public List<ICustomerStatementDto> getCustomerTop(int numberMonth) {
         if (numberMonth == 0) {
