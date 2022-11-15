@@ -35,4 +35,16 @@ public interface IPromotionRepository extends JpaRepository<Promotion, Integer> 
             , countQuery = "select  count(*) from promotion where promotion.id = :id and promotion.is_delete = 0 ", nativeQuery = true)
     Optional<Promotion> findPromotionById(int id);
 
+    @Modifying
+    @Query(value = "UPDATE promotion SET " +
+            "image = :#{#u.image}," +
+            "name = :#{#u.name}, " +
+            "start_time = :#{#u.startTime}," +
+            "end_time = :#{#u.endTime}, " +
+            "discount = :#{#u.discount},  " +
+            "detail = :#{#u.detail}, " +
+            " is_delete = 0 " +
+            "WHERE id = :#{#u.id}", nativeQuery = true)
+    void updatePromotion(@Param("u") Promotion promotion);
+
 }
