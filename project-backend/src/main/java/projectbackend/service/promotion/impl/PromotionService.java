@@ -23,7 +23,7 @@ public class PromotionService implements IPromotionService {
 
     @Override
     public void updatePromotion(Promotion promotion) {
-        iPromotionRepository.save(promotion);
+        iPromotionRepository.updatePromotion(promotion);
     }
 
     @Override

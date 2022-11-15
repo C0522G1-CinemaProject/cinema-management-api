@@ -40,22 +40,15 @@ public class PromotionRestController {
     }
 
     @PatchMapping("/edit/{id}")
-    public ResponseEntity<?> editPromotion(@RequestBody @Valid PromotionDto promotionDto,
-                                           BindingResult bindingResult,
-                                           @PathVariable Integer id
-    ) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError(),
-                    HttpStatus.BAD_REQUEST);
-        }
-
+    public ResponseEntity<Promotion> editPromotion(@RequestBody @Valid PromotionDto promotionDto,
+                                                   BindingResult bindingResult,
+                                                   @PathVariable Integer id) {
         Promotion promotion = new Promotion();
         BeanUtils.copyProperties(promotionDto, promotion);
         promotion.setId(id);
         iPromotionService.updatePromotion(promotion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<Promotion> getInfo(@PathVariable int id) {
@@ -74,7 +67,6 @@ public class PromotionRestController {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
         }
     }
 

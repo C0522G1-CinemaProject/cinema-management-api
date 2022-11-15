@@ -16,4 +16,5 @@ public interface IPromotionService {
     Optional<Promotion> findById(int id);
 
     void delete(int id);
+
 }
