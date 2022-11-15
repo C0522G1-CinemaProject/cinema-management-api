@@ -9,13 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.ticket.ITicketDto;
+import projectbackend.model.customer.Customer;
 import projectbackend.model.ticket.Ticket;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
-            "ticket.status_ticket as statusTicket, seat_type.price as price, ticket.id as ticketId   " +
+            "ticket.status_ticket as statusTicket, seat_type.price as price, ticket.id as ticketI " +
             "from ticket " +
             "join customer on customer.id = ticket.customer_id " +
             "join seat_detail on seat_detail.id = ticket.seat_detail_id " +
@@ -63,60 +65,49 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     Page<ITicketDto> findAllCanceledTickets(@Param("username") String username, Pageable pageable);
 
 
-    @Query(value = "select saving_point.day_booking as bookingTime," +
-            "saving_point.point as point ," +
+    @Query(value = "select saving_point.point as point ,saving_point.day_booking as bookingTime  " +
             "from customer " +
             "join saving_point on saving_point.customer_id = customer.id " +
-            "where customer.username = :username and saving_point.day_booking like %:bookingTime% " +
-            "and saving_point.point = :point  ",
+            "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) ",
             countQuery = "select count(*) from customer " +
                     "join saving_point on saving_point.customer_id = customer.id " +
-                    "where customer.username = :username and saving_point.day_booking like %:bookingTime% and " +
-                    "saving_point.point = :point  ", nativeQuery = true)
-    Page<ITicketDto> findAllHistoryPointSearch(@Param("username") String username,
-                                               @Param("bookingTime") String bookingTime,
-                                               @Param("point") int value,
-                                               Pageable pageable);
-
-
-    @Query(value = "select saving_point.point as point ,saving_point.day_booking as bookingTime " +
-            "from customer " +
-            "join saving_point on saving_point.customer_id = customer.id " +
-            "where customer.username = :username and saving_point.day_booking like %:bookingTime% ",
-            countQuery = "select count(*) from customer " +
-                    "join saving_point on saving_point.customer_id = customer.id " +
-                    "where customer.username = :username and saving_point.day_booking like %:bookingTime% "
+                    "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) "
             , nativeQuery = true)
     Page<ITicketDto> findAllHistoryPoint(@Param("username") String username,
-                                         @Param("bookingTime") String bookingTime,
+                                         @Param("startTime") String startTime,
+                                         @Param("endTime") String endTime,
                                          Pageable pageable);
+
 
     @Query(value = "select saving_point.day_booking as bookingTime," +
             "saving_point.point as point " +
             "from customer " +
             "join saving_point on saving_point.customer_id = customer.id " +
-            "where customer.username = :username and saving_point.day_booking like %:bookingTime% " +
+            "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) " +
             "and saving_point.point > 0  ",
             countQuery = "select count(*) from customer " +
                     "join saving_point on saving_point.customer_id = customer.id " +
-                    "where customer.username = :username and saving_point.day_booking like %:bookingTime% and " +
+                    "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) and " +
                     "saving_point.point > 0  ", nativeQuery = true)
     Page<ITicketDto> findAllBigPointSearch(@Param("username") String username,
-                                           @Param("bookingTime") String bookingTime,
+                                           @Param("startTime") String startTime,
+                                           @Param("endTime") String endTime,
                                            Pageable pageable);
+
 
     @Query(value = "select saving_point.day_booking as bookingTime," +
             "saving_point.point as point " +
             "from customer " +
             "join saving_point on saving_point.customer_id = customer.id " +
-            "where customer.username = :username and saving_point.day_booking like %:bookingTime% " +
+            "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) " +
             "and saving_point.point < 0  ",
             countQuery = "select count(*) from customer " +
                     "join saving_point on saving_point.customer_id = customer.id " +
-                    "where customer.username = :username and saving_point.day_booking like %:bookingTime% and " +
+                    "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) and " +
                     "saving_point.point < 0  ", nativeQuery = true)
     Page<ITicketDto> findAllSmallPointSearch(@Param("username") String username,
-                                             @Param("bookingTime") String bookingTime,
+                                             @Param("startTime") String startTime,
+                                             @Param("endTime") String endTime,
                                              Pageable pageable);
 
     @Query(value = "select id,is_delete,customer_id,seat_detail_id,status_ticket,ticket_booking_time " +
@@ -129,4 +120,13 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     @Transactional
     @Query(value = "update ticket set is_delete = 1 where ticket.id = :id", nativeQuery = true)
     void deleteTicket(@Param("id") Integer id);
+
+    @Query(value = "select (sum(saving_point.point)) as totalMoney " +
+            "from customer " +
+            "join saving_point on saving_point.customer_id = customer.id " +
+            "where customer.username =:username ", nativeQuery = true)
+    List<ITicketDto> totalPoint(@Param("username") String username);
+
+
+
 }

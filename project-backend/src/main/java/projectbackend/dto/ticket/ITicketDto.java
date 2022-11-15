@@ -8,4 +8,6 @@ public interface ITicketDto {
     String getBookingTime();
     String getPrice();
     String getIsDeleteTicket();
+    String getTotalMoney();
+
 }

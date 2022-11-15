@@ -62,7 +62,7 @@ public class TicketRestController_showListCanceledTicket {
 
     }
 
-    //test size = 0, 
+    //test size = 0,
     @Test
     public void showListCanceledTicket_5() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
