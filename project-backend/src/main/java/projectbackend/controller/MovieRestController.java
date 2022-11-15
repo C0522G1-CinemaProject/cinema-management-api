@@ -44,7 +44,7 @@ public class MovieRestController {
     //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
     @GetMapping("/list/home")
     public ResponseEntity<Page<IMovieDtoHome>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
-                                                       @PageableDefault(value = 5) Pageable pageable) {
+                                                       @PageableDefault Pageable pageable) {
         Page<IMovieDtoHome> moviePage = iMovieService.findAllHome(name, pageable);
         if (moviePage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -54,7 +54,7 @@ public class MovieRestController {
 
     @GetMapping("/list/premiere")
     public ResponseEntity<Page<IMovieDtoHome>> getAllPremiereSoonMovie(@RequestParam(value = "name", defaultValue = "") String name,
-                                                           @PageableDefault(value = 5) Pageable pageable) {
+                                                           @PageableDefault Pageable pageable) {
         Page<IMovieDtoHome> moviePage = iMovieService.findAllPremiereSoon(name, pageable);
         if (moviePage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

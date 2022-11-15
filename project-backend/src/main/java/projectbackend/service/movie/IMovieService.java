@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import projectbackend.dto.movie.IMovieDto;
 import projectbackend.dto.movie.IMovieDtoHome;
 import projectbackend.model.movie.Movie;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -32,5 +33,5 @@ public interface IMovieService {
 
     Optional<Movie> finById(Integer id);
 
-
+    List<Movie> findAll();
 }

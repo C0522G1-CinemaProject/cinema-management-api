@@ -11,9 +11,11 @@ import projectbackend.repository.movie.IMovieRepository;
 import projectbackend.service.movie.IMovieService;
 
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class MovieService implements IMovieService {
+
     @Autowired
     private IMovieRepository iMovieRepository;
 
@@ -66,5 +68,9 @@ public class MovieService implements IMovieService {
     @Override
     public Optional<Movie> finById(Integer id) {
         return iMovieRepository.findById(id);
+    }
+    @Override
+    public List<Movie> findAll() {
+        return iMovieRepository.findAll();
     }
 }
