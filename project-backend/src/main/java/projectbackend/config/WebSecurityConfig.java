@@ -51,14 +51,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
-                        "/api/promotion/**")
+                        "/api/promotion/list",
+                        "/api/promotion/detail/{id}"
+                        )
                 .permitAll()
                 .antMatchers("/api/user/**",
-                        "/api/promotion/list",
                         "/api/promotion/save",
                         "/api/promotion/delete/{id}",
-                        "/api/promotion/edit/{id}",
-                        "/api/promotion/detail/{id}").hasAnyRole("USER","ADMIN")
+                        "/api/promotion/edit/{id}").hasAnyRole("ADMIN","EMPLOYEE")
                 .antMatchers("api/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

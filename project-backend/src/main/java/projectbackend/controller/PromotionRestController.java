@@ -80,7 +80,7 @@ public class PromotionRestController {
 
     @GetMapping("/list")
     public ResponseEntity<Page<Promotion>> showPromotion(@RequestParam(value = "name", defaultValue = "") String name,
-                                                         @PageableDefault(value = 4) Pageable pageable) {
+                                                         @PageableDefault(value = 5) Pageable pageable) {
         Page<Promotion> promotions = iPromotionService.findAll(pageable, name);
         if (promotions.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
