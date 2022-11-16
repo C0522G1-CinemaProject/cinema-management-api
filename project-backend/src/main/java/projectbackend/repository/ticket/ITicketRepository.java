@@ -25,7 +25,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     @Query(value = "SELECT id, is_delete, customer_id, seat_detail_id, status_ticket, ticket_booking_time FROM ticket WHERE id =:id AND is_delete = 0", nativeQuery = true)
     Optional<Ticket> findById(@Param("id") Integer id);
 
-    @Query(value = "SELECT customer.name AS nameCustomer, customer.email AS email, customer.id_card as idCard, customer.phone_number as phoneNumber, room.name as nameRoom, show_times.date_projection as dateProjection, times.start_time as startTime, seat.name as nameSeat, seat_type.price as price\n" +
+    @Query(value = "SELECT customer.name AS nameCustomer, customer.email AS email, customer.id_card as idCard, customer.phone_number as phoneNumber, room.name as nameRoom, show_times.date_projection as dateProjection, times.start_time as startTime, seat.name as nameSeat, seat_type.price as price, movie.name as nameMovie, movie.image as image\n" +
             "FROM ticket\n" +
             "INNER JOIN customer ON ticket.customer_id = customer.id\n" +
             "INNER JOIN seat_detail ON ticket.seat_detail_id = seat_detail.id\n" +
@@ -35,7 +35,8 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "INNER JOIN seat_room ON room.id = seat_room.room_id\n" +
             "INNER JOIN seat ON seat_room.seat_id = seat.id\n" +
             "INNER JOIN seat_type ON seat_room.seat_type_id = seat_type.id\n" +
-            "WHERE ticket.id=:id AND ticket.is_delete = 0 limit 1", nativeQuery = true)
+            "INNER JOIN movie ON show_times.movie_id = movie.id\n" +
+            "WHERE ticket.id=:id AND ticket.status_ticket = 0 AND ticket.is_delete = 0 limit 1", nativeQuery = true)
     Optional<ITicketDto> findTicketById(@Param("id") int id);
 
 

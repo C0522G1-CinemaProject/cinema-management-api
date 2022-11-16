@@ -3,6 +3,10 @@ package projectbackend.dto.ticket;
 import java.sql.Date;
 
 public interface ITicketDto {
+    String getImage();
+
+    String getNameMovie();
+
     String getNameCustomer();
 
     String getEmail();
@@ -20,6 +24,5 @@ public interface ITicketDto {
     String getNameSeat();
 
     Integer getPrice();
-
 
 }

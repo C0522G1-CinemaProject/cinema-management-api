@@ -1,8 +1,6 @@
 package projectbackend.service.ticket.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.model.ticket.Ticket;
@@ -15,11 +13,6 @@ import java.util.Optional;
 public class TicketService implements ITicketService {
     @Autowired
     private ITicketRepository iTicketRepository;
-
-    @Override
-    public Page<Ticket> findAllTicket(Pageable pageable) {
-        return iTicketRepository.findAllTicket(pageable);
-    }
 
     @Override
     public Optional<Ticket> findById(Integer id) {
