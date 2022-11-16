@@ -30,6 +30,7 @@ public class UserService implements IUserService {
         return iUserRepository.findAll();
     }
 
+
     @Override
     public Optional<IUserEmailDto> findByEmail(String email) {
         return iUserRepository.findByEmail(email);
@@ -45,6 +46,7 @@ public class UserService implements IUserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
+
         iUserRepository.saveNewPassword(encodedPassword, user.getUsername());
     }
 

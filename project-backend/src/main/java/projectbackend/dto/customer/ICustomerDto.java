@@ -1,6 +1,7 @@
 package projectbackend.dto.customer;
 
 public interface ICustomerDto {
+
     String getName();
 
     String getDayOfBirth();

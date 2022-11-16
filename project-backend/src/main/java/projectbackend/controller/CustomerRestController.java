@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.customer.CustomerDto;
 import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.model.customer.Customer;
+import projectbackend.model.customer.CustomerType;
 import projectbackend.model.decentralization.User;
 import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.decentralization.impl.MyUserDetails;
 
 import javax.validation.Valid;
-import java.util.List;
+
 import java.util.Optional;
+
 
 @RestController
 @CrossOrigin("*")
@@ -44,6 +46,7 @@ public class CustomerRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
     @PostMapping("/add")
     public ResponseEntity<?> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -53,7 +56,7 @@ public class CustomerRestController {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
         customer.getUser().setPassword(new BCryptPasswordEncoder().encode(customerDto.getUser().getPassword()));
-        iCustomerService.saveCustomer(customer);
+        iCustomerService.saveCustomerByUser(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -69,10 +72,27 @@ public class CustomerRestController {
         return new ResponseEntity<>(customerPage, HttpStatus.OK);
     }
 
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<?> editCustomer(@RequestBody @Valid CustomerDto customerDto,
+                                          BindingResult bindingResult,
+                                          @PathVariable Integer id) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        }
+        Optional<Customer> customer = iCustomerService.findByIdCustomer(id);
+        if (!customer.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        BeanUtils.copyProperties(customerDto, customer.get());
+        iCustomerService.saveCustomer(customer.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PatchMapping("/edit")
     public ResponseEntity<?> editCustomer(@RequestBody @Valid CustomerDto customerDto,
-                                                         BindingResult bindingResult,
-                                                         @RequestParam(value = "username") String username
+                                          BindingResult bindingResult,
+                                          @RequestParam(value = "username") String username
     ) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(),
@@ -85,5 +105,15 @@ public class CustomerRestController {
         }
     }
 
-}
+        @GetMapping("/find/{id}")
+        public ResponseEntity<CustomerDto> editCustomer (@PathVariable Integer id){
+            Optional<Customer> customer = iCustomerService.findByIdCustomer(id);
+            if (!customer.isPresent()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            CustomerDto customerDto = new CustomerDto();
+            BeanUtils.copyProperties(customer.get(), customerDto);
+            return new ResponseEntity<>(customerDto, HttpStatus.OK);
+        }
+    }
 

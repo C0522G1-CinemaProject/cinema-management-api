@@ -12,7 +12,6 @@ import projectbackend.model.decentralization.User;
 import projectbackend.repository.customer.ICustomerRepository;
 import projectbackend.service.customer.ICustomerService;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -21,38 +20,48 @@ public class CustomerService implements ICustomerService {
 
 
     @Autowired
-    private ICustomerRepository icustomerRepository;
+    private ICustomerRepository iCustomerRepository;
 
 
     @Override
     public List<Customer> findAll() {
-        return icustomerRepository.findAll();
+        return iCustomerRepository.findAll();
     }
+
 
     @Override
     public Optional<ICustomerDto> findCustomerByUsername(String username) {
-        return icustomerRepository.findCustomerByUsername(username);
+        return iCustomerRepository.findCustomerByUsername(username);
+    }
+
+
+    @Override
+    public void saveCustomer(Customer customer) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        iCustomerRepository.setPassword(customer.getUser().getUsername(),
+                passwordEncoder.encode(customer.getUser().getPassword()));
+        iCustomerRepository.save(customer);
     }
 
 
     @Override
     public Optional<Customer> findByIdCustomer(Integer id) {
-        return Optional.empty();
+        return iCustomerRepository.findByIdCustomer(id);
     }
 
     @Override
     public void update(Customer customer, String username) {
-        icustomerRepository.updateCustomer(customer, username);
+        iCustomerRepository.updateCustomer(customer, username);
     }
 
     @Override
-    public void saveCustomer(Customer customer) {
-        icustomerRepository.saveCustomer(customer);
+    public void saveCustomerByUser(Customer customer) {
+        iCustomerRepository.saveCustomer(customer);
     }
 
     @Override
     public Page<Customer> searchCustomer(String nameSearch, String addressSearch, String phoneSearch, Pageable pageable) {
-        return null;
+        return iCustomerRepository.searchCustomer(nameSearch, addressSearch, phoneSearch, pageable);
     }
 
     @Override

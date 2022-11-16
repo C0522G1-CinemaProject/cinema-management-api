@@ -12,7 +12,6 @@ public interface IUserService {
 
     List<User> findAll();
 
-
     Optional<IUserEmailDto> findByEmail(String email);
 
     Optional<IUserEmailDto> findByUsernameDto(String username);
