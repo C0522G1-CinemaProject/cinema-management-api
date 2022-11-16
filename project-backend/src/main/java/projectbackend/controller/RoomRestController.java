@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "api/admin/roomRest")
+@RequestMapping(value = "api/roomRest")
 public class RoomRestController {
 
     @Autowired
@@ -32,9 +32,8 @@ public class RoomRestController {
         List<IRoomDto> roomList = iRoomService.findAllRoom(keywordName);
         if (roomList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(roomList, HttpStatus.OK);
         }
+            return new ResponseEntity<>(roomList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
