@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
+                       
                         "/api/promotion/**",
                         "/api/user/list",
                         "/api/movie/**",
@@ -59,9 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .permitAll()
                 .antMatchers("/api/user/**").hasAnyRole("USER","ADMIN")
-
- 
-
                 .antMatchers("api/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
