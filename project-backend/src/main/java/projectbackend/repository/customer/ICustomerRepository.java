@@ -13,6 +13,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     /**
      * creator: Phan Phước Đại
+     * date:11/11/2022
      * method use statistical top customer positive
      */
     @Query(value = "select idCustomer as id, nameCustomer as name, count(ticket_statement.id) as countTicket," +
@@ -26,6 +27,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     /**
      * creator: Phan Phước Đại
+     * date:11/11/2022
      * method use statistical top customer positive
      */
 

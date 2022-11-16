@@ -20,7 +20,8 @@ public class MovieRestController {
 
     /**
      * creator: Phan Phước Đại
-     * method use statistical top movie with turnover
+     * date:11/11/2022
+     * method use statistical top movie positive
      */
     @GetMapping("/statement")
     public ResponseEntity<List<IMovieStatementDto>> getCustomerTop(@RequestParam(defaultValue = "0") int numberMonth) {

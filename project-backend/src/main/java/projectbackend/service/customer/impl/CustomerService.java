@@ -14,18 +14,12 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
 
-    /**
-     * creator: Phan Phước Đại
-     * method use statistical top movie positive
-     */
-    @Override
-    public List<ICustomerStatementDto> getCustomerTop() {
-        return customerRepository.getCustomerTop();
-    }
+
 
     /**
      * creator: Phan Phước Đại
-     * method use statistical top movie positive
+     * date:11/11/2022
+     * method use statistical top customer positive
      */
     @Override
     public List<ICustomerStatementDto> getCustomerTop(int numberMonth) {

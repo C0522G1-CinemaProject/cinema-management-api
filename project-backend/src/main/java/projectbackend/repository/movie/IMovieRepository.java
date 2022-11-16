@@ -13,6 +13,7 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
     /**
      * creator: Phan Phước Đại
+     * date:11/11/2022
      * method use statistical top movie positive
      */
     @Query(value = "select idMovie as id, nameMovie as name, count(id) as countTicket," +
@@ -26,6 +27,7 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
     /**
      * creator: Phan Phước Đại
+     * date:11/11/2022
      * method use statistical top movie positive
      */
     @Query(value = "select idMovie as id, nameMovie as name, count(id) as countTicket, sum(money)  as turnover," +

@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface ICustomerService {
 
-
-    List<ICustomerStatementDto> getCustomerTop();
-
+    /**
+     * creator: Phan Phước Đại
+     * date:11/11/2022
+     * method use statistical top customer positive
+     */
     List<ICustomerStatementDto> getCustomerTop(int numberMonth);
 }
