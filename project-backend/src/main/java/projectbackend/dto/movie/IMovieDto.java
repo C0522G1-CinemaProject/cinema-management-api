@@ -30,5 +30,9 @@ public interface IMovieDto {
     String getActor();
 
     String getVersion();
+    String getRoom();
+    String getTimes();
+    String getEmployeeId();
+
 
 }

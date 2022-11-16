@@ -1,11 +1,12 @@
 package projectbackend.model.show_times;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import projectbackend.model.movie.Movie;
 import projectbackend.model.room.Room;
 
 import javax.persistence.*;
 import java.sql.Date;
-
+@JsonDeserialize(as=Movie.class)
 @Entity
 public class ShowTimes {
 

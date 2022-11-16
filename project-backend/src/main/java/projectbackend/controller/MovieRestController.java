@@ -1,6 +1,6 @@
 package projectbackend.controller;
 
-
+import projectbackend.dto.movie.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,11 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
 import projectbackend.dto.movie.IMovieDto;
 import projectbackend.dto.movie.IMovieDtoHome;
 import projectbackend.dto.movie.MovieDto;
 import projectbackend.model.movie.Movie;
+import projectbackend.model.show_times.ShowTimes;
 import projectbackend.service.movie.IMovieService;
+import projectbackend.service.movie.IMovieTypeService;
+import projectbackend.service.show_times.IShowTimesService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +31,12 @@ import java.util.Optional;
 public class MovieRestController {
     @Autowired
     private IMovieService iMovieService;
+
+    @Autowired
+    private IMovieTypeService movieTypeService;
+
+    @Autowired
+    private IShowTimesService showTimesService;
 
     //TruongNT function
     @GetMapping(value = "/detail/{id}")
@@ -89,28 +99,40 @@ public class MovieRestController {
 
     //QuyetND function
     @GetMapping("/{id}")
-    public ResponseEntity<IMovieDto> getMovie(@PathVariable int id) {
-        IMovieDto iMovieDto = iMovieService.getMovie(id);
-        return new ResponseEntity<>(iMovieDto, HttpStatus.OK);
+    public ResponseEntity<?> getMovie(@PathVariable int id) {
+        Movie movie = iMovieService.getMovie(id);
+        MovieDto movieDto = new MovieDto();
+        if (movie != null) {
+            List<ShowTimes> showTimes = showTimesService.getShowTime(id);
+            BeanUtils.copyProperties(movie, movieDto);
+            movieDto.setShowTimesDto(showTimes);
+            return new ResponseEntity<>(movieDto, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(movieDto, HttpStatus.NO_CONTENT);
+
+    }
+
+    @GetMapping("/showTime/{id}")
+    public ResponseEntity<List<ShowTimes>> getShowTime(@PathVariable int id) {
+        List<ShowTimes> showTimeDto = iMovieService.getShowTime(id);
+        return new ResponseEntity<>(showTimeDto, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<List<FieldError>> addMovie(@RequestBody @Valid MovieDto movieDto,
-                                                     BindingResult bindingResult) {
+    public ResponseEntity<?> addMovie(@RequestBody @Valid MovieFullDto movieFullDto,
+                                      BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
         }
-        Movie movie = new Movie();
-        BeanUtils.copyProperties(movieDto, movie);
-        iMovieService.addMovie(movie);
+        iMovieService.addMovieDto(movieFullDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //QuyetND function
     @PatchMapping("/edit/{id}")
-    public ResponseEntity<List<FieldError>> editMovie(@RequestBody @Valid MovieDto movieDto,
+    public ResponseEntity<List<FieldError>> editMovie(@RequestBody @Valid MovieFullDto movieFullDto,
                                                       BindingResult bindingResult,
                                                       @PathVariable Integer id) {
         if (bindingResult.hasErrors()) {
@@ -123,7 +145,27 @@ public class MovieRestController {
                 iMovieService.editMovie(movie.get());
             }
         }
+
+        iMovieService.editMovieDto(movieFullDto);
+
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/movieType")
+    public ResponseEntity<List<IMovieTypeDto>> getListMovieType() {
+        List<IMovieTypeDto> movieTypes = movieTypeService.getListMovieType();
+
+        if (movieTypes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(movieTypes, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/listMovie")
+    public ResponseEntity<List<Movie>> getListMovie() {
+        List<Movie> movie = iMovieService.getListMovie();
+        return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 }
 

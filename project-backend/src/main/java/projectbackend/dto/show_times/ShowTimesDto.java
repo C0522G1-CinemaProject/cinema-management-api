@@ -5,10 +5,10 @@ import projectbackend.model.room.Room;
 import projectbackend.model.show_times.Times;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ShowTimesDto {
     private Integer id;
-    private boolean isDelete;
     private Date dateProjection;
     private Movie movie;
     private Times times;
@@ -17,14 +17,6 @@ public class ShowTimesDto {
     public ShowTimesDto() {
     }
 
-    public ShowTimesDto(Integer id, boolean isDelete, Date dateProjection, Movie movie, Times times, Room room) {
-        this.id = id;
-        this.isDelete = isDelete;
-        this.dateProjection = dateProjection;
-        this.movie = movie;
-        this.times = times;
-        this.room = room;
-    }
 
     public Integer getId() {
         return id;
@@ -34,12 +26,13 @@ public class ShowTimesDto {
         this.id = id;
     }
 
-    public boolean isDelete() {
-        return isDelete;
+
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setDelete(boolean delete) {
-        isDelete = delete;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     public Date getDateProjection() {
@@ -48,14 +41,6 @@ public class ShowTimesDto {
 
     public void setDateProjection(Date dateProjection) {
         this.dateProjection = dateProjection;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
     }
 
     public Times getTimes() {
@@ -74,3 +59,4 @@ public class ShowTimesDto {
         this.room = room;
     }
 }
+
