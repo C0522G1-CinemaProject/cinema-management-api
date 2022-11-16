@@ -10,6 +10,7 @@ import projectbackend.dto.booking_ticket.ISeatDetail;
 import projectbackend.dto.booking_ticket.IShowDates;
 import projectbackend.dto.booking_ticket.IShowTimes;
 import projectbackend.dto.ticket.TicketDto;
+import projectbackend.jwt.JwtTokenUtil;
 import projectbackend.model.customer.Customer;
 import projectbackend.model.ticket.SeatDetail;
 import projectbackend.model.ticket.Ticket;
@@ -18,6 +19,7 @@ import projectbackend.service.show_times.IShowTimesService;
 import projectbackend.service.ticket.ISeatDetailService;
 import projectbackend.service.ticket.ITicketService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,9 @@ public class TicketRestController {
 
     @Autowired
     private ICustomerService customerService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @GetMapping("/movie")
     public ResponseEntity<List<IMovie>> showMovieIn7NextDay() {
@@ -89,8 +94,11 @@ public class TicketRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/customer/{username}")
-    public ResponseEntity<Customer> getCustomerByUsername(@PathVariable String username) {
+    @GetMapping("/get-customer")
+    public ResponseEntity<Customer> getCustomerByUsername(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        String username = jwtTokenUtil.getUsernameFromJwtToken(headerAuth.substring(7));
         Customer customer = customerService.findByUsername(username);
         return  new ResponseEntity<>(customer, HttpStatus.OK);
     }
@@ -100,15 +108,5 @@ public class TicketRestController {
         Optional<SeatDetail> seatDetail = seatDetailService.findById(idSeatDetail);
         return seatDetail.map(detail -> new ResponseEntity<>(detail, HttpStatus.OK)).orElseGet(()
                 -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/update-status-seat/{idSeatDetail}")
-    public ResponseEntity<SeatDetail> setStatusSeat(@PathVariable Integer idSeatDetail) {
-        Optional<SeatDetail> seatDetail = seatDetailService.findById(idSeatDetail);
-        if(seatDetail.isPresent()) {
-            seatDetailService.setStatusSeatIsPending(idSeatDetail);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

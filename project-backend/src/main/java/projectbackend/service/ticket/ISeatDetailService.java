@@ -10,6 +10,4 @@ public interface ISeatDetailService {
     Optional<SeatDetail> findById(Integer id);
 
     List<ISeatDetail> findAllSeatDetail(Integer idShowTime);
-
-    void setStatusSeatIsPending(Integer idSeatDetail);
 }
