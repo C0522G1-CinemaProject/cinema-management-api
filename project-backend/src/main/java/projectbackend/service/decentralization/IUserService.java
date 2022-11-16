@@ -1,16 +1,26 @@
 package projectbackend.service.decentralization;
 
-
+import projectbackend.dto.decentralization.IUserEmailDto;
 import projectbackend.model.decentralization.User;
 
+import java.util.List;
 import java.util.Optional;
 
+
 public interface IUserService {
+    String existsByUserName(String username);
 
-    void saveUser(User user);
+    List<User> findAll();
 
-    Optional<User> findByUsername(String username);
 
-    void updateUser(User user);
+    Optional<IUserEmailDto> findByEmail(String email);
+
+    Optional<IUserEmailDto> findByUsernameDto(String username);
+
+    void updatePassword(User user, String newPassword);
+
+    Optional<User> findUserByUsername(String username);
+
+    void updateUser(User user, String username);
 
 }

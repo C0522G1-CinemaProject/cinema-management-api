@@ -12,20 +12,12 @@ public class CustomerDto implements Validator {
     private Integer id;
 
     @NotBlank(message = "vui lòng nhập tên!")
-    @Size(min = 10)
-    @Size(max = 28)
-    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$",
-            message = "Tên khách hàng không được chứa số, và các kí tự đầu tiên của mỗi từ phải viết hoa.")
+    @Size(min = 10, message = "Phải có ít nhất 10 ký tự")
     private String name;
 
     private boolean isDelete;
 
     @NotNull
-<<<<<<< HEAD
-=======
-    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])$",
-            message = "Ngày sinh phải đúng định dạng DD/MM/YYYY.")
->>>>>>> 70bc45875321c3b97279b42424e5c2797a79c900
     private String dayOfBirth;
 
     @NotNull(message = "Vui lòng chọn giới tính.")
@@ -43,13 +35,12 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Địa chỉ không được để trống.")
     private String address;
 
-    @NotNull
+
     @Size(min = 10)
     @Size(max = 14)
     @NotBlank(message = "Số điện thoại không được để trống.")
     @Pattern(regexp = "^((0|[(]84[)][+])9[01]\\d{7})| *$", message =
             "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.")
-
     private String phoneNumber;
     private CustomerType customerType;
     private User user;
