@@ -1,5 +1,6 @@
 package projectbackend.controller;
 
+import org.springframework.data.web.PageableDefault;
 import projectbackend.dto.movie.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,21 +134,12 @@ public class MovieRestController {
     //QuyetND function
     @PatchMapping("/edit/{id}")
     public ResponseEntity<List<FieldError>> editMovie(@RequestBody @Valid MovieFullDto movieFullDto,
-                                                      BindingResult bindingResult,
-                                                      @PathVariable Integer id) {
+                                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
-        }else {
-            Optional<Movie> movie = iMovieService.finById(id);
-            if (movie.isPresent()) {
-                BeanUtils.copyProperties(movieDto, movie);
-                iMovieService.editMovie(movie.get());
-            }
         }
-
         iMovieService.editMovieDto(movieFullDto);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -8,11 +8,9 @@ import projectbackend.dto.room.IRoomDto;
 
 import projectbackend.model.room.Room;
 
+import java.util.List;
+
 public interface IRoomRepository extends JpaRepository<Room, Integer> {
-
-
-    @Query(value = "select name from room where is_delete = 0", nativeQuery = true)
-    List<Room> findAll();
 
     @Query(value = "SELECT  " +
             "    room.id AS roomId, room.name AS roomName, room.maximum_seats_in_room AS maximumSeatsInRoom " +

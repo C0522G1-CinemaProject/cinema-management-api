@@ -21,7 +21,6 @@ public interface IMovieService {
 
     Optional<IMovieDto> getMovieDetail(Integer id);
 
-    Page<IMovieDto> findAllHome(String name, Pageable pageable);
 
     //NamHV
     //6.5.1.1. Danh Sách Phim – Xem danh sách phim
@@ -39,7 +38,6 @@ public interface IMovieService {
 
     void editMovieDto(MovieFullDto movieFullDto);
 
-    void addMovie(Movie movie);
 
     Movie getMovie(Integer id);
 

@@ -81,6 +81,7 @@ public class MovieService implements IMovieService {
         showTimesRepository.save(showTimes);
     }
 
+
     @Override
     public Movie getMovie(Integer id) {
         return iMovieRepository.findMovieById(id);
