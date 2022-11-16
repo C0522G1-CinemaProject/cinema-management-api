@@ -24,10 +24,6 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
     public User(String username, String password, boolean isEnable, boolean isDelete, List<Role> roles) {
         this.username = username;
         this.password = password;

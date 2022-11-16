@@ -9,8 +9,6 @@ public interface ITimesService {
 
     List<ITimeDto> getTime(String dateProjection, Integer room);
 
-    List<ITimeDto> getTime(String dateProjection, String room);
-
     List<Times> findAll();
 
 }

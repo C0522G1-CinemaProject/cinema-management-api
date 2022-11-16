@@ -24,39 +24,27 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/room")
+@RequestMapping("api/room")
 
 public class RoomRestController {
 
     @Autowired
-    private IRoomService iRoomService;
+    private IRoomService roomService;
 
     @Autowired
     private ISeatRoomService iSeatRoomService;
 
-    @GetMapping(value = "")
-    public ResponseEntity<List<IRoomDto>> getAllRoom(@RequestParam Optional<String> name) {
+    @GetMapping("")
+    public ResponseEntity<List<Room>> getListRoom() {
+        List<Room> rooms = roomService.getListRoom();
 
-        String keywordName = name.orElse("");
-
-        List<IRoomDto> roomList = iRoomService.findAllRoom(keywordName);
-        if (roomList.isEmpty()) {
+        if (rooms.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(roomList, HttpStatus.OK);
+            return new ResponseEntity<>(rooms, HttpStatus.OK);
         }
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<IRoomDto> findRoomById(@PathVariable String id) {
-
-        IRoomDto room = iRoomService.findRoomById(id);
-        if (room == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(room, HttpStatus.OK);
-        }
-    }
 
     @GetMapping(value = "/seat-room/{id}")
     public ResponseEntity<List<ISeatRoomDto>> findSeatRoomByRoomId(@PathVariable(value = "id") Integer id) {

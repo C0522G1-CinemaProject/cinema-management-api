@@ -23,7 +23,6 @@ public interface IShowTimesRepository extends JpaRepository<ShowTimes, Integer> 
 
     List<ShowTimes> getShowTime(@Param("id") Integer id);
 
-    List<IShowTimeDto> getShowTime(@Param("id") Integer id);
 
     @Query(value = "select show_times.date_projection as showDate from show_times " +
             "where show_times.movie_id = :idMovie and show_times.is_delete = 0 group by show_times.date_projection",

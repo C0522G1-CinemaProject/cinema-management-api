@@ -53,8 +53,4 @@ public class ShowTimesService implements IShowTimesService {
         return showTimesRepository.findAllShowDate(idMovie);
     }
 
-    @Override
-    public List<IShowTimes> findAllShowTimesInDay(String showDate) {
-        return showTimesRepository.findAllShowTimesInDay(showDate);
-    }
 }

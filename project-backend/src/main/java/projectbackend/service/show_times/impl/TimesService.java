@@ -18,6 +18,7 @@ public class TimesService implements ITimesService {
     public List<ITimeDto> getTime(String dateProjection, Integer room) {
         return timesRepository.getTime(dateProjection, room);
     }
+
     public List<Times> findAll() {
         return timesRepository.findAll();
     }

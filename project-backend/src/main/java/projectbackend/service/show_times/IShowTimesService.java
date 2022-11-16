@@ -25,6 +25,5 @@ public interface IShowTimesService {
 
     List<IShowDates> findAllShowDate(Integer idMovie);
 
-    List<IShowTimes> findAllShowTimesInDay(String showDate);
 
 }

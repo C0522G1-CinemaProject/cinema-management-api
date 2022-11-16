@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/showTime")
+@RequestMapping("api/showTime")
 public class ShowTimesRestController {
 
     @Autowired
