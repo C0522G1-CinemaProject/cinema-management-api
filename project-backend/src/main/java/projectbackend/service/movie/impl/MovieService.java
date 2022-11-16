@@ -19,7 +19,6 @@ public class MovieService implements IMovieService {
     @Autowired
     private IMovieRepository iMovieRepository;
 
-
     @Override
     public Optional<IMovieDto> getMovieDetail(Integer id) {
         return iMovieRepository.movieDetail(id);
@@ -53,7 +52,6 @@ public class MovieService implements IMovieService {
     public void addMovie(Movie movie) {
         iMovieRepository.save(movie);
     }
-
 
     @Override
     public void editMovie(Movie movie) {
