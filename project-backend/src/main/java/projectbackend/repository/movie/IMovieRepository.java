@@ -62,8 +62,12 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
     Page<IMovieDto> findAllHome(@Param("keywordName") String name, Pageable pageable);
 
     //TriHM
-    @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version FROM movie  WHERE name" +
-            " LIKE %:keyword% AND is_delete = false", nativeQuery = true)
+    @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version " +
+            "FROM movie  WHERE name" +
+            " LIKE %:keyword% AND is_delete = false",
+            countQuery =  "SELECT count(id) " +
+                    "FROM movie  WHERE name" +
+                    " LIKE %:keyword% AND is_delete = false",nativeQuery = true)
     Page<IMovieDto> findAllMovie(Pageable pageable, @Param("keyword") String name);
 
     //TriHM
