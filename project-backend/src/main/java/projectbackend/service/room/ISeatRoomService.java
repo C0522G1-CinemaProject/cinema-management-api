@@ -11,4 +11,5 @@ public interface ISeatRoomService {
     ISeatRoomDto findSeatRoomById(Integer id);
 
     List<ISeatRoomDto> findSeatRoomByRoomId(Integer id);
+
 }

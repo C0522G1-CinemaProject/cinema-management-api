@@ -17,13 +17,14 @@ public interface ISeatRoomRepository extends JpaRepository<SeatRoom, Integer> {
             "SET  " +
             "    seat_type_id = :idSeatType " +
             "WHERE " +
-            "    id = :idSeatRoom ",nativeQuery = true)
-    void updateSeatRoom(@Param("idSeatRoom") Integer idSeatRoom,@Param("idSeatType") Integer idSeatType);
+            "    id = :idSeatRoom ", nativeQuery = true)
+    void updateSeatRoom(@Param("idSeatRoom") Integer idSeatRoom, @Param("idSeatType") Integer idSeatType);
+
 
     @Query(value = "SELECT " +
             "    seat_room.id AS id, " +
             "    seat.name AS seatName, " +
-            "    seat_type_id AS seatType, " +
+            "    seat_type_id AS seatTypeId, " +
             "    seat_type.name AS seatTypeName " +
             "FROM " +
             "    seat_room " +
@@ -35,18 +36,20 @@ public interface ISeatRoomRepository extends JpaRepository<SeatRoom, Integer> {
             "    seat_room.id = :id", nativeQuery = true)
     public ISeatRoomDto findSeatRoomById(@Param(value = "id") Integer id);
 
-    @Query(value = "SELECT " +
+    @Query(value = "SELECT  " +
             "    seat_room.id AS id, " +
             "    seat.name AS seatName, " +
-            "    seat_type_id AS seatType, " +
+            "    seat_type_id AS seatTypeId, " +
             "    seat_type.name AS seatTypeName " +
             "FROM " +
             "    seat_room " +
             "        JOIN " +
-            "    seat_type ON seat_type.id = seat_type_id " +
+            "    seat_type ON seat_type.id = seat_type_id\n" +
             "        JOIN " +
             "    seat ON seat.id = seat_id " +
             "WHERE " +
-            "    room_id = :id", nativeQuery = true)
-    List<ISeatRoomDto> findSeatRoomByRoomId(Integer id);
+            "    room_id = :id " +
+            "ORDER BY seat.name", nativeQuery = true)
+    List<ISeatRoomDto> findSeatRoomByRoomId(@Param("id") Integer id);
+
 }

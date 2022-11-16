@@ -12,11 +12,16 @@ import java.util.List;
 public class SeatRoomService implements ISeatRoomService {
 
     @Autowired
-    ISeatRoomRepository iSeatRoomRepository;
+    private ISeatRoomRepository iSeatRoomRepository;
 
     @Override
-    public void updateSeatRoom(Integer idSeatRoom,Integer idSeatType) {
-        iSeatRoomRepository.updateSeatRoom(idSeatRoom,idSeatType);
+    public void updateSeatRoom(Integer idSeatRoom, Integer idSeatType) {
+        if (idSeatType == 1) {
+            idSeatType = 2;
+        } else {
+            idSeatType = 1;
+        }
+        iSeatRoomRepository.updateSeatRoom(idSeatRoom, idSeatType);
     }
 
     @Override
@@ -26,6 +31,7 @@ public class SeatRoomService implements ISeatRoomService {
 
     @Override
     public List<ISeatRoomDto> findSeatRoomByRoomId(Integer id) {
-         return iSeatRoomRepository.findSeatRoomByRoomId(id);
+        return iSeatRoomRepository.findSeatRoomByRoomId(id);
     }
+
 }

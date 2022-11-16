@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.room.IRoomDto;
 import projectbackend.dto.room.ISeatRoomDto;
 import projectbackend.dto.room.IdSeatTypeDTo;
-import projectbackend.dto.room.SeatRoomDto;
 import projectbackend.service.room.IRoomService;
 import projectbackend.service.room.ISeatRoomService;
 
@@ -59,15 +58,17 @@ public class RoomRestController {
         return new ResponseEntity<>(seatList, HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/updateStatusSeatRoom/{idSeatRoom}", name = "/updateStatusSeatRoom")
-    public ResponseEntity<IdSeatTypeDTo> updateSeatRoom(@PathVariable("idSeatRoom") Integer idSeatRoom, @RequestBody IdSeatTypeDTo idSeatTypeDto) {
+    @PatchMapping(value = "/updateStatusSeatRoom/{idSeatRoom}/{idSeatType}", name = "/updateStatusSeatRoom")
+    public ResponseEntity<IdSeatTypeDTo> updateSeatRoom(@PathVariable("idSeatRoom") Integer idSeatRoom,
+                                                        @PathVariable("idSeatType") Integer idSeatType) {
         if (idSeatRoom == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (iSeatRoomService.findSeatRoomById(idSeatRoom) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.iSeatRoomService.updateSeatRoom(idSeatRoom, idSeatTypeDto.getIdSeatType());
+        this.iSeatRoomService.updateSeatRoom(idSeatRoom, idSeatType);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

@@ -1,9 +1,12 @@
 package projectbackend.dto.room;
 
 public interface ISeatRoomDto {
-    String getId();
+    int getId();
+
     String getSeatName();
-    String getSeatType();
+
+    int getSeatTypeId();
+
     String getSeatTypeName();
 
 }

@@ -1,6 +1,7 @@
 package projectbackend.dto.room;
 
 public class IdSeatTypeDTo {
+
     private Integer idSeatType;
 
     public Integer getIdSeatType() {
