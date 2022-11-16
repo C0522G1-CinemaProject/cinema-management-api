@@ -45,11 +45,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/public/**","/api/movie/**")
+                .antMatchers("/api/public/**",
+                        "/api/customer/add",
+                        "/api/customer",
+                        "/api/customer/{username}",
+                        "/api/user/find/{username}",
+                        "/api/customer/find/{id}",
+                        "/api/promotion/**",
+                        "/api/movie/list/**")
                 .permitAll()
                 .antMatchers("/api/user/**",
-                        "/api/movie/list"
-                        ,"/api/movie/delete/{id}" ).hasAnyRole("USER", "ADMIN")
+                        "/api/promotion/list",
+                        "/api/promotion/save",
+                        "/api/promotion/delete/{id}",
+                        "/api/promotion/edit/{id}",
+                        "/api/promotion/detail/{id}").hasAnyRole("USER","ADMIN")
+
+ 
+
                 .antMatchers("api/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -57,7 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60 * 60 * 24);
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60*60*24);
+
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

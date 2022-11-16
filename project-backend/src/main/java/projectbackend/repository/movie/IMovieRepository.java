@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.IMovieDtoHome;
 import projectbackend.model.movie.Movie;
 
 import java.util.Optional;
@@ -37,29 +38,96 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
 
     //NamHV
-    @Query(value = "select movie.name as name,movie.image as image,show_times.date_projection as showTimeDate" +
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
+    @Query(value = "select movie.id as id, movie.name as name,movie.image as image,show_times.date_projection as showTimeDate" +
             ",movie.film_time as filmTime from movie " +
             "join show_times on movie.id = show_times.movie_id " +
-            "where ((day(show_times.date_projection)+3) >= day(curdate()) " +
-            "    and  month(show_times.date_projection) >= month(curdate())) " +
+            "where (day(date_projection) >= (day(curdate())+3) " +
+            "    and month(date_projection)  >=  month(curdate()) " +
+            "    and year(date_projection) = year(curdate())" +
+            "    and name like %:keywordName% " +
+            "    and movie.is_delete=0) " +
             "or" +
-            "((day(show_times.date_projection)+3) < day(curdate()) " +
-            "    and  month(show_times.date_projection) > month(curdate()))" +
-            "AND (year(show_times.date_projection) = year(curdate())) " +
-            "and name like %:keywordName% " +
-            "and movie.is_delete=0",
+            "(day(date_projection) < (day(curdate())+3) " +
+            "    and month(date_projection)  >  month(curdate())" +
+            "    and year(date_projection) = year(curdate())" +
+            "    and name like %:keywordName% " +
+            "    and movie.is_delete=0) " +
+            "or" +
+            "(day(date_projection) < (day(curdate())+3) " +
+            "    and month(date_projection)  <  month(curdate())" +
+            "    and year(date_projection) > year(curdate())" +
+            "    and name like %:keywordName% " +
+            "    and movie.is_delete=0)" +
+            "order by show_times.date_projection " ,
             countQuery = "select count(*) " +
                     "from movie " +
                     "join show_times on movie.id = show_times.movie_id " +
-                    "where ((day(show_times.date_projection)+3) >= day(curdate()) " +
-                    "    and  month(show_times.date_projection) >= month(curdate())) " +
+                    "where (day(date_projection) >= (day(curdate())+3) " +
+                    "    and month(date_projection)  >=  month(curdate()) " +
+                    "    and year(date_projection) = year(curdate())" +
+                    "    and name like %:keywordName% " +
+                    "    and movie.is_delete=0) " +
                     "or" +
-                    "((day(show_times.date_projection)+3) < day(curdate()) " +
-                    "    and  month(show_times.date_projection) > month(curdate()))" +
-                    "AND (year(show_times.date_projection) = year(curdate())) " +
-                    "and name like %:keywordName% " +
-                    "and movie.is_delete=0", nativeQuery = true)
-    Page<IMovieDto> findAllHome(@Param("keywordName") String name, Pageable pageable);
+                    "(day(date_projection) < (day(curdate())+3) " +
+                    "    and month(date_projection)  >  month(curdate())" +
+                    "    and year(date_projection) = year(curdate())" +
+                    "    and name like %:keywordName% " +
+                    "    and movie.is_delete=0) " +
+                    "or" +
+                    "(day(date_projection) < (day(curdate())+3) " +
+                    "    and month(date_projection)  <  month(curdate())" +
+                    "    and year(date_projection) > year(curdate())" +
+                    "    and name like %:keywordName% " +
+                    "    and movie.is_delete=0) " +
+                    "order by show_times.date_projection ", nativeQuery = true)
+    Page<IMovieDtoHome> findAllHome(@Param("keywordName") String name, Pageable pageable);
+
+    @Query(value = "select movie.id as id, movie.name as name,movie.image as image,show_times.date_projection as showTimeDate" +
+            ",movie.film_time as filmTime from movie " +
+            "join show_times on movie.id = show_times.movie_id " +
+            "where (day(date_projection) >= (day(curdate())+10) " +
+            "    and month(date_projection)  >=  month(curdate()) " +
+            "    and year(date_projection) = year(curdate())" +
+            "    and name like %:keywordName% " +
+            "    and movie.is_delete=0) " +
+            "or" +
+            "(day(date_projection) < (day(curdate())+10) " +
+            "    and month(date_projection)  >  month(curdate())" +
+            "    and year(date_projection) = year(curdate())" +
+            "    and name like %:keywordName% " +
+            "    and movie.is_delete=0) " +
+            "or" +
+            "(day(date_projection) < (day(curdate())+10) " +
+            "    and month(date_projection)  <  month(curdate())" +
+            "    and year(date_projection) > year(curdate())" +
+            "    and name like %:keywordName% " +
+            "    and movie.is_delete=0) " +
+            "order by show_times.date_projection desc " ,
+            countQuery = "select count(*) " +
+                    "from movie " +
+                    "join show_times on movie.id = show_times.movie_id " +
+                    "where (day(date_projection) >= (day(curdate())+10) " +
+                    "    and month(date_projection)  >=  month(curdate()) " +
+                    "    and year(date_projection) = year(curdate())" +
+                    "    and name like %:keywordName% " +
+                    "    and movie.is_delete=0) " +
+                    "or" +
+                    "(day(date_projection) < (day(curdate())+10) " +
+                    "    and month(date_projection)  >  month(curdate())" +
+                    "    and year(date_projection) = year(curdate())" +
+                    "    and name like %:keywordName% " +
+                    "    and movie.is_delete=0) " +
+                    "or" +
+                    "(day(date_projection) < (day(curdate())+10) " +
+                    "    and month(date_projection)  <  month(curdate())" +
+                    "    and year(date_projection) > year(curdate())" +
+                    "    and name like %:keywordName% " +
+                    "    and movie.is_delete=0) " +
+                    "order by show_times.date_projection desc ", nativeQuery = true)
+    Page<IMovieDtoHome> findAllPremiereSoon(@Param("keywordName") String name, Pageable pageable);
+
 
     //TriHM
     @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version " +

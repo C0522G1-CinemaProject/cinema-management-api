@@ -1,5 +1,8 @@
 package projectbackend.service.show_times;
 
+import projectbackend.dto.booking_ticket.IMovie;
+import projectbackend.dto.booking_ticket.IShowDates;
+import projectbackend.dto.booking_ticket.IShowTimes;
 import projectbackend.dto.movie.IShowTimeDto;
 import projectbackend.model.show_times.ShowTimes;
 
@@ -15,4 +18,13 @@ public interface IShowTimesService {
     void editShowTime(ShowTimes showTimes);
 
     Optional<ShowTimes> findById(Integer id);
+
+
+    List<ShowTimes> findAll();
+
+    List<IMovie> findAllMovie();
+
+    List<IShowDates> findAllShowDate(Integer idMovie);
+
+    List<IShowTimes> findAllShowTimesInDay(String showDate);
 }
