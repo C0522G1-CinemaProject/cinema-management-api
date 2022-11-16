@@ -39,7 +39,6 @@ public class TicketRestController {
 
     }
 
-
     @GetMapping("/booking")
     public ResponseEntity<Page<ITicketDto>> showListBookingTicket(Pageable pageable) {
         String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -49,7 +48,6 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }
-
     @GetMapping("/canceled")
     public ResponseEntity<Page<ITicketDto>> showListCanceledTicket(@PageableDefault(value = 5) Pageable pageable) {
         String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -59,7 +57,6 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }
-
 
     @GetMapping("/history/point")
     public ResponseEntity<Page<ITicketDto>> showListHistoryPoint(
@@ -104,7 +101,6 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(historySmallPointSearch, HttpStatus.OK);
     }
-
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Ticket> deleteTicket(@PathVariable Integer id) {
@@ -152,6 +148,6 @@ public class TicketRestController {
         iTicketService.saveTicket(ticket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
+
 

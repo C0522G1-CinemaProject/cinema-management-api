@@ -26,7 +26,6 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "username", referencedColumnName = "username")
 
-
     private User user;
 
     public Customer() {

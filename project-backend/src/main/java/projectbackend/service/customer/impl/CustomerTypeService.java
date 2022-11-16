@@ -1,8 +1,5 @@
 package projectbackend.service.customer.impl;
 
-import projectbackend.service.customer.ICustomerTypeService;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projectbackend.model.customer.CustomerType;
@@ -15,10 +12,10 @@ import java.util.List;
 public class CustomerTypeService implements ICustomerTypeService {
 
     @Autowired
-    private ICustomerTypeRepository iCustomerTypeRepository;
+    private ICustomerTypeRepository icustomerTypeRepository;
 
     @Override
-    public List<CustomerType> findAll() {
-        return iCustomerTypeRepository.findAll();
+    public List<CustomerType> findAllCustomerType() {
+        return icustomerTypeRepository.findAll();
     }
 }

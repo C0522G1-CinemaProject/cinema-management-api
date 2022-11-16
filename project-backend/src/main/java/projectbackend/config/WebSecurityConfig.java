@@ -11,10 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import projectbackend.jwt.JwtFilter;
 import projectbackend.service.decentralization.impl.MyUserDetailService;
 
 @Configuration
+@CrossOrigin("*")
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -48,11 +50,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/public/**",
                         "/api/customer/add",
                         "/api/customer",
-                        "/api/customer/{username}",
-                        "/api/user/find/{username}",
                         "/api/customer/find/{id}",
                         "/api/promotion/**",
                         "/api/ticket/**")
+                        "/api/customer/edit/*",
+                        "/api/customer/{username}",
+                        "/api/user/find/{username}",
+                        "/api/customer/find/{id}",
+                        "/api/promotion/**")
                 .permitAll()
                 .antMatchers("/api/user/**",
                         "/api/promotion/list",
@@ -61,6 +66,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/promotion/edit/{id}",
                         "/api/promotion/detail/{id}"
                         ).hasAnyRole("ROLE_ADMIN","ROLE_EMPLOYEE", "ROLE_CUSTOMER")
+                        "/api/promotion/detail/{id}").hasAnyRole("USER","ADMIN")
+                .antMatchers("/api/public/**","/api/customer/add","/api/customer/{username}","/api/user/edit")
+                .permitAll()
+                .antMatchers("/api/user/**","/api/user/edit?username=").hasAnyRole("USER","ADMIN")
+                .antMatchers("/api/customer/**","/api/customer/find-username","/api/customer/edit").hasAnyRole("ROLE_USER","ROLE_ADMIN","ROLE_CUSTOMER")
                 .antMatchers("api/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
