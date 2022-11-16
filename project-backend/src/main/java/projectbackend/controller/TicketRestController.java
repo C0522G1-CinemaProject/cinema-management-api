@@ -1,10 +1,11 @@
 package projectbackend.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.dto.booking_ticket.IMovie;
 import projectbackend.dto.booking_ticket.ISeatDetail;
 import projectbackend.dto.booking_ticket.IShowDates;
@@ -13,14 +14,11 @@ import projectbackend.dto.ticket.TicketDto;
 import projectbackend.jwt.JwtTokenUtil;
 import projectbackend.model.customer.Customer;
 import projectbackend.model.ticket.SeatDetail;
-import projectbackend.dto.ticket.ITicketDto;
-import projectbackend.dto.ticket.ITicketManagerDto;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.show_times.IShowTimesService;
 import projectbackend.service.ticket.ISeatDetailService;
 import projectbackend.service.ticket.ITicketService;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +42,26 @@ public class TicketRestController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @PutMapping("/update-ticket/{id}")
+    public ResponseEntity<Ticket> updateStatusTicket(@PathVariable int id) {
+        Optional<Ticket> ticket = ticketService.findById(id);
+        if (ticket.isPresent()) {
+            ticketService.updateTicketById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = "/list-ticket/{id}")
+    public ResponseEntity<Optional<ITicketDto>> showInformationTicket(@PathVariable Integer id) {
+        Optional<ITicketDto> ticketDto = ticketService.findTicketById(id);
+        if (!ticketDto.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(ticketDto, HttpStatus.OK);
+    }
 
     @GetMapping("/movie")
     public ResponseEntity<List<IMovie>> showMovieIn7NextDay() {
