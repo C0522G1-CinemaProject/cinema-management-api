@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Promotion {
@@ -18,13 +17,12 @@ public class Promotion {
     private String startTime;
     private String endTime;
     private String detail;
-    private String discount;
+    private int discount;
 
     public Promotion() {
     }
 
-    public Promotion(Integer id, String name, boolean isDelete, String image, String startTime, String endTime,
-                     String detail, String discount) {
+    public Promotion(Integer id, String name, boolean isDelete, String image, String startTime, String endTime, String detail, int discount) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
@@ -91,11 +89,11 @@ public class Promotion {
         this.detail = detail;
     }
 
-    public String getDiscount() {
+    public int getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
 }
