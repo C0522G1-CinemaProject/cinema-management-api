@@ -1,5 +1,7 @@
 package projectbackend.dto.ticket;
 
+import java.sql.Date;
+
 public interface ITicketManagerDto {
     String getTicketId();
 
@@ -13,7 +15,7 @@ public interface ITicketManagerDto {
 
     String getMovieName();
 
-    String getDateProjection();
+    Date getDateProjection();
 
     String getStartTime();
 
