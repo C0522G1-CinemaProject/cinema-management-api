@@ -18,9 +18,9 @@ import java.util.Optional;
 @Transactional
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
-    @Query(value = "select customer.name as customerName,customer.day_of_birth as birthday ,customer.gender as customerGender," +
-            "customer.id_card as customerIdCard,customer.email as customerEmail,customer.address as customerAddress,customer.phone_number as customerPhoneNumber," +
-            "user.username as customerUserName,user.`password` as customerPassword,customer.customer_type_id as customerTypeId  " +
+    @Query(value = "select customer.name as name,customer.day_of_birth as dayOfBirth ,customer.gender as gender," +
+            "customer.id_card as idCard,customer.email as email,customer.address as address,customer.phone_number as phoneNumber," +
+            "user.username as username,user.`password` as password,customer.customer_type_id as customerTypeId  " +
             "from customer " +
             "join user on customer.username = user.username " +
             " where user.username like %:username% and customer.is_delete=0",

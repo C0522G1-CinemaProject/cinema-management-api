@@ -46,7 +46,6 @@ public class CustomerRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @PostMapping("/add")
     public ResponseEntity<?> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
