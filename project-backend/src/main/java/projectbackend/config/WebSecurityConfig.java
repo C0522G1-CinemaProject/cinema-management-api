@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
                         "/api/promotion/**",
+                        "/api/user/list",
                         "/api/movie/list/**")
                 .permitAll()
                 .antMatchers("/api/user/**",
