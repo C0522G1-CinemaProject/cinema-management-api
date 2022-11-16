@@ -17,7 +17,7 @@ public interface ICustomerService {
 
     Optional<Customer> findByIdCustomer(Integer id);
 
-    void update(Customer customer);
+    void update(Customer customer, String username);
 
     void saveCustomer(Customer customer);
 

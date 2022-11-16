@@ -1,39 +1,31 @@
 package projectbackend.dto.decentralization;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import projectbackend.model.customer.Customer;
-import projectbackend.model.employee.Employee;
 
 public class UserDto {
 
-    @NotBlank(message = "không được để trống")
     private String username;
 
-    @NotBlank(message = "Không được để trống")
-
-    @Size(min = 6, max = 12)
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", message = "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số")
     private String password;
 
 
     public UserDto() {
     }
 
+    public UserDto(String username, String password, boolean isDelete) {
+        this.username = username;
 
-    public UserDto(String userName, String password, boolean isDelete) {
-        this.username = userName;
         this.password = password;
 
     }
 
-    public String getUserName() {
+
+    public String getUsername() {
         return username;
     }
 
-    public void setUserName(String userName) {
-        this.username = userName;
+    public void setUsername(String userName) {
+        this.username = username;
+
     }
 
     public String getPassword() {

@@ -17,9 +17,9 @@ import java.util.Optional;
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
-    @Query(value = "select customer.name as customerName,customer.day_of_birth as birthday ,customer.gender as customerGender," +
-            "customer.id_card as customerIdCard,customer.email as customerEmail,customer.address as customerAddress,customer.phone_number as customerPhoneNumber," +
-            "user.username as customerUserName,user.`password` as customerPassword,customer.customer_type_id as customerTypeId  " +
+    @Query(value = "select customer.name as name,customer.day_of_birth as dayOfBirth ,customer.gender as gender," +
+            "customer.id_card as idCard,customer.email as email,customer.address as address,customer.phone_number as phoneNumber," +
+            "user.username as username,user.`password` as password,customer.customer_type_id as customerTypeId  " +
             "from customer " +
             "join user on customer.username = user.username " +
             " where user.username like %:username% and customer.is_delete=0",
@@ -29,9 +29,17 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "call insert_all(:#{#c.user.username},:#{#c.user.password},:#{#c.name} ,:#{#c.dayOfBirth},:#{#c.gender},:#{#c.idCard}," +
+    @Query(value = "call sign_up(:#{#c.user.username},:#{#c.user.password},:#{#c.name} ,:#{#c.dayOfBirth},:#{#c.gender},:#{#c.idCard}," +
             ":#{#c.email},:#{#c.address},:#{#c.phoneNumber},:#{#c.customerType.id})", nativeQuery = true)
     void saveCustomer(@Param("c") Customer customer);
+
+    @Modifying
+    @Transactional
+    @Query(value = " update customer set " +
+            " name =:#{#c.name}, day_of_birth=:#{#c.dayOfBirth},gender=:#{#c.gender},id_card=:#{#c.idCard}," +
+            "email=:#{#c.email},address=:#{#c.address},  phone_number =:#{#c.phoneNumber}" +
+            " where username =:username", nativeQuery = true)
+    void updateCustomer(@Param("c") Customer customer, @Param("username") String username);
 
 
     @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
@@ -46,7 +54,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
                                   @Param("phoneSearch") String phoneSearch, Pageable pageable);
 
 
-
     @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
             " from customer  where id =:id and is_delete = 0", nativeQuery = true)
     Optional<Customer> findByIdCustomer(@Param("id") int id);
@@ -56,4 +63,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Transactional
     @Query(value = "update user set password =:newPassword where username =:username", nativeQuery = true)
     void saveNewPassword(@Param("newPassword") String newPassword, @Param("username") String username);
+
+
 }

@@ -41,8 +41,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void update(Customer customer) {
-
+    public void update(Customer customer, String username) {
+        icustomerRepository.updateCustomer(customer, username);
     }
 
     @Override
@@ -59,8 +59,9 @@ public class CustomerService implements ICustomerService {
     public void updatePassword(User user, String newPassword) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
-        user.setPassword(encodedPassword);
-        icustomerRepository.saveNewPassword(encodedPassword, user.getUsername());
+        System.out.println(encodedPassword);
+//        user.setPassword(encodedPassword);
+//        icustomerRepository.saveNewPassword(encodedPassword, user.getUsername());
 
     }
 }
