@@ -32,7 +32,6 @@ public class TicketRestController {
         }
     }
 
-
     @GetMapping(value = "/list-ticket/{id}")
     public ResponseEntity<Optional<ITicketDto>> showInformationTicket(@PathVariable Integer id) {
         Optional<ITicketDto> ticketDto = iTicketService.findTicketById(id);
@@ -41,4 +40,5 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(ticketDto, HttpStatus.OK);
     }
+
 }

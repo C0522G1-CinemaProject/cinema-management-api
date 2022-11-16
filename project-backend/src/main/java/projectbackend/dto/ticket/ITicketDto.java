@@ -24,5 +24,4 @@ public interface ITicketDto {
     String getNameSeat();
 
     Integer getPrice();
-
 }

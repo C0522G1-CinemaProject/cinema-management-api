@@ -14,7 +14,6 @@ public class TicketService implements ITicketService {
     @Autowired
     private ITicketRepository iTicketRepository;
 
-    @Override
     public Optional<Ticket> findById(Integer id) {
         return iTicketRepository.findById(id);
     }
@@ -28,6 +27,5 @@ public class TicketService implements ITicketService {
     public Optional<ITicketDto> findTicketById(int id) {
         return iTicketRepository.findTicketById(id);
     }
-
 
 }

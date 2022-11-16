@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public interface ITicketService {
 
-
     Optional<Ticket> findById(Integer id);
 
     void updateTicketById(int id);
 
     Optional<ITicketDto> findTicketById(int id);
+
 }
