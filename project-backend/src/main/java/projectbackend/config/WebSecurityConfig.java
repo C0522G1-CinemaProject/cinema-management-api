@@ -51,19 +51,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
-                        "/api/promotion/detail/{id}",
-                        "/api/promotion/**"
-                        )
+                       
+                        "/api/promotion/**",
+                        "/api/user/list",
+                        "/api/movie/**",
+                        "/api/room/**",
+                        "/api/showTime/**"
+                )
                 .permitAll()
-                .antMatchers("/api/user/**").hasAnyRole("ADMIN","EMPLOYEE")
+                .antMatchers("/api/user/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("api/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
+                .and()
                 .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60*60*24);
+
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
