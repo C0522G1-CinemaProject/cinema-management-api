@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.movie.IMovieDto;
 import projectbackend.dto.movie.IMovieDtoHome;
 import projectbackend.model.movie.Movie;
+import projectbackend.model.show_times.ShowTimes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -130,8 +132,12 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
 
     //TriHM
-    @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version FROM movie  WHERE name" +
-            " LIKE %:keyword% AND is_delete = false", nativeQuery = true)
+    @Query(value = "SELECT id, name, start_day as startDay, film_studio as filmStudio, film_time as filmTime, version " +
+            "FROM movie  WHERE name" +
+            " LIKE %:keyword% AND is_delete = false",
+            countQuery =  "SELECT count(id) " +
+                    "FROM movie  WHERE name" +
+                    " LIKE %:keyword% AND is_delete = false",nativeQuery = true)
     Page<IMovieDto> findAllMovie(Pageable pageable, @Param("keyword") String name);
 
     //TriHM
@@ -139,13 +145,18 @@ public interface IMovieRepository extends JpaRepository<Movie, Integer> {
     @Query(value = "update movie set is_delete = true where id=:idDelete", nativeQuery = true)
     void deleteById(@Param("idDelete") int idDelete);
 
+    @Query(value = "select s.date_projection as dateProjection, t.start_time as startTime, t.id as timeId , r.name as roomName, r.id as roomId " +
+            "from show_times as s " +
+            "join movie as m on m.id = s.movie_id " +
+            "join times as t on s.times_id = t.id " +
+            "join room as r on s.room_id = r.id " +
+            "where s.is_delete = 0 and m.id = :id", nativeQuery = true)
+    List<ShowTimes> findShowTimeById(@Param("id") Integer id);
 
     //QuyetND
-    @Query(value = "select m.name, m.image, m.start_day as startDay, m.end_day as endDay, m.director, m.film_time as filmTime," +
-            " m.trailer, m.movie_type_id as movieType, m.content, m.film_studio as filmStudio, m.actor, m.version " +
-            "from movie as m " +
-            "join show_times as s on s.movie_id = m.id" +
-            "where m.is_delete = 0 and m.id = :id", nativeQuery = true)
-    IMovieDto findMovieById(@Param("id") Integer id);
+    @Query(value = "select * " +
+            "from movie as m join show_times as s on s.movie_id = m.id where m.is_delete = 0 and m.id = :id " +
+            "group by m.id", nativeQuery = true)
+    Movie findMovieById(@Param("id") Integer id);
 
 }

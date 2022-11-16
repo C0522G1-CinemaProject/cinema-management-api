@@ -2,6 +2,7 @@ package projectbackend.service.movie.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import projectbackend.dto.movie.IMovieTypeDto;
 import projectbackend.model.movie.MovieType;
 import projectbackend.repository.movie.IMovieTypeRepository;
 import projectbackend.service.movie.IMovieTypeService;
@@ -15,7 +16,7 @@ public class MovieTypeService implements IMovieTypeService {
     private IMovieTypeRepository movieTypeRepository;
 
     @Override
-    public List<MovieType> getListMovieType() {
-        return movieTypeRepository.findAll();
+    public List<IMovieTypeDto> getListMovieType() {
+        return movieTypeRepository.findAllMovieType();
     }
 }

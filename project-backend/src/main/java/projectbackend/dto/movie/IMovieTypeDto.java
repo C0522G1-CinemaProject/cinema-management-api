@@ -1,6 +1,6 @@
 package projectbackend.dto.movie;
 
-public interface ITimeDto {
-    String getStartTime();
+public interface IMovieTypeDto {
+    String getNAme();
     Integer getId();
 }

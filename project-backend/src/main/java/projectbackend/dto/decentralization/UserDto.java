@@ -2,21 +2,28 @@ package projectbackend.dto.decentralization;
 
 
 
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+
 
 public class UserDto {
     private String username;
     private String password;
 //    @Enumerated(EnumType.STRING)
+
+   
+
 //    private AuthenticationProvider authProvider;
     private boolean isDelete;
 
     public UserDto() {
     }
 
-    public UserDto(String username, String password, boolean isDelete) {
-        this.username = username;
+
+
+    public UserDto(String userName, String password, boolean isDelete) {
+        this.username = userName;
         this.password = password;
         this.isDelete = isDelete;
     }

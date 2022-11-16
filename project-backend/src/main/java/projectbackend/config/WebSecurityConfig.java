@@ -61,6 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/promotion/delete/{id}",
                         "/api/promotion/edit/{id}",
                         "/api/promotion/detail/{id}").hasAnyRole("USER","ADMIN")
+
+ 
+
                 .antMatchers("api/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -69,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60*60*24);
+
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

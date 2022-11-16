@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MovieRestController_addMovie_QuyetND {
+public class MovieRestController_editMovie {
 
     @Autowired
     private MockMvc mockMvc;
