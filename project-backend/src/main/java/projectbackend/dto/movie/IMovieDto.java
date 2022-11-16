@@ -3,6 +3,10 @@ package projectbackend.dto.movie;
 public interface IMovieDto {
 
 
+    String getShowTimeDate();
+
+    Integer getId();
+
     String getName();
 
     String getImage();
@@ -16,8 +20,6 @@ public interface IMovieDto {
     Integer getFilmTime();
 
     String getTrailer();
-
-    String getShowTimeDate();
 
     String getMovieType();
 

@@ -11,12 +11,14 @@ import java.util.List;
 
 @Service
 public class TimesService implements ITimesService {
-
     @Autowired
     private ITimesRepository timesRepository;
 
     @Override
     public List<ITimeDto> getTime(String dateProjection, String room) {
         return timesRepository.getTime(dateProjection, room);
+    }
+    public List<Times> findAll() {
+        return timesRepository.findAll();
     }
 }

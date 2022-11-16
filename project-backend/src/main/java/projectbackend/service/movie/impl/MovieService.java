@@ -5,14 +5,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.IMovieDtoHome;
 import projectbackend.model.movie.Movie;
 import projectbackend.repository.movie.IMovieRepository;
 import projectbackend.service.movie.IMovieService;
 
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class MovieService implements IMovieService {
+
     @Autowired
     private IMovieRepository iMovieRepository;
 
@@ -21,9 +24,17 @@ public class MovieService implements IMovieService {
         return iMovieRepository.movieDetail(id);
     }
 
+    //NamHV
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
     @Override
-    public Page<IMovieDto> findAllHome(String name, Pageable pageable) {
+    public Page<IMovieDtoHome> findAllHome(String name, Pageable pageable) {
         return iMovieRepository.findAllHome(name, pageable);
+    }
+
+    @Override
+    public Page<IMovieDtoHome> findAllPremiereSoon(String name, Pageable pageable) {
+        return iMovieRepository.findAllPremiereSoon(name,pageable);
     }
 
     @Override
@@ -55,5 +66,9 @@ public class MovieService implements IMovieService {
     @Override
     public Optional<Movie> finById(Integer id) {
         return iMovieRepository.findById(id);
+    }
+    @Override
+    public List<Movie> findAll() {
+        return iMovieRepository.findAll();
     }
 }

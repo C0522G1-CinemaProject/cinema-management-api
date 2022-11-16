@@ -5,13 +5,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.IMovieDtoHome;
 import projectbackend.dto.movie.MovieDto;
 import projectbackend.model.movie.Movie;
 import projectbackend.service.movie.IMovieService;
@@ -39,10 +39,25 @@ public class MovieRestController {
     }
 
     //NamHV function
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
     @GetMapping("/list/home")
-    public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
-                                                       @PageableDefault(value = 5) Pageable pageable) {
-        Page<IMovieDto> moviePage = iMovieService.findAllHome(name, pageable);
+    public ResponseEntity<Page<IMovieDtoHome>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
+                                                       @PageableDefault Pageable pageable) {
+        Page<IMovieDtoHome> moviePage = iMovieService.findAllHome(name, pageable);
+        if (moviePage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(moviePage, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/premiere")
+    public ResponseEntity<Page<IMovieDtoHome>> getAllPremiereSoonMovie(@RequestParam(value = "name", defaultValue = "") String name,
+                                                           @PageableDefault Pageable pageable) {
+        Page<IMovieDtoHome> moviePage = iMovieService.findAllPremiereSoon(name, pageable);
+
+  
+
         if (moviePage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -101,10 +116,13 @@ public class MovieRestController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
+        }else {
+            Optional<Movie> movie = iMovieService.finById(id);
+            if (movie.isPresent()) {
+                BeanUtils.copyProperties(movieDto, movie);
+                iMovieService.editMovie(movie.get());
+            }
         }
-        Movie movie = iMovieService.finById(id).get();
-        BeanUtils.copyProperties(movieDto, movie);
-        iMovieService.editMovie(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -4,15 +4,25 @@ package projectbackend.service.movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.IMovieDtoHome;
 import projectbackend.model.movie.Movie;
+import java.util.List;
 
 import java.util.Optional;
 
 public interface IMovieService {
 
+
     Optional<IMovieDto> getMovieDetail(Integer id);
 
     Page<IMovieDto> findAllHome(String name, Pageable pageable);
+
+    //NamHV
+    //6.5.1.1. Danh Sách Phim – Xem danh sách phim
+    //6.5.1.3. Danh sách Phim – Tìm kiếm Phim
+    Page<IMovieDtoHome> findAllHome(String name, Pageable pageable);
+    //phim sắp công chiếu
+    Page<IMovieDtoHome> findAllPremiereSoon(String name, Pageable pageable);
 
     Page<IMovieDto> findAllMovie(Pageable pageable, String keyword);
 
@@ -26,5 +36,5 @@ public interface IMovieService {
 
     Optional<Movie> finById(Integer id);
 
-
+    List<Movie> findAll();
 }
