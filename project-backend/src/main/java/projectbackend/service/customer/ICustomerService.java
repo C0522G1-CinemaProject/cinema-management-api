@@ -1,15 +1,15 @@
 package projectbackend.service.customer;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import projectbackend.dto.customer.ICustomerStatementDto;
 
 import java.util.List;
 
 public interface ICustomerService {
-    Page<ICustomerStatementDto> getCustomerTop(Pageable pageable);
 
-    List<ICustomerStatementDto> getCustomerTop();
-
+    /**
+     * creator: Phan Phước Đại
+     * date:11/11/2022
+     * method use statistical top customer positive
+     */
     List<ICustomerStatementDto> getCustomerTop(int numberMonth);
 }

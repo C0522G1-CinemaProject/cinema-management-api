@@ -1,14 +1,14 @@
 package projectbackend.service.movie;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import projectbackend.dto.movie.IMovieStatementDto;
 
 import java.util.List;
 
 public interface IMovieService {
-    Page<IMovieStatementDto> getMovieTop(Pageable pageable);
-
-    List<IMovieStatementDto> getMovieTop();
+    /**
+     * creator: Phan Phước Đại
+     * date:11/11/2022
+     * method use statistical top movie positive
+     */
     List<IMovieStatementDto> getMovieTop(int numberMonth);
 }

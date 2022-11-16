@@ -1,9 +1,6 @@
 package projectbackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +17,15 @@ public class CustomerRestController {
     @Autowired
     private ICustomerService customerService;
 
+
+    /**
+     * creator: Phan Phước Đại
+     * date:11/11/2022
+     * method use statistical top customer positive
+     */
     @GetMapping("/statement")
     public ResponseEntity<List<ICustomerStatementDto>> getCustomerTop(@RequestParam(defaultValue = "0") int numberMonth) {
-        if(numberMonth<0){
+        if (numberMonth < 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<ICustomerStatementDto> customerStatementDtoPage = customerService.getCustomerTop(numberMonth);
