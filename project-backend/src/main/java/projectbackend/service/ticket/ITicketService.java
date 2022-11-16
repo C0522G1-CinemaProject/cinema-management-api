@@ -1,5 +1,6 @@
 package projectbackend.service.ticket;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import projectbackend.dto.ticket.ITicketDto;
@@ -29,5 +30,8 @@ public interface ITicketService {
 
     void editTicketManager(Integer id);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3ce2055bc63248739e9120b13052967635a200d7
 }
