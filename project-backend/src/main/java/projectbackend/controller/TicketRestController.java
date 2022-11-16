@@ -3,6 +3,7 @@ package projectbackend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,36 +45,44 @@ public class TicketRestController {
     }
 
     //HungB
-    @GetMapping("/list")
+    @GetMapping("/list-ticket-manager")
     public ResponseEntity<Page<ITicketManagerDto>> findAllTicket(
+             Pageable pageable,
             @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
             @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
             @RequestParam(value = "idCard", defaultValue = "") String idCard,
-            @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber,
-            Pageable pageable) {
-        Page<ITicketManagerDto> blogList = this.iTicketService.findAllByQuery(
+            @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber
+    ) {
+        Page<ITicketManagerDto> iTicketManagerDtos = this.iTicketService.findAllByQuery(
+                pageable,
                 ticketId,
                 customerId,
                 idCard,
-                phoneNumber,
-                pageable
+                phoneNumber
         );
-        if (blogList.isEmpty()) {
+        if (iTicketManagerDtos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(blogList, HttpStatus.OK);
+            return new ResponseEntity<>(iTicketManagerDtos, HttpStatus.OK);
         }
     }
-
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<Ticket> editTicketManager(@PathVariable Integer id) {
-        Optional<Ticket> ticket = iTicketService.findTicketManagerById(id);
+    @PatchMapping("/edit-ticket-by/{id}")
+    public ResponseEntity<Optional<ITicketManagerDto>> editTicketManagerDto(@PathVariable Integer id) {
+        Optional<ITicketManagerDto> ticket = iTicketService.findTicketManagerById(id);
         if (ticket.isPresent()) {
             iTicketService.editTicketManager(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/find-ticket-by/{id}")
+    public ResponseEntity<Optional<ITicketManagerDto>> findTicketManagerDtoById(@PathVariable Integer id) {
+        Optional<ITicketManagerDto> ticketManagerDto = iTicketService.findTicketManagerById(id);
+        if (!ticketManagerDto.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(ticketManagerDto, HttpStatus.OK);
     }
 
 }

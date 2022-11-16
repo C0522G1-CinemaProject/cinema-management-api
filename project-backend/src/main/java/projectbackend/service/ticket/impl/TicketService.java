@@ -35,20 +35,20 @@ public class TicketService implements ITicketService {
 
 
     //Hung B
-    public Page<ITicketManagerDto> findAllByQuery(Integer ticketId,
+    public Page<ITicketManagerDto> findAllByQuery(Pageable pageable, Integer ticketId,
                                                   Integer customerId,
                                                   String idCard,
-                                                  String phoneNumber,
-                                                  Pageable pageable) {
-        return iTicketRepository.findAllByQuery(ticketId,
+                                                  String phoneNumber
+    ) {
+        return iTicketRepository.findAllByQuery(pageable, ticketId,
                 customerId,
                 idCard,
-                phoneNumber,
-                pageable);
+                phoneNumber
+        );
     }
 
     @Override
-    public Optional<Ticket> findTicketManagerById(Integer id) {
+    public Optional<ITicketManagerDto> findTicketManagerById(Integer id) {
         return iTicketRepository.findTicketManagerById(id);
     }
 

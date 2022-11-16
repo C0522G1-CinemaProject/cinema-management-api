@@ -18,13 +18,16 @@ public interface ITicketService {
     Optional<ITicketDto> findInfoTicketById(int id);
 
     //Hung B
-    Page<ITicketManagerDto> findAllByQuery(Integer ticketId,
+    Page<ITicketManagerDto> findAllByQuery(Pageable pageable,
+                                           Integer ticketId,
                                            Integer customerId,
                                            String idCard,
-                                           String phoneNumber,
-                                           Pageable pageable);
+                                           String phoneNumber
+                                           );
 
-    Optional<Ticket> findTicketManagerById(Integer id);
+    Optional<ITicketManagerDto> findTicketManagerById(Integer id);
 
     void editTicketManager(Integer id);
+
+
 }
