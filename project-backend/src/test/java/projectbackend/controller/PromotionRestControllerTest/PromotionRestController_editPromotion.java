@@ -31,7 +31,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -50,7 +50,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -69,7 +69,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime(null);
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -88,7 +88,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime(null);
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -107,7 +107,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail(null);
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -126,7 +126,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount(null);
+        promotionDto.setDiscount(0);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -145,7 +145,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -164,7 +164,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -183,7 +183,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -202,7 +202,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -221,7 +221,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -240,7 +240,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("");
+        promotionDto.setDiscount(0);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -259,7 +259,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -278,7 +278,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05@@@@");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -297,7 +297,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05@@@@@");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -316,7 +316,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé@@@@@@@");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -335,7 +335,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -354,7 +354,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("G");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -373,7 +373,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5sfsr");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -392,7 +392,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -411,7 +411,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-05");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá vévvvgiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá végiảm giá vévgiảm giá végiảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")
@@ -430,7 +430,7 @@ public class PromotionRestController_editPromotion {
         promotionDto.setStartTime("2022-01-01");
         promotionDto.setEndTime("2022-01-05");
         promotionDto.setDetail("giảm giá vé");
-        promotionDto.setDiscount("5");
+        promotionDto.setDiscount(5);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .patch("/promotion/edit/1")

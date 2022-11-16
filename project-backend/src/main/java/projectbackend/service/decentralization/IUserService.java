@@ -2,8 +2,6 @@ package projectbackend.service.decentralization;
 
 import projectbackend.model.decentralization.User;
 
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 

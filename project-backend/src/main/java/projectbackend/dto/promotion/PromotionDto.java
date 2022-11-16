@@ -31,13 +31,12 @@ public class PromotionDto {
 
 //    @NotBlank(message = "Vui lòng nhập vào giảm giá")
 //    @Pattern(regexp = "^[0-9]+$", message = "Vui lòng nhập đúng định dạng số!")
-    private String discount;
+    private int discount;
 
     public PromotionDto() {
     }
 
-    public PromotionDto(Integer id, String name, boolean isDelete, String image, String startTime, String endTime,
-                        String detail, String discount) {
+    public PromotionDto(Integer id, String name, boolean isDelete, String image, String startTime, String endTime, String detail, int discount) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
@@ -104,11 +103,11 @@ public class PromotionDto {
         this.detail = detail;
     }
 
-    public String getDiscount() {
+    public int getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
 }

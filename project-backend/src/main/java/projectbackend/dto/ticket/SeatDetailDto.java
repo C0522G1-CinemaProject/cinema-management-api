@@ -1,7 +1,6 @@
 package projectbackend.dto.ticket;
 
 import projectbackend.model.show_times.ShowTimes;
-import projectbackend.model.ticket.Ticket;
 
 public class SeatDetailDto {
     private Integer id;
