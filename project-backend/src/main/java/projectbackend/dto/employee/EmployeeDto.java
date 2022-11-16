@@ -1,47 +1,50 @@
 package projectbackend.dto.employee;
 
+import projectbackend.model.decentralization.User;
+
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class EmployeeDto {
 
     private Integer id;
 
+    @NotBlank
     private String name;
 
     private Integer gender;
 
-    //    @NotBlank
-//    @Size(min = 28, max = 50)
+    @NotBlank
+    @Email
     private String email;
 
-    //    @NotBlank
-//    @Size(min = 1, max = 100)
+    @NotBlank
     private String address;
 
     @NotBlank
     private String phoneNumber;
 
     @NotBlank
-//    @Pattern(regexp = "\\d{9}|\\d{12}",message = "Identity card must be in the correct format of 9 and 12 numbers")
+    @Pattern(regexp = "\\d{9}|\\d{12}", message = "Identity card must be in the correct format of 9 and 12 numbers")
     private String idCard;
 
     @NotBlank
     private String dayOfBirth;
 
     @NotBlank
-//    @Size( max = 255)
     private String image;
 
     private boolean isDelete;
 
-    private String user;
+    private User user;
 
 
     public EmployeeDto() {
     }
 
     public EmployeeDto(Integer id, String name, Integer gender, String email, String address, String phoneNumber,
-                       String idCard, String dayOfBirth, String image, boolean isDelete, String user) {
+                       String idCard, String dayOfBirth, String image, boolean isDelete, User user) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -135,11 +138,11 @@ public class EmployeeDto {
         isDelete = delete;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

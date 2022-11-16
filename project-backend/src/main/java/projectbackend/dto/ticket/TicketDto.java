@@ -3,10 +3,13 @@ package projectbackend.dto.ticket;
 import projectbackend.model.customer.Customer;
 import projectbackend.model.ticket.SeatDetail;
 
+import javax.validation.constraints.NotBlank;
+
 public class TicketDto {
     private Integer id;
     private boolean isDelete;
-    private boolean statusTicket;
+    @NotBlank(message = "Không được bỏ trống")
+    private Integer statusTicket;
     private String ticketBookingTime;
     private SeatDetail seatDetail;
     private Customer customer;
@@ -14,7 +17,7 @@ public class TicketDto {
     public TicketDto() {
     }
 
-    public TicketDto(Integer id, boolean isDelete, boolean statusTicket, String ticketBookingTime,
+    public TicketDto(Integer id, boolean isDelete, Integer statusTicket, String ticketBookingTime,
                      SeatDetail seatDetail, Customer customer) {
         this.id = id;
         this.isDelete = isDelete;
@@ -40,11 +43,11 @@ public class TicketDto {
         isDelete = delete;
     }
 
-    public boolean isStatusTicket() {
+    public Integer getStatusTicket() {
         return statusTicket;
     }
 
-    public void setStatusTicket(boolean statusTicket) {
+    public void setStatusTicket(Integer statusTicket) {
         this.statusTicket = statusTicket;
     }
 

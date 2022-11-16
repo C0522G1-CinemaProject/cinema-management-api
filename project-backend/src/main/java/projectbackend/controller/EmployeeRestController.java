@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.employee.EmployeeDto;
@@ -15,10 +16,11 @@ import projectbackend.service.decentralization.IUserService;
 import projectbackend.service.employee.IEmployeeService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:4200/")
-@RequestMapping("/employee")
+@CrossOrigin("*")
+@RequestMapping("/api/employee")
 public class EmployeeRestController {
     @Autowired
     private IEmployeeService employeeService;
@@ -27,8 +29,11 @@ public class EmployeeRestController {
     private IUserService userService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<Employee>> findAllEmployee(@PageableDefault(size = 4) Pageable pageable, @RequestParam(defaultValue = "") String search) {
-        Page<Employee> employeePage = employeeService.findAllEmployee(pageable, search);
+    public ResponseEntity<Page<Employee>> findAllEmployee(@PageableDefault(size = 5) Pageable pageable,
+                                                          @RequestParam(value = "name", defaultValue = "") String nameSearch,
+                                                          @RequestParam(value = "idCard", defaultValue = "") String idCardSearch,
+                                                          @RequestParam(value = "phoneNumber",defaultValue = "") String phoneNumberSearch) {
+        Page<Employee> employeePage = employeeService.findAllEmployee(pageable,nameSearch, idCardSearch, phoneNumberSearch);
         if (employeePage.hasContent()) {
             return new ResponseEntity<>(employeePage, HttpStatus.OK);
         } else
@@ -41,8 +46,6 @@ public class EmployeeRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-    //HuyDN- chỉnh sửa và thêm nhân viên
     @PostMapping("/create")
     public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeDto employeeDto,
                                             BindingResult bindingResult) {
@@ -52,6 +55,7 @@ public class EmployeeRestController {
         }
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
+        employee.getUser().setPassword(new BCryptPasswordEncoder().encode(employeeDto.getUser().getPassword()));
         employeeService.saveEmployee(employee);
         return new ResponseEntity<>(HttpStatus.OK);
 
@@ -65,22 +69,28 @@ public class EmployeeRestController {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
         }
-        Employee employee = employeeService.findEmployeeById(id).get();
-        BeanUtils.copyProperties(employeeDto, employee);
-        employeeService.updateEmployee(employee);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        Optional<Employee> employee = employeeService.findEmployeeById(id);
+        if (employee.isPresent()) {
+            BeanUtils.copyProperties(employeeDto, employee.get());
+            employeeService.updateEmployee(employee.get());
+            return new ResponseEntity<>(employee.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> getEmployee(@PathVariable Integer id) {
-        Employee employee = employeeService.findEmployeeById(id).get();
+        Optional<Employee> employee = employeeService.findEmployeeById(id);
+        if(!employee.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         EmployeeDto employeeDto = new EmployeeDto();
-        BeanUtils.copyProperties(employee, employeeDto);
-        employeeDto.setUser(employee.getUser().getUsername());
+        BeanUtils.copyProperties(employee.get(), employeeDto);
         return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }
-
 
 }
 

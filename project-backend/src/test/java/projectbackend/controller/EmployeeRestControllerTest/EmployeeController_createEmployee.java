@@ -39,7 +39,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -64,7 +64,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -89,7 +89,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -114,7 +114,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -139,7 +139,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -164,7 +164,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -189,7 +189,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -214,7 +214,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -239,7 +239,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -265,7 +265,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -290,7 +290,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -316,7 +316,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -341,7 +341,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -366,7 +366,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -391,7 +391,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -416,7 +416,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -441,7 +441,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -466,7 +466,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -491,7 +491,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -516,7 +516,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -541,7 +541,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername(null);
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -567,7 +567,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -592,7 +592,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -618,7 +618,7 @@ public class EmployeeController_createEmployee {
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
 
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -643,7 +643,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -669,7 +669,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -696,7 +696,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -721,7 +721,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("admin");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -746,7 +746,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -771,7 +771,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -796,7 +796,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -821,7 +821,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cm");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -846,7 +846,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottirggjgjgjgjgjgjgjgjgjgjgjgjgjgjggjgjgjgjgjkgkkksggjgjg");
         user.setPassword("Huy123456");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -871,7 +871,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword(null);
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -897,7 +897,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -922,7 +922,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("11111");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -947,7 +947,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("h1");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
@@ -972,7 +972,7 @@ public class EmployeeController_createEmployee {
         User user = new User();
         user.setUsername("cmatteottir");
         user.setPassword("huydd213213521321352165564654564654654654564654654564646546546");
-        employeeDto.setUserDto(user);
+        employeeDto.setUser(user);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")

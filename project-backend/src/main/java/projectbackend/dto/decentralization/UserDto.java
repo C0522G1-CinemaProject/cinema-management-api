@@ -1,19 +1,21 @@
 package projectbackend.dto.decentralization;
 
-import projectbackend.model.customer.Customer;
-import projectbackend.model.employee.Employee;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserDto {
+
     @NotBlank
-    @Size(min = 3, max = 15)
+    @Size(min = 6, max = 15)
     private String username;
 
     @NotBlank
-    @Size(min = 3, max = 15)
+    @Size(min = 6, max = 15)
     private String password;
+
+    //    @Enumerated(EnumType.STRING)
+//    private AuthenticationProvider authProvider;
     private boolean isDelete;
 
     public UserDto() {
@@ -25,12 +27,14 @@ public class UserDto {
         this.isDelete = isDelete;
     }
 
-    public String getUserName() {
+
+    public String getUsername() {
         return username;
     }
 
-    public void setUserName(String userName) {
-        this.username = userName;
+    public void setUsername(String userName) {
+        this.username = username;
+
     }
 
     public String getPassword() {

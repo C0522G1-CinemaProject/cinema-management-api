@@ -38,7 +38,7 @@ public class DecentralizationRestController {
 
     @GetMapping("/find/{username}")
     public ResponseEntity<User> findUserByUsername(@PathVariable String username) {
-        User user = userService.findByUsername(username).get();
+        User user = userService.findByUsername(username);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
