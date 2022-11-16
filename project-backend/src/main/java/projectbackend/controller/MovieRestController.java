@@ -116,8 +116,7 @@ public class MovieRestController {
     //QuyetND function
     @PatchMapping("/edit/{id}")
     public ResponseEntity<List<FieldError>> editMovie(@RequestBody @Valid MovieFullDto movieFullDto,
-                                                      BindingResult bindingResult,
-                                                      @PathVariable Integer id) {
+                                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
