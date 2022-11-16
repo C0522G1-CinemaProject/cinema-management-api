@@ -25,7 +25,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/booking-ticket")
-
 @CrossOrigin("*")
 public class TicketRestController {
     @Autowired
