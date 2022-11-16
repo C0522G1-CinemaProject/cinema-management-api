@@ -3,6 +3,8 @@ package projectbackend.service.ticket.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import projectbackend.dto.ticket.ITicketDto;
+import projectbackend.dto.ticket.ITicketManagerDto;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.repository.ticket.ISeatDetailRepository;
 import projectbackend.repository.ticket.ITicketRepository;
@@ -23,4 +25,5 @@ public class TicketService implements ITicketService {
 
         seatDetailRepository.setStatusSeatIsPending(ticket.getSeatDetail().getId());
     }
+
 }

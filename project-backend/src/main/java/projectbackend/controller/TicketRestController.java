@@ -1,10 +1,10 @@
 package projectbackend.controller;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import projectbackend.dto.booking_ticket.IMovie;
 import projectbackend.dto.booking_ticket.ISeatDetail;
 import projectbackend.dto.booking_ticket.IShowDates;
@@ -13,6 +13,8 @@ import projectbackend.dto.ticket.TicketDto;
 import projectbackend.jwt.JwtTokenUtil;
 import projectbackend.model.customer.Customer;
 import projectbackend.model.ticket.SeatDetail;
+import projectbackend.dto.ticket.ITicketDto;
+import projectbackend.dto.ticket.ITicketManagerDto;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.show_times.IShowTimesService;
@@ -25,6 +27,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/booking-ticket")
+
 @CrossOrigin("*")
 public class TicketRestController {
     @Autowired

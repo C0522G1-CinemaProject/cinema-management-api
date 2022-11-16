@@ -1,15 +1,25 @@
 package projectbackend.dto.ticket;
 
+import java.sql.Date;
+
 public interface ITicketDto {
-    String getTicketId();
-    String getCustomerId();
-    String getCustomerName();
+    String getNameCustomer();
+
+    String getEmail();
+
     String getIdCard();
+
     String getPhoneNumber();
-    String getMovieName();
-    String getDateProjection();
+
+    String getNameRoom();
+
+    Date getDateProjection();
+
     String getStartTime();
-    String getRoomName();
-    String getSeatName();
-    String getStatusTicket();
+
+    String getNameSeat();
+
+    Integer getPrice();
+
+
 }
