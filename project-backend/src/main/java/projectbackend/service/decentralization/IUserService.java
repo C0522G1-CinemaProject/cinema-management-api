@@ -12,12 +12,14 @@ public interface IUserService {
 
     List<User> findAll();
 
-    User findByUsername(String name);
-
     Optional<IUserEmailDto> findByEmail(String email);
 
     Optional<IUserEmailDto> findByUsernameDto(String username);
 
     void updatePassword(User user, String newPassword);
+
+    Optional<User> findUserByUsername(String username);
+
+    void updateUser(User user, String username);
 
 }

@@ -12,4 +12,7 @@ public interface ITicketDto {
     String getRoomName();
     String getSeatName();
     String getStatusTicket();
+    String getPoint();
+    String getBookingTime();
+    String getPrice();
 }
