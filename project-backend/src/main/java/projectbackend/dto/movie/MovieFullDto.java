@@ -1,63 +1,74 @@
 package projectbackend.dto.movie;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import projectbackend.dto.show_times.ShowTimesDto;
 import projectbackend.model.employee.Employee;
 import projectbackend.model.movie.MovieType;
-import projectbackend.model.show_times.ShowTimes;
 
+import javax.validation.constraints.*;
 import java.util.List;
 
-public class MovieDto {
+public class MovieFullDto {
     private Integer id;
 
-    //    @NotBlank(message = "Vui lòng nhập tên phim")
+//    @NotBlank(message = "Vui lòng nhập tên phim")
 //    @Size(min = 15, max = 50)
     private String name;
     private boolean isDelete;
 
-    //    @NotBlank(message = "Vui lòng tải lên hình ảnh")
+//    @NotBlank(message = "Vui lòng tải lên hình ảnh")
     private String image;
 
-    //    @NotBlank(message = "Vui lòng nhập ngày bắt đầu")
+//    @NotBlank(message = "Vui lòng nhập ngày bắt đầu")
     private String startDay;
 
-    //    @NotBlank(message = "Vui lòng nhập ngày kết thúc")
+//    @NotBlank(message = "Vui lòng nhập ngày kết thúc")
     private String endDay;
 
-    //    @NotBlank(message = "Vui lòng nhập tên đạo diễn")
+//    @NotBlank(message = "Vui lòng nhập tên đạo diễn")
 //    @Size(min = 2, max = 35)
 //    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$")
     private String director;
 
-    //    @NotNull(message = "Vui lòng nhập thời lượng phim")
+//    @NotNull(message = "Vui lòng nhập thời lượng phim")
 //    @Max(value = 180)
     private Integer filmTime;
 
-    //    @NotBlank(message = "Vui lòng nhập trailer")
+//    @NotBlank(message = "Vui lòng nhập trailer")
     private String trailer;
 
     private String content;
 
-    //    @NotBlank(message = "Vui lòng nhập hãng phim")
+//    @NotBlank(message = "Vui lòng nhập hãng phim")
 //    @Size(min = 10, max = 25)
     private String filmStudio;
 
-    //    @NotBlank(message = "Vui lòng nhập tên diễn viên")
+//    @NotBlank(message = "Vui lòng nhập tên diễn viên")
 //    @Size(min = 2, max = 35)
 //    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$")
     private String actor;
 
-    //    @NotNull(message = "Vui lòng chọn phiên bản")
+//    @NotNull(message = "Vui lòng chọn phiên bản")
     private Integer version;
 
-    //    @NotNull(message = "Vui lòng chọn chọn thể loại")
-    private MovieType movieTypeDto;
+//    @NotNull(message = "Vui lòng chọn chọn thể loại")
+    private List<MovieTypeDto> movieTypeDto;
 
-    private List<ShowTimes> showTimeDto;
+    private ShowTimesDto showTimeDto;
 
     private Employee employee;
 
-    public MovieDto() {
+
+    public MovieFullDto() {
+    }
+
+
+    public ShowTimesDto getShowTimeDto() {
+        return showTimeDto;
+    }
+
+    public void setShowTimeDto(ShowTimesDto showTimeDto) {
+        this.showTimeDto = showTimeDto;
     }
 
     public Integer getId() {
@@ -164,23 +175,20 @@ public class MovieDto {
         this.version = version;
     }
 
+    public List<MovieTypeDto> getMovieTypeDto() {
+        return movieTypeDto;
+    }
+
+    public void setMovieTypeDto(List<MovieTypeDto> movieTypeDto) {
+        this.movieTypeDto = movieTypeDto;
+    }
+
+
     public Employee getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
-    }
-
-    public MovieType getMovieType() {
-        return movieTypeDto;
-    }
-
-    public List<ShowTimes> getShowTimeDto() {
-        return showTimeDto;
-    }
-
-    public void setShowTimesDto(List<ShowTimes> showTimeDto) {
-        this.showTimeDto = showTimeDto;
     }
 }

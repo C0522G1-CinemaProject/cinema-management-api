@@ -12,7 +12,7 @@ import projectbackend.service.room.IRoomService;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/room")
 public class RoomRestController {

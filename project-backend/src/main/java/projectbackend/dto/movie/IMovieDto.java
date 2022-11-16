@@ -2,7 +2,7 @@ package projectbackend.dto.movie;
 
 public interface IMovieDto {
 
-String getShowTimeDate();
+    String getShowTimeDate();
     Integer getId();
     String getName();
     String getImage();
@@ -16,5 +16,9 @@ String getShowTimeDate();
     String getFilmStudio();
     String getActor();
     String getVersion();
+    String getRoom();
+    String getTimes();
+    String getEmployeeId();
+
 
 }

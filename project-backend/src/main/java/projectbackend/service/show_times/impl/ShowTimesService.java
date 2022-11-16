@@ -17,7 +17,7 @@ public class ShowTimesService implements IShowTimesService {
     private IShowTimesRepository showTimesRepository;
 
     @Override
-    public List<IShowTimeDto> getShowTime(Integer id) {
+    public List<ShowTimes> getShowTime(Integer id) {
         return showTimesRepository.getShowTime(id);
     }
 

@@ -4,8 +4,11 @@ package projectbackend.service.movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import projectbackend.dto.movie.IMovieDto;
+import projectbackend.dto.movie.MovieFullDto;
 import projectbackend.model.movie.Movie;
+import projectbackend.model.show_times.ShowTimes;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IMovieService {
@@ -18,14 +21,15 @@ public interface IMovieService {
 
     void deleteById(int idDelete);
 
+    void addMovieDto(MovieFullDto movie);
 
-    void addMovie(Movie movie);
+    void editMovieDto(MovieFullDto movieFullDto);
 
-    void editMovie(Movie movie);
+    Movie getMovie(Integer id);
 
-    IMovieDto getMovie(Integer id);
+    List<ShowTimes> getShowTime(Integer id);
 
     Optional<Movie> finById(Integer id);
 
-
+    List<Movie> getListMovie();
 }

@@ -16,7 +16,7 @@ public class TimesService implements ITimesService {
     private ITimesRepository timesRepository;
 
     @Override
-    public List<ITimeDto> getTime(String dateProjection, String room) {
+    public List<ITimeDto> getTime(String dateProjection, Integer room) {
         return timesRepository.getTime(dateProjection, room);
     }
 }

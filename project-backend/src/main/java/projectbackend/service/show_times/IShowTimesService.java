@@ -8,11 +8,12 @@ import java.util.Optional;
 
 public interface IShowTimesService {
 
-    List<IShowTimeDto> getShowTime(Integer id);
+    List<ShowTimes> getShowTime(Integer id);
 
     void addShowTime(ShowTimes showTimes);
 
     void editShowTime(ShowTimes showTimes);
 
     Optional<ShowTimes> findById(Integer id);
+
 }
