@@ -1,9 +1,9 @@
 package projectbackend.repository.ticket;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.booking_ticket.ISeatDetail;
 import projectbackend.model.ticket.SeatDetail;
@@ -12,6 +12,13 @@ import java.util.List;
 
 @Transactional
 public interface ISeatDetailRepository extends JpaRepository<SeatDetail, Integer> {
+
+
+    /**Dai nhap*/
+
+    @Query(value = "insert into seat_detail(show_time_id,seat_room_id) values show_time_id = :showTime, seat_room_id = :seatRoom", nativeQuery = true)
+    void creatSeatDetail(@Param("showTime") int showTime, @Param("seatRoom") int seatRoom);
+
     @Query(value = "select seat_detail.id as id, seat_room.room_id as roomId, seat_room.seat_type_id as seatTypeId, " +
             "seat.name as seatName, seat_type.price as price, seat_detail.show_time_id as showTimeId, " +
             "seat_detail.status_seat as seatStatus " +
