@@ -18,8 +18,21 @@ public interface IUserService {
 
     void updatePassword(User user, String newPassword);
 
+
     Optional<User> findUserByUsername(String username);
 
     void updateUser(User user, String username);
 
-}
+        String existsByUserName(String username);
+
+        List<User> findAll();
+
+        User findByUsername(String name);
+
+        Optional<IUserEmailDto> findByEmail(String email);
+
+        Optional<IUserEmailDto> findByUsernameDto(String username);
+
+        void updatePassword(User user, String newPassword);
+
+    }

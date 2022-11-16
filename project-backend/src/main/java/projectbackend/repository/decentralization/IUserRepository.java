@@ -12,8 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, String> {
-    User findByUsername(String username);
 
+    User findByUsername(String username);
 
     @Query(value = "SELECT username from  user where username = ?1", nativeQuery = true)
     String existsByUserName(String username);
@@ -25,6 +25,20 @@ public interface IUserRepository extends JpaRepository<User, String> {
             "from  customer " +
             "where email =:email", nativeQuery = true)
     Optional<IUserEmailDto> findByEmail(String email);
+
+    @Query(value = "SELECT username, email " +
+            "from  employee where username =:username " +
+            "union all " +
+            "select  username, email " +
+            "from  customer " +
+            "where username =:username", nativeQuery = true)
+    Optional<IUserEmailDto> findByUsernameDto(String username);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update user set password =:newPassword where username =:username", nativeQuery = true)
+    void saveNewPassword(@Param("newPassword") String newPassword, @Param("username") String username);
+
 
     @Query(value = "SELECT username, email " +
             "from  employee where username =:username " +
