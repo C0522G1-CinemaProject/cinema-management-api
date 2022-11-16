@@ -8,10 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.ticket.ITicketDto;
-import projectbackend.dto.ticket.TicketDto;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.model.ticket.Ticket;
 
 import java.util.Optional;
@@ -41,4 +37,9 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "INNER JOIN movie ON show_times.movie_id = movie.id\n" +
             "WHERE ticket.id=:id AND ticket.status_ticket = 0 AND ticket.is_delete = 0 limit 1", nativeQuery = true)
     Optional<ITicketDto> findTicketById(@Param("id") int id);
+
+    @Modifying
+    @Query(value = "insert into ticket (is_delete, customer_id, seat_detail_id, status_ticket, ticket_booking_time) " +
+            "values (0, :idCustomer, :idSeatDetail, 0, now());", nativeQuery = true)
+    void addPendingTicket(@Param("idCustomer") Integer idCustomer, @Param("idSeatDetail") Integer idSeatDetail);
 }
