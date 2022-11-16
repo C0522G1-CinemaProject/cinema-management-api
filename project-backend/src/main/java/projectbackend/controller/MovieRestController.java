@@ -5,7 +5,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -41,7 +40,7 @@ public class MovieRestController {
     //NamHV function
     @GetMapping("/list/home")
     public ResponseEntity<Page<IMovieDto>> getAllMovie(@RequestParam(value = "name", defaultValue = "") String name,
-                                                       @PageableDefault(value = 5) Pageable pageable) {
+                                                       Pageable pageable) {
         Page<IMovieDto> moviePage = iMovieService.findAllHome(name, pageable);
         if (moviePage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -72,7 +71,7 @@ public class MovieRestController {
     }
 
 
-//QuyetND function
+    //QuyetND function
     @GetMapping("/{id}")
     public ResponseEntity<IMovieDto> getMovie(@PathVariable int id) {
         IMovieDto iMovieDto = iMovieService.getMovie(id);
@@ -101,10 +100,13 @@ public class MovieRestController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
+        }else {
+            Optional<Movie> movie = iMovieService.finById(id);
+            if (movie.isPresent()) {
+                BeanUtils.copyProperties(movieDto, movie);
+                iMovieService.editMovie(movie.get());
+            }
         }
-        Movie movie = iMovieService.finById(id).get();
-        BeanUtils.copyProperties(movieDto, movie);
-        iMovieService.editMovie(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
