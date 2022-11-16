@@ -3,8 +3,6 @@ package projectbackend.dto.decentralization;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import projectbackend.model.customer.Customer;
-import projectbackend.model.employee.Employee;
 
 public class UserDto {
 
@@ -17,39 +15,44 @@ public class UserDto {
     @Size(min = 6, max = 12)
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", message = "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số")
     private String password;
+    //    @Enumerated(EnumType.STRING)
+//    private AuthenticationProvider authProvider;
     private boolean isDelete;
 
     public UserDto() {
     }
 
 
-    public UserDto(String userName, String password, boolean isDelete) {
-        this.username = userName;
-        this.password = password;
-        this.isDelete = isDelete;
-    }
 
-    public String getUserName() {
-        return username;
-    }
 
-    public void setUserName(String userName) {
-        this.username = userName;
-    }
+    public UserDto(String username, String password, boolean isDelete){
+            this.username = username;
+            this.password = password;
+            this.isDelete = isDelete;
+        }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        public String getUsername () {
+            return username;
+        }
 
-    public boolean isDelete() {
-        return isDelete;
-    }
+        public void setUsername (String userName){
+            this.username = username;
+        }
 
-    public void setDelete(boolean delete) {
-        isDelete = delete;
+        public String getPassword () {
+            return password;
+        }
+
+        public void setPassword (String password){
+            this.password = password;
+        }
+
+        public boolean isDelete () {
+            return isDelete;
+        }
+
+        public void setDelete ( boolean delete){
+            isDelete = delete;
+        }
     }
-}

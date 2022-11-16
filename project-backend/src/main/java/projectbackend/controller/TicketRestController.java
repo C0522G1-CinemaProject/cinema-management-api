@@ -1,6 +1,5 @@
 package projectbackend.controller;
 
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,45 +7,53 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import projectbackend.dto.customer.CustomerDto;
 import projectbackend.dto.ticket.ITicketDto;
-import projectbackend.model.customer.Customer;
+import projectbackend.dto.ticket.TicketDto;
 import projectbackend.model.ticket.Ticket;
+import projectbackend.service.decentralization.impl.MyUserDetails;
 import projectbackend.service.ticket.ITicketService;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
-@RequestMapping("api")
+@RequestMapping("api/ticket")
 @RestController
+@CrossOrigin("*")
 public class TicketRestController {
-    @Autowired
-    ITicketService iTicketService;
 
-    @GetMapping("/booking/ticket")
+    @Autowired
+    private ITicketService iTicketService;
+
+    @GetMapping("/findCustomerName/and/point")
+    public ResponseEntity<?> findByCustomerNameAndPoint() {
+        String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        System.out.println(username);
+        Optional<ITicketDto> ticketPage = iTicketService.findByCustomerNameAndPoint(username);
+        if (ticketPage.isPresent()) {
+            return new ResponseEntity<>(ticketPage, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+
+    @GetMapping("/booking")
     public ResponseEntity<Page<ITicketDto>> showListBookingTicket(Pageable pageable) {
-        Page<ITicketDto> ticketPage = iTicketService.findAllBookingTickets(pageable, "admin");
+        String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Page<ITicketDto> ticketPage = iTicketService.findAllBookingTickets(pageable, username);
         if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }
 
-
-    @GetMapping("/point")
-    public ResponseEntity<List<ITicketDto>> showListTotalPoint() {
-        List<ITicketDto> totalPoint = iTicketService.totalPoint("admin");
-        if (totalPoint.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(totalPoint, HttpStatus.OK);
-    }
-
-    @GetMapping("/canceled/ticket")
+    @GetMapping("/canceled")
     public ResponseEntity<Page<ITicketDto>> showListCanceledTicket(@PageableDefault(value = 5) Pageable pageable) {
-        Page<ITicketDto> ticketPage = iTicketService.findAllCanceledTickets(pageable, "admin");
+        String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Page<ITicketDto> ticketPage = iTicketService.findAllCanceledTickets(pageable, username);
         if (ticketPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -59,8 +66,8 @@ public class TicketRestController {
             Pageable pageable,
             @RequestParam(value = "startTime", defaultValue = "0000-00-00", required = false) String startTime,
             @RequestParam(value = "endTime", defaultValue = "3000-11-04", required = false) String endTime) {
-
-        Page<ITicketDto> historyPointSearch = iTicketService.findAllHistoryPoint("abristog", startTime, endTime, pageable);
+        String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Page<ITicketDto> historyPointSearch = iTicketService.findAllHistoryPoint(username, startTime, endTime, pageable);
 
         if (historyPointSearch.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -68,13 +75,13 @@ public class TicketRestController {
         return new ResponseEntity<>(historyPointSearch, HttpStatus.OK);
     }
 
-    @GetMapping("/history/bigPoint")
-    public ResponseEntity<Page<ITicketDto>> showListBigPoint(
+    @GetMapping("/history/plusPoint")
+    public ResponseEntity<Page<ITicketDto>> showTheListOfPointsAdded(
             Pageable pageable,
             @RequestParam(value = "startTime", defaultValue = "0000-00-00", required = false) String startTime,
             @RequestParam(value = "endTime", defaultValue = "3000-00-00", required = false) String endTime) {
-
-        Page<ITicketDto> historyPigPointSearch = iTicketService.findAllBigPoint("abristog", startTime, endTime, pageable);
+        String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Page<ITicketDto> historyPigPointSearch = iTicketService.findAllBigPoint(username, startTime, endTime, pageable);
 
         if (historyPigPointSearch.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -82,14 +89,15 @@ public class TicketRestController {
         return new ResponseEntity<>(historyPigPointSearch, HttpStatus.OK);
     }
 
-    @GetMapping("/history/smallPoint")
-    public ResponseEntity<Page<ITicketDto>> showListSmallPoint(
+    @GetMapping("/history/usedPoint")
+    public ResponseEntity<Page<ITicketDto>> showListOfUsePoints(
             Pageable pageable,
             @RequestParam(value = "startTime", defaultValue = "0000-00-00", required = false) String startTime,
             @RequestParam(value = "endTime", defaultValue = "3000-11-04", required = false) String endTime) {
 
+        String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         Page<ITicketDto> historySmallPointSearch = iTicketService.findAllSmallPoint
-                ("abristog", startTime, endTime, pageable);
+                (username, startTime, endTime, pageable);
 
         if (historySmallPointSearch.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -98,15 +106,52 @@ public class TicketRestController {
     }
 
 
-    @DeleteMapping("delete/ticket/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Ticket> deleteTicket(@PathVariable Integer id) {
-        Optional<Ticket> ticket = iTicketService.findByIdTicKet(id);
+        Optional<Ticket> ticket = iTicketService.findTicketById(id);
         if (ticket.isPresent()) {
             iTicketService.deleteTicket(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    
+
+
+    @GetMapping("/ticket/list")
+    public ResponseEntity<Page<ITicketDto>> findAllTicket(
+            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
+            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
+            @RequestParam(value = "idCard", defaultValue = "") String idCard,
+            @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber,
+            Pageable pageable) {
+        Page<ITicketDto> blogList = this.iTicketService.findAllByQuery(
+                ticketId,
+                customerId,
+                idCard,
+                phoneNumber,
+                pageable
+        );
+        if (blogList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(blogList, HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping("/ticket/edit/{id}")
+    public ResponseEntity<?> findTicketById(@RequestBody TicketDto ticketDto,
+                                            @PathVariable Integer id,
+                                            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(),
+                    HttpStatus.BAD_REQUEST);
+        }
+        Ticket ticket = new Ticket();
+        ticket.setId(id);
+        BeanUtils.copyProperties(ticketDto, ticket);
+        iTicketService.saveTicket(ticket);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
 

@@ -38,10 +38,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<ICustomerDto> findUserByUsername(@Param("username") String username);
 
 
-
-
-
-
     @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
             " from customer " +
             "where name like %:nameSearch% and address like %:addressSearch% " +

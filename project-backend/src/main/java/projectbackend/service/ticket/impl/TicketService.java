@@ -1,13 +1,12 @@
 package projectbackend.service.ticket.impl;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.model.customer.Customer;
-import projectbackend.model.customer.SavingPoint;
+import projectbackend.model.customer.CustomerType;
 import projectbackend.model.ticket.Ticket;
 import projectbackend.repository.ticket.ITicketRepository;
 import projectbackend.service.ticket.ITicketService;
@@ -54,9 +53,10 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Optional<Ticket> findByIdTicKet(Integer id) {
+    public Optional<Ticket> findTicketById(Integer id) {
         return iTicketRepository.findByIdTicket(id);
     }
+
 
     @Override
     public void deleteTicket(Integer id) {
@@ -64,9 +64,36 @@ public class TicketService implements ITicketService {
     }
 
 
+    @Override
+    public Page<ITicketDto> findAllByQuery(Integer ticketId,
+                                           Integer customerId,
+                                           String idCard,
+                                           String phoneNumber,
+                                           Pageable pageable) {
+        return iTicketRepository.findAllByQuery(ticketId,
+                customerId,
+                idCard,
+                phoneNumber,
+                pageable);
+    }
+
 
     @Override
-    public List<ITicketDto> totalPoint(String username) {
-        return iTicketRepository.totalPoint(username);
+    public void saveTicket(Ticket ticket) {
+        iTicketRepository.save(ticket);
+
     }
+
+    @Override
+    public Optional<ITicketDto> findByCustomerNameAndPoint(String username) {
+        return iTicketRepository.findByCustomerNameAndPoint(username);
+    }
+
+//    @Override
+//    public List<ITicketDto> findByCustomerNameAndPoint(String username) {
+//        return iTicketRepository.findByCustomerNameAndPoint(username);
+//    }
+
+
+
 }

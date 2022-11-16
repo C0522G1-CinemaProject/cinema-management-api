@@ -25,6 +25,8 @@ public class Customer {
 
     @OneToOne
     @JoinColumn(name = "username", referencedColumnName = "username")
+
+
     private User user;
 
     public Customer() {
@@ -132,4 +134,6 @@ public class Customer {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
