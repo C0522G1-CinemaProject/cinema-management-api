@@ -14,9 +14,15 @@ public interface IRoomRepository extends JpaRepository<Room, Integer> {
             "FROM " +
             "    room " +
             "WHERE " +
-            "    room.is_delete = 0 AND name LIKE %:name%", nativeQuery = true)
+            "    room.is_delete = 0 AND name LIKE :name", nativeQuery = true)
     List<IRoomDto> findAllRoom(@Param("name") String name);
 
-    @Query(value = "SELECT room.id AS roomId, room.name AS roomName FROM room where id= :id",nativeQuery = true)
+    @Query(value = "SELECT  " +
+            "    room.id AS roomId, room.name AS roomName " +
+            "FROM " +
+            "    room " +
+            "WHERE " +
+            "    id = :id",nativeQuery = true)
     IRoomDto findRoomById(@Param("id") String id);
+
 }
