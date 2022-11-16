@@ -1,8 +1,5 @@
 package projectbackend.service.customer.impl;
 
-import projectbackend.service.customer.ICustomerTypeService;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projectbackend.model.customer.CustomerType;

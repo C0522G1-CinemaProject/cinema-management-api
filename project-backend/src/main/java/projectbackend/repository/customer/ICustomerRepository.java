@@ -39,6 +39,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Page<Customer> searchCustomer(@Param("nameSearch") String nameSearch, @Param("addressSearch") String addressSearch,
                                   @Param("phoneSearch") String phoneSearch, Pageable pageable);
 
+    @Modifying
+    @Query(value = "update user set password = :password where username = :username and is_delete =0", nativeQuery = true)
+    void setPassword(@Param("username") String username, @Param("password") String password);
 
     @Query(value = "select user.username as customerUserName,user.password as customerPassword  " +
             "from customer " +

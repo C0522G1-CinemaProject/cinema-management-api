@@ -7,8 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +18,7 @@ import projectbackend.service.customer.ICustomerTypeService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -32,15 +31,6 @@ public class CustomerRestController {
     @Autowired
     private ICustomerTypeService iCustomerTypeService;
 
-//    @GetMapping("")
-//    public ResponseEntity<ICustomerDto> getCustomer() {
-//        Optional<ICustomerDto> customerDto = iCustomerService.findCustomerByUsername("admin");
-//        if (customerDto.isPresent()) {
-//            return new ResponseEntity<>(customerDto.get(), HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
-
 
     @PostMapping("/add")
     public ResponseEntity<List<FieldError>> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
@@ -50,7 +40,7 @@ public class CustomerRestController {
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        iCustomerService.save(customer);
+        iCustomerService.saveCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -79,23 +69,30 @@ public class CustomerRestController {
     @PatchMapping("/edit/{id}")
     public ResponseEntity<?> editCustomer(@RequestBody @Valid CustomerDto customerDto,
                                           BindingResult bindingResult,
-                                          Integer id) {
+                                          @PathVariable Integer id) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(),
                     HttpStatus.BAD_REQUEST);
-        } else {
-            Customer customer = new Customer();
-            customer.setId(id);
-            BeanUtils.copyProperties(customerDto, customer);
-            iCustomerService.update(customer);
-            return new ResponseEntity<>(HttpStatus.OK);
         }
+        Optional<Customer> customer = iCustomerService.findByIdCustomer(id);
+        if (!customer.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        BeanUtils.copyProperties(customerDto, customer.get());
+        iCustomerService.saveCustomer(customer.get());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Customer> editCustomer(@PathVariable Integer id) {
-        Customer customer = iCustomerService.findByIdCustomer(id).get();
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+    public ResponseEntity<CustomerDto> editCustomer(@PathVariable Integer id) {
+        Optional<Customer> customer = iCustomerService.findByIdCustomer(id);
+        if (!customer.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        CustomerDto customerDto = new CustomerDto();
+        BeanUtils.copyProperties(customer.get(), customerDto);
+        return new ResponseEntity<>(customerDto, HttpStatus.OK);
+
     }
 }
 

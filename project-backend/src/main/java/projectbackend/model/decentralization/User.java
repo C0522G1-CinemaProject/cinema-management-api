@@ -64,4 +64,5 @@ public class User {
     public void setIsDelete(boolean is_Delete) {
         this.isDelete = is_Delete;
     }
+
 }

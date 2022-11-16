@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import projectbackend.model.decentralization.Role;
 import projectbackend.model.decentralization.User;
+import sun.nio.cs.ext.DoubleByte;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,6 +32,7 @@ public class MyUserDetails implements UserDetails {
     public String getPassword() {
         return user.getPassword();
     }
+
 
     @Override
     public String getUsername() {
