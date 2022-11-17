@@ -5,4 +5,5 @@ import projectbackend.service.ticket.ISeatDetailService;
 
 @Service
 public class SeatDetailService implements ISeatDetailService {
+
 }

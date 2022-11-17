@@ -18,31 +18,31 @@ import java.util.Optional;
 public class UserService implements IUserService {
 
     @Autowired
-    private IUserRepository iUserRepository;
+    private IUserRepository userRepository;
 
     @Override
     public String existsByUserName(String username) {
-        return iUserRepository.existsByUserName(username);
+        return userRepository.existsByUserName(username);
     }
 
     @Override
     public List<User> findAll() {
-        return iUserRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public User findByUsername(String name) {
-        return iUserRepository.findByUsername(name);
+        return userRepository.findByUsername(name);
     }
 
     @Override
     public Optional<IUserEmailDto> findByEmail(String email) {
-        return iUserRepository.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public Optional<IUserEmailDto> findByUsernameDto(String username) {
-        return iUserRepository.findByUsernameDto(username);
+        return userRepository.findByUsernameDto(username);
     }
 
     @Override
@@ -50,6 +50,11 @@ public class UserService implements IUserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
-        iUserRepository.saveNewPassword(encodedPassword,user.getUsername());
+        userRepository.saveNewPassword(encodedPassword,user.getUsername());
+    }
+
+    @Override
+    public void saveCreateGmail(User user) {
+        userRepository.save(user);
     }
 }
