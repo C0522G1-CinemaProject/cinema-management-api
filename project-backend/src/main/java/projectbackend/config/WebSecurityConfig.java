@@ -46,23 +46,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable().
-        authorizeRequests()
+                authorizeRequests()
                 .antMatchers("/api/public/**",
                         "/api/customer/add",
                         "/api/customer",
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
-                        "api/booking-ticket/list-ticket-manager",
                         "/api/promotion/**",
-                        "/api/booking-ticket/**"
+                        "/api/ticket/**"
                         )
                 .permitAll().and()
                 .authorizeRequests()
-                .antMatchers("/api/user/**")
-                .access("hasAnyRole('ROLE_Customer', 'ROLE_Admin', 'ROLE_Employee')")
+                .antMatchers("/api/user/**").access("hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')")
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/api/ticket/list-ticket-manager").access("hasAnyRole( 'ROLE_ADMIN', 'ROLE_EMPLOYEE')")
                 .and()
-                .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_Admin')")
+                .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest()
                 .authenticated()
                 .and().cors().and()

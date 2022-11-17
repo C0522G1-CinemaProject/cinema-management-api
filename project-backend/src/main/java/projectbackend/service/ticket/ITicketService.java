@@ -2,17 +2,23 @@ package projectbackend.service.ticket;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import projectbackend.dto.ticket.ITicketDto;
 import projectbackend.dto.ticket.ITicketManagerDto;
+import projectbackend.dto.ticket.TicketDto;
 import projectbackend.model.ticket.Ticket;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface ITicketService {
     Optional<Ticket> findById(Integer id);
 
-    void updateTicketById(int id);
+    void updateTicketByUserName(String userNameUpdate);
 
-    Optional<ITicketDto> findTicketById(int id);
+    Optional<Ticket> findTicketCustomerByUserName(String userName);
+
+    List<ITicketDto> findTicketByUsername(String userName);
 
     void saveTicket(Ticket ticket);
 
@@ -25,5 +31,6 @@ public interface ITicketService {
 
     Optional<ITicketManagerDto> findTicketManagerById(int id);
 
-    void editTicketManager(int id);
+    void editTicketManager(Integer id);
+
 }

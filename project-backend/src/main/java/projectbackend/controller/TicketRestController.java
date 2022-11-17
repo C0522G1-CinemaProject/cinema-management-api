@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/booking-ticket")
+@RequestMapping("/api/ticket")
 @CrossOrigin("*")
 public class TicketRestController {
     @Autowired
@@ -46,21 +46,24 @@ public class TicketRestController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PutMapping("/update-ticket/{id}")
-    public ResponseEntity<Ticket> updateStatusTicket(@PathVariable int id) {
-        Optional<Ticket> ticket = ticketService.findById(id);
+    @PutMapping("/update-ticket/{userNameUpdate}")
+    public ResponseEntity<Ticket> updateStatusTicket(@PathVariable String userNameUpdate) {
+        Optional<Ticket> ticket = ticketService.findTicketCustomerByUserName(userNameUpdate);
         if (ticket.isPresent()) {
-            ticketService.updateTicketById(id);
+            ticketService.updateTicketByUserName(userNameUpdate);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping(value = "/list-ticket/{id}")
-    public ResponseEntity<Optional<ITicketDto>> showInformationTicket(@PathVariable Integer id) {
-        Optional<ITicketDto> ticketDto = ticketService.findTicketById(id);
-        if (!ticketDto.isPresent()) {
+    @GetMapping(value = "/list-ticket")
+    public ResponseEntity<List<ITicketDto>> showInformationTicket(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        String username = jwtTokenUtil.getUsernameFromJwtToken(headerAuth.substring(7));
+        List<ITicketDto> ticketDto = ticketService.findTicketByUsername(username);
+        if (ticketDto.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(ticketDto, HttpStatus.OK);
@@ -172,4 +175,7 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(ticketManagerDto, HttpStatus.OK);
     }
+
+//    @GetMapping("/list-ticket-pending")
+//    public ResponseEntity<List<>>
 }
