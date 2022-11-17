@@ -45,40 +45,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
-                .disable()
-                .authorizeRequests()
+                .disable().
+                authorizeRequests()
                 .antMatchers("/api/public/**",
                         "/api/customer/add",
-                        "/api/customer",
-                        "/api/customer/find/{id}",
-                        "/api/promotion/**",
-                        "/api/ticket/**")
-                        "/api/customer/edit/*",
+                        "/api/customer/**",
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
-                        "/api/promotion/**")
-                .permitAll()
-                .antMatchers("/api/user/**",
-                        "/api/promotion/list",
-                        "/api/promotion/save",
-                        "/api/promotion/delete/{id}",
-                        "/api/promotion/edit/{id}",
-                        "/api/promotion/detail/{id}"
-                        ).hasAnyRole("ROLE_ADMIN","ROLE_EMPLOYEE", "ROLE_CUSTOMER")
-                        "/api/promotion/detail/{id}").hasAnyRole("USER","ADMIN")
-                .antMatchers("/api/public/**","/api/customer/add","/api/customer/{username}","/api/user/edit")
-                .permitAll()
-                .antMatchers("/api/user/**","/api/user/edit?username=").hasAnyRole("USER","ADMIN")
-                .antMatchers("/api/customer/**","/api/customer/find-username","/api/customer/edit").hasAnyRole("ROLE_USER","ROLE_ADMIN","ROLE_CUSTOMER")
-                .antMatchers("api/admin/**").hasRole("ADMIN")
+                        "/api/promotion/**","/api/booking-ticket/**","api/booking-ticket/movie"
+                )
+                .permitAll().and()
+                .authorizeRequests()
+                .antMatchers("/api/user/**")
+                .access("hasAnyRole('ROLE_Customer', 'ROLE_Admin', 'ROLE_Employee')")
+                .and()
+                .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_Admin')")
                 .anyRequest()
                 .authenticated()
-                .and()
+                .and().cors().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60*60*24);
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60 * 60 * 24);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

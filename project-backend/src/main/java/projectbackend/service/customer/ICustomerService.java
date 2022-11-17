@@ -15,7 +15,6 @@ public interface ICustomerService {
 
     Optional<ICustomerDto> findCustomerByUsername(String username);
 
-
     Optional<Customer> findByIdCustomer(Integer id);
 
     void update(Customer customer, String username);

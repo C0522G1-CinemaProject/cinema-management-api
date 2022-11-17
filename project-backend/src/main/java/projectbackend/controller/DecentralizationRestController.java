@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.decentralization.UserDto;
 import projectbackend.dto.decentralization.UpdatePasswordUserDto;
@@ -41,15 +42,15 @@ public class DecentralizationRestController {
             }
         }
     }
-    @PostMapping("/add")
-    public ResponseEntity<List<FieldError>> saveUser(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldErrors(),
-                    HttpStatus.BAD_REQUEST);
-        }
-        User user = new User();
-        BeanUtils.copyProperties(userDto, user);
-        userService.updateUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<List<FieldError>> saveUser(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+//                    HttpStatus.BAD_REQUEST);
+//        }
+//        User user = new User();
+//        BeanUtils.copyProperties(userDto, user);
+//        userService.updateUser(user);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }

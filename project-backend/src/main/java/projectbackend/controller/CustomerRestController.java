@@ -10,18 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.dto.customer.CustomerDto;
 import projectbackend.dto.customer.ICustomerDto;
 import projectbackend.model.customer.Customer;
-import projectbackend.model.customer.CustomerType;
 import projectbackend.model.decentralization.User;
 import projectbackend.service.customer.ICustomerService;
 import projectbackend.service.decentralization.impl.MyUserDetails;
 
 import javax.validation.Valid;
-
 import java.util.Optional;
 
 
@@ -45,7 +42,6 @@ public class CustomerRestController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
     @PostMapping("/add")
     public ResponseEntity<?> saveCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) {
