@@ -25,7 +25,11 @@ public interface ISeatDetailRepository extends JpaRepository<SeatDetail, Integer
     List<ISeatDetail> findAllSeatDetail(@Param("idShowTime") Integer idShowTime);
 
     @Modifying
+<<<<<<< HEAD
     @Query(value = "update seat_detail set status_seat = true where id = :idSeatDetail and is_delete = 0",
+=======
+    @Query(value = "update seat_detail set status_seat = true where customer_id = :idSeatDetail and is_delete = 0",
+>>>>>>> 1a83e5008e5de991e35f34f1054772e2067509ba
             nativeQuery = true)
     void setStatusSeatIsPending(@Param("idSeatDetail") Integer idSeatDetail);
 }
