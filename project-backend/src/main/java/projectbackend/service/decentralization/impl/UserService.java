@@ -21,9 +21,21 @@ public class UserService implements IUserService {
     private IUserRepository iUserRepository;
 
     @Override
+    public void saveUser(User user) {
+        iUserRepository.save(user);
+    }
+
+
+    @Override
     public String existsByUserName(String username) {
         return iUserRepository.existsByUserName(username);
     }
+
+    @Override
+    public User findByUsername(String name) {
+        return iUserRepository.findByUsername(name);
+    }
+
 
     @Override
     public List<User> findAll() {
@@ -46,9 +58,8 @@ public class UserService implements IUserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
-
-        iUserRepository.saveNewPassword(encodedPassword, user.getUsername());
-    }
+        iUserRepository.saveNewPassword(encodedPassword,user.getUsername());
+}
 
     @Override
     public Optional<User> findUserByUsername(String username) {

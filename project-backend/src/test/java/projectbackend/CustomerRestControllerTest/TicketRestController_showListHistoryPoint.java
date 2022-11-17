@@ -53,11 +53,36 @@ public class TicketRestController_showListHistoryPoint {
                         .get("/api/history/point?page=0"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("totalPages").value(29))
-                .andExpect(jsonPath("totalElements").value(144))
-                .andExpect(jsonPath("content[0].statusTicket").value(1))
-                .andExpect(jsonPath("content[0].movieName").value("Alfie"))
-                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-29 00:00:00.0"))
+                .andExpect(jsonPath("totalPages").value(2))
+                .andExpect(jsonPath("totalElements").value(6))
+                .andExpect(jsonPath("content[0].statusTicket").value(0))
+                .andExpect(jsonPath("content[0].movieName").value("Reincarnated"))
+                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-05 00:00:00.0"))
+                .andExpect(jsonPath("content[0].price").value(25000));
+
+    }
+
+    //test size = 0
+    @Test
+    public void showListHistoryPoint_5() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/history/point?size=0"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    //test size = 3, element = 1 == ok
+    @Test
+    public void showListHistoryPoint_6() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/history/point?size=3"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("totalPages").value(2))
+                .andExpect(jsonPath("totalElements").value(6))
+                .andExpect(jsonPath("content[0].statusTicket").value(0))
+                .andExpect(jsonPath("content[0].movieName").value("Reincarnated"))
+                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-05 00:00:00.0"))
                 .andExpect(jsonPath("content[0].price").value(25000));
 
     }
@@ -68,7 +93,7 @@ public class TicketRestController_showListHistoryPoint {
         this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/history/point?bookingTime=null"))
                 .andDo(print())
-                .andExpect(status().isNoContent());
+                .andExpect(status().isBadRequest());
     }
 
 
@@ -98,13 +123,13 @@ public class TicketRestController_showListHistoryPoint {
                         .get("/api/history/point?bookingTime=2022-11-29"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("totalPages").value(29))
-                .andExpect(jsonPath("totalElements").value(144))
+                .andExpect(jsonPath("totalPages").value(1))
+                .andExpect(jsonPath("totalElements").value(2))
                 .andExpect(jsonPath("content[0].statusTicket").value(1))
                 .andExpect(jsonPath("content[0].movieName").value("Alfie"))
                 .andExpect(jsonPath("content[0].bookingTime").value("2022-11-29 00:00:00.0"))
                 .andExpect(jsonPath("content[0].price").value(25000))
-                .andExpect(jsonPath("content[0].point").value(123123));
+                .andExpect(jsonPath("content[0].point").value(1));
 
     }
 
@@ -114,7 +139,7 @@ public class TicketRestController_showListHistoryPoint {
         this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/history/point?bookingTime=null"))
                 .andDo(print())
-                .andExpect(status().isNoContent());
+                .andExpect(status().isBadRequest());
     }
 
 
@@ -154,49 +179,49 @@ public class TicketRestController_showListHistoryPoint {
     }
 
 
-    //test search price = null => No Content
+    //test search point = null => No Content
     @Test
-    public void showListHistoryPoint_price_1() throws Exception {
+    public void showListHistoryPoint_point_1() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/history/point?bookingTime=null"))
+                        .get("/api/history/point?point=null"))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
 
 
-    //test search price = "" => isOk, e sài RequestParam,
+    //test search point = "" => isOk, e sài RequestParam,
     @Test
-    public void showListHistoryPoint_price_2() throws Exception {
+    public void showListHistoryPoint_point_2() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/history/point?price="))
+                        .get("/api/history/point?point="))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
-    //test search price = không tồn tại DB => isNoContent,
+    //test search point = không tồn tại DB => isNoContent,
     @Test
-    public void showListHistoryPoint_price_3() throws Exception {
+    public void showListHistoryPoint_point_3() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/history/point?price=123213"))
+                        .get("/api/history/point?point=123213"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
 
 
-    //test search price = tồn tại trong DB => isOke,
+    //test search point = tồn tại trong DB => isOke,
     @Test
-    public void showListHistoryPoint_price_4() throws Exception {
+    public void showListHistoryPoint_point_4() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/history/point?price=25000"))
+                        .get("/api/history/point?point=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("totalPages").value(29))
-                .andExpect(jsonPath("totalElements").value(144))
-                .andExpect(jsonPath("content[0].statusTicket").value(1))
-                .andExpect(jsonPath("content[0].movieName").value("Alfie"))
-                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-29 00:00:00.0"))
+                .andExpect(jsonPath("totalPages").value(2))
+                .andExpect(jsonPath("totalElements").value(6))
+                .andExpect(jsonPath("content[0].statusTicket").value(0))
+                .andExpect(jsonPath("content[0].movieName").value("Reincarnated"))
+                .andExpect(jsonPath("content[0].bookingTime").value("2022-11-05 00:00:00.0"))
                 .andExpect(jsonPath("content[0].price").value(25000))
-                .andExpect(jsonPath("content[0].point").value(100000));
+                .andExpect(jsonPath("content[0].point").value(1));
     }
 
 }

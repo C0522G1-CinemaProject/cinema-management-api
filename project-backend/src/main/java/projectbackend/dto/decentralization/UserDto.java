@@ -1,10 +1,10 @@
 package projectbackend.dto.decentralization;
 
-
-
 public class UserDto {
     private String username;
     private String password;
+    //    @Enumerated(EnumType.STRING)
+//    private AuthenticationProvider authProvider;
     private boolean isDelete;
 
     public UserDto() {
@@ -13,7 +13,7 @@ public class UserDto {
     public UserDto(String username, String password, boolean isDelete) {
         this.username = username;
         this.password = password;
-
+        this.isDelete = isDelete;
     }
 
     public String getUsername() {
@@ -32,4 +32,14 @@ public class UserDto {
         this.password = password;
     }
 
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 }
+
+
+

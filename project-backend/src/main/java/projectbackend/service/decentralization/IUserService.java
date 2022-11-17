@@ -18,8 +18,14 @@ public interface IUserService {
 
     void updatePassword(User user, String newPassword);
 
+
     Optional<User> findUserByUsername(String username);
 
     void updateUser(User user, String username);
+
+    void saveUser(User user);
+
+    User findByUsername(String name);
+
 
 }

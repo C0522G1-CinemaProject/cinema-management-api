@@ -34,6 +34,14 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             ":#{#c.email},:#{#c.address},:#{#c.phoneNumber},:#{#c.customerType.id})", nativeQuery = true)
     void saveCustomer(@Param("c") Customer customer);
 
+    @Query(value = "select user.username as customerUserName,user.password as customerPassword  " +
+            "from customer " +
+            "join user on customer.username = user.username " +
+            " where user.username like %:username% and customer.is_delete=0",
+            countQuery = " select  count(*)",
+            nativeQuery = true)
+    Optional<ICustomerDto> findUserByUsername(@Param("username") String username);
+    
     @Modifying
     @Transactional
     @Query(value = " update customer set " +
@@ -58,13 +66,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "update user set password = :password where username = :username and is_delete =0", nativeQuery = true)
     void setPassword(@Param("username") String username, @Param("password") String password);
 
-    @Query(value = "select user.username as customerUserName,user.password as customerPassword  " +
-            "from customer " +
-            "join user on customer.username = user.username " +
-            " where user.username like %:username% and customer.is_delete=0",
-            countQuery = " select  count(*)",
-            nativeQuery = true)
-    Optional<ICustomerDto> findUserByUsername(@Param("username") String username);
 
     @Query(value = "select id, name, is_delete, day_of_birth, username, gender, id_card, email, address, phone_number, customer_type_id" +
             " from customer  where id =:id and is_delete = 0", nativeQuery = true)
