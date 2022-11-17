@@ -13,7 +13,6 @@ import projectbackend.service.decentralization.IUserService;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class UserService implements IUserService {
 
@@ -42,6 +41,10 @@ public class UserService implements IUserService {
         return iUserRepository.findAll();
     }
 
+    @Override
+    public User findByUsername(String name) {
+        return iUserRepository.findByUsername(name);
+    }
 
     @Override
     public Optional<IUserEmailDto> findByEmail(String email) {

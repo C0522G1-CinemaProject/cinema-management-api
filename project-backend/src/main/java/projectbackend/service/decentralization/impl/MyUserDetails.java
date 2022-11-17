@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import projectbackend.model.decentralization.Role;
 import projectbackend.model.decentralization.User;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

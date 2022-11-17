@@ -1,25 +1,23 @@
 package projectbackend.dto.customer;
 
 public interface ICustomerDto {
+    String getCustomerName();
 
-    String getName();
+    String getBirthday();
 
-    String getDayOfBirth();
+    String getCustomerGender();
 
-    String getGender();
+    String getCustomerIdCard();
 
-    String getIdCard();
+    String getCustomerEmail();
 
-    String getEmail();
+    String getCustomerAddress();
 
-    String getAddress();
+    String getCustomerPhoneNumber();
 
-    String getPhoneNumber();
+    String getCustomerUserName();
 
-    String getUsername();
-
-//    String getPassword();
+    String getCustomerPassword();
 
     String getCustomerTypeId();
-
 }

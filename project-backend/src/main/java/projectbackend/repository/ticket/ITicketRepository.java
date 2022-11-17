@@ -8,14 +8,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.ticket.ITicketDto;
-import projectbackend.model.customer.Customer;
-import projectbackend.model.customer.CustomerType;
 import projectbackend.model.ticket.Ticket;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
+
+
+    /**
+     * creator
+     * Võ Văn Tý
+     * vé đã đặt
+     */
 
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
             "ticket.status_ticket as statusTicket, seat_type.price as price, ticket.id as ticketId " +
@@ -42,12 +46,23 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     Page<ITicketDto> findAllBookingTickets(@Param("username") String username, Pageable pageable);
 
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * Lấy điểm và lấy tên khách hàng
+     */
+
     @Query(value = "select sum(saving_point.point ) as totalPoint, customer.name as customerName " +
             "from customer left join saving_point on saving_point.customer_id = customer.id where customer.username =:username " +
             "group by saving_point.customer_id ", nativeQuery = true)
     Optional<ITicketDto> findByCustomerNameAndPoint(@Param("username") String username);
 
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * vé đã hủy
+     */
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
             "ticket.status_ticket as statusTicket, seat_type.price as price, ticket.id as ticketId," +
             "ticket.is_delete as isDeleteTicket,customer.name as customerName  " +
@@ -73,7 +88,11 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "and ticket.is_delete = 1  group by ticket.id", nativeQuery = true)
     Page<ITicketDto> findAllCanceledTickets(@Param("username") String username, Pageable pageable);
 
-
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử cộng điểm và tìm kiếm theo ngày
+     */
     @Query(value = "select saving_point.point as point ,saving_point.day_booking as bookingTime," +
             "customer.name as customerName,saving_point.content as movieName   " +
             "from customer " +
@@ -89,6 +108,11 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                                          Pageable pageable);
 
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử cộng điểm và tìm kiếm theo ngày và tìm kiếm theo sử dụng điểm
+     */
     @Query(value = "select saving_point.day_booking as bookingTime," +
             "saving_point.point as point,customer.name as customerName,saving_point.content as movieName  " +
             "from customer " +
@@ -100,11 +124,18 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) and " +
                     "saving_point.point > 0  ", nativeQuery = true)
     Page<ITicketDto> findAllOfPointsAdded(@Param("username") String username,
-                                          @Param("startTime") String startTime,
-                                          @Param("endTime") String endTime,
-                                          Pageable pageable);
+                                           @Param("startTime") String startTime,
+                                           @Param("endTime") String endTime,
+                                           Pageable pageable);
+
+                                          
 
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử cộng điểm và tìm kiếm theo ngày và tìm kiếm theo sử dùng điểm
+     */
     @Query(value = "select saving_point.day_booking as bookingTime," +
             "saving_point.point as point,customer.name as customerName,saving_point.content as movieName  " +
             "from customer " +
@@ -116,10 +147,17 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "where customer.username = :username and (saving_point.day_booking between :startTime and :endTime) and " +
                     "saving_point.point < 0  ", nativeQuery = true)
     Page<ITicketDto> findAllOfUsePoints(@Param("username") String username,
-                                        @Param("startTime") String startTime,
-                                        @Param("endTime") String endTime,
-                                        Pageable pageable);
+                                             @Param("startTime") String startTime,
+                                             @Param("endTime") String endTime,
+                                             Pageable pageable);
 
+                                      
+
+    /**
+     * creator
+     * Võ Văn Tý
+     * find by id
+     */
     @Query(value = "select id,is_delete,customer_id,seat_detail_id,status_ticket,ticket_booking_time " +
             "from ticket " +
             "where id = :id ", countQuery = "select count (*) from ticket " +
@@ -127,6 +165,11 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     Optional<Ticket> findByIdTicket(@Param("id") Integer id);
 
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * xóa vé
+     */
     @Modifying
     @Transactional
     @Query(value = "update ticket set is_delete = 1 where ticket.id = :id", nativeQuery = true)

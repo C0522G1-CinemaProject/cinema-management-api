@@ -14,30 +14,54 @@ import java.util.Optional;
 @Service
 public class TicketService implements ITicketService {
 
-
     @Autowired
     ITicketRepository iTicketRepository;
 
+    /**
+     * creator
+     * Võ Văn Tý
+     *vé đã đặt
+     */
     @Override
     public Page<ITicketDto> findAllBookingTickets(Pageable pageable, String username) {
         return iTicketRepository.findAllBookingTickets(username, pageable);
     }
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * vé đã hủy
+     */
     @Override
     public Page<ITicketDto> findAllCanceledTickets(Pageable pageable, String username) {
         return iTicketRepository.findAllCanceledTickets(username, pageable);
     }
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử điểm cộng thêm tìm kiếm
+     */
     @Override
     public Page<ITicketDto> findAllHistoryPoint(String username, String startTime, String endTime, Pageable pageable) {
         return iTicketRepository.findAllHistoryPoint(username, startTime, endTime, pageable);
     }
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử điểm cộng thêm tìm kiếm theo ngày và lịch sử cộng điểm
+     */
     @Override
     public Page<ITicketDto> findAllOfPointsAdded(String username, String startTime, String endTime, Pageable pageable) {
         return iTicketRepository.findAllOfPointsAdded(username, startTime, endTime, pageable);
     }
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử điểm cộng thêm tìm kiếm theo ngày và lịch sử dùng điểm
+     */
     @Override
     public Page<ITicketDto> findAllOfUsePoints(String username, String startTime, String endTime, Pageable pageable) {
         return iTicketRepository.findAllOfUsePoints(username, startTime, endTime, pageable);
@@ -50,6 +74,11 @@ public class TicketService implements ITicketService {
     }
 
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * xóa vé
+     */
     @Override
     public void deleteTicket(Integer id) {
         iTicketRepository.deleteTicket(id);
@@ -69,16 +98,21 @@ public class TicketService implements ITicketService {
                 pageable);
     }
 
-
     @Override
     public void saveTicket(Ticket ticket) {
         iTicketRepository.save(ticket);
 
     }
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * lấy tên khách hàng và tổng điểmoo
+     */
     @Override
     public Optional<ITicketDto> findByCustomerNameAndPoint(String username) {
         return iTicketRepository.findByCustomerNameAndPoint(username);
     }
+
 
 }

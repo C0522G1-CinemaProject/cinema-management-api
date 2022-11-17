@@ -28,7 +28,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-@RestController
 @CrossOrigin("*")
 @RequestMapping("api/public")
 public class SecurityController {
@@ -49,7 +48,7 @@ public class SecurityController {
 
     @GetMapping("")
     public String home() {
-        return "index";
+        return "/index";
     }
 
     @PostMapping("/login")

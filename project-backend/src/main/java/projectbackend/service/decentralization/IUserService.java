@@ -6,22 +6,16 @@ import projectbackend.model.decentralization.User;
 import java.util.List;
 import java.util.Optional;
 
-
 public interface IUserService {
-    String existsByUserName(String username);
 
-    List<User> findAll();
+    void saveUser(User user);
 
-    Optional<IUserEmailDto> findByEmail(String email);
+//    Optional<User> findByUsername(String username);
 
-    Optional<IUserEmailDto> findByUsernameDto(String username);
-
-    void updatePassword(User user, String newPassword);
+    void updateUser(User user);
 
 
-    Optional<User> findUserByUsername(String username);
 
-    void updateUser(User user, String username);
 
     void saveUser(User user);
 
