@@ -13,7 +13,6 @@ import projectbackend.service.decentralization.IUserService;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class UserService implements IUserService {
 
@@ -43,22 +42,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByUsername(String name) {
-        return iUserRepository.findByUsername(name);
-    }
-
-    
-
-    @Override
-    public String existsByUserName(String username) {
-        return iUserRepository.existsByUserName(username);
-    }
-
-    @Override
     public List<User> findAll() {
         return iUserRepository.findAll();
     }
 
+    @Override
+    public User findByUsername(String name) {
+        return iUserRepository.findByUsername(name);
+    }
 
     @Override
     public Optional<IUserEmailDto> findByEmail(String email) {
@@ -75,19 +66,6 @@ public class UserService implements IUserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
-    }
-
-
-        iUserRepository.saveNewPassword(encodedPassword, user.getUsername());
-    }
-
-    @Override
-    public Optional<User> findUserByUsername(String username) {
-        return iUserRepository.findUserByUsername(username);
-    }
-
-    @Override
-    public void updateUser(User user, String username) {
-        iUserRepository.saveUser(user, username);
+        iUserRepository.saveNewPassword(encodedPassword,user.getUsername());
     }
 }

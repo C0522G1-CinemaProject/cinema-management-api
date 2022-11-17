@@ -497,7 +497,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("123456");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -511,7 +511,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("123456");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -525,7 +525,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("123456");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -540,7 +540,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword(null);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -555,7 +555,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -570,7 +570,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("12345555555555");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -584,7 +584,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("123");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -599,7 +599,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("1234567891234567890");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/customer/add")
+                        .post("/api/user/add")
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -623,7 +623,7 @@ public class CustomerRestController_addCustomer {
                         .content(this.objectMapper.writeValueAsString(customerDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isBadRequest());
     }
 
 
@@ -635,11 +635,7 @@ public class CustomerRestController_addCustomer {
         userDto.setPassword("123456abc");
 
         this.mockMvc.perform(MockMvcRequestBuilders
-<<<<<<< HEAD
-                        .post("/api/customer/add")
-=======
                         .post("/api/user/add")
->>>>>>> 8a4a5c3c3d37a449dd52e6aa569b0fd047c250cb
                         .content(this.objectMapper.writeValueAsString(userDto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())

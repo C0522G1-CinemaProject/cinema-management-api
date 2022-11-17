@@ -1,9 +1,5 @@
 package projectbackend.dto.customer;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import projectbackend.model.customer.Customer;
-
 public class CustomerTypeDto {
     private Integer id;
     private String name;
@@ -42,8 +38,3 @@ public class CustomerTypeDto {
         isDelete = delete;
     }
 }
-//    @Query(value = "update customer as cus set" +
-//            " cus.name  :#{#c.name}, cus.day_of_birth :#{#c.dayOfBirth}, cus.gender :#{#c.gender}, cus.id_card :#{#c.idCard}," +
-//            " cus.email :#{#c.email}, cus.address :#{#c.address}, cus.phone_number :#{#c.phoneNumber} " +
-//            "where cus.username =:username", nativeQuery = true)
-//    void updateCustomer(@Param("c") Customer customer, @Param("username") String username);

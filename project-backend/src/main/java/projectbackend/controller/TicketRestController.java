@@ -16,7 +16,6 @@ import projectbackend.model.ticket.Ticket;
 import projectbackend.service.decentralization.impl.MyUserDetails;
 import projectbackend.service.ticket.ITicketService;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("api/ticket")
@@ -27,10 +26,14 @@ public class TicketRestController {
     @Autowired
     private ITicketService iTicketService;
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * Lấy điểm và lấy tên khách hàng
+     */
     @GetMapping("/findCustomerName/and/point")
     public ResponseEntity<?> findByCustomerNameAndPoint() {
         String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        System.out.println(username);
         Optional<ITicketDto> ticketPage = iTicketService.findByCustomerNameAndPoint(username);
         if (ticketPage.isPresent()) {
             return new ResponseEntity<>(ticketPage, HttpStatus.OK);
@@ -39,6 +42,12 @@ public class TicketRestController {
 
     }
 
+
+    /**
+     * creator
+     * Võ Văn Tý
+     * Vé đã đặt
+     */
     @GetMapping("/booking")
     public ResponseEntity<Page<ITicketDto>> showListBookingTicket(Pageable pageable) {
         String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -48,6 +57,12 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }
+
+    /**
+     * creator
+     * Võ Văn Tý
+     * Vé đã hủy
+     */
     @GetMapping("/canceled")
     public ResponseEntity<Page<ITicketDto>> showListCanceledTicket(@PageableDefault(value = 5) Pageable pageable) {
         String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -58,6 +73,12 @@ public class TicketRestController {
         return new ResponseEntity<>(ticketPage, HttpStatus.OK);
     }
 
+
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử điểm cộng tìm kiếm theo ngày
+     */
     @GetMapping("/history/point")
     public ResponseEntity<Page<ITicketDto>> showListHistoryPoint(
             Pageable pageable,
@@ -72,13 +93,19 @@ public class TicketRestController {
         return new ResponseEntity<>(historyPointSearch, HttpStatus.OK);
     }
 
+
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử điểm cộng thêm tìm kiếm theo ngày và lịch sử cộng điểm
+     */
     @GetMapping("/history/plusPoint")
     public ResponseEntity<Page<ITicketDto>> showTheListOfPointsAdded(
             Pageable pageable,
             @RequestParam(value = "startTime", defaultValue = "0000-00-00", required = false) String startTime,
             @RequestParam(value = "endTime", defaultValue = "3000-00-00", required = false) String endTime) {
         String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        Page<ITicketDto> historyPigPointSearch = iTicketService.findAllBigPoint(username, startTime, endTime, pageable);
+        Page<ITicketDto> historyPigPointSearch = iTicketService.findAllOfPointsAdded(username, startTime, endTime, pageable);
 
         if (historyPigPointSearch.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -86,6 +113,11 @@ public class TicketRestController {
         return new ResponseEntity<>(historyPigPointSearch, HttpStatus.OK);
     }
 
+    /**
+     * creator
+     * Võ Văn Tý
+     * lịch sử điểm cộng thêm tìm kiếm theo ngày và lịch sử dùng điểm
+     */
     @GetMapping("/history/usedPoint")
     public ResponseEntity<Page<ITicketDto>> showListOfUsePoints(
             Pageable pageable,
@@ -93,7 +125,7 @@ public class TicketRestController {
             @RequestParam(value = "endTime", defaultValue = "3000-11-04", required = false) String endTime) {
 
         String username = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        Page<ITicketDto> historySmallPointSearch = iTicketService.findAllSmallPoint
+        Page<ITicketDto> historySmallPointSearch = iTicketService.findAllOfUsePoints
                 (username, startTime, endTime, pageable);
 
         if (historySmallPointSearch.isEmpty()) {
@@ -102,6 +134,12 @@ public class TicketRestController {
         return new ResponseEntity<>(historySmallPointSearch, HttpStatus.OK);
     }
 
+
+    /**
+     * creator
+     * Võ Văn Tý
+     * xóa vé đang trạng thái chờ nhận vé
+     */
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Ticket> deleteTicket(@PathVariable Integer id) {
         Optional<Ticket> ticket = iTicketService.findTicketById(id);
@@ -148,6 +186,6 @@ public class TicketRestController {
         iTicketService.saveTicket(ticket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-}
 
+}
 

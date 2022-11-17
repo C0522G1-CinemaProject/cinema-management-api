@@ -8,12 +8,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.decentralization.IUserEmailDto;
 import projectbackend.model.decentralization.User;
+
 import java.util.Optional;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, String> {
+//    @Query(value = "select * from user where username like %:username% and is_delete = 0", nativeQuery = true)
+//    Optional<User> findByUsername(@Param("username") String username);
 
-    User findByUsername(String username);
+    User findByUsername(String name);
 
     @Query(value = "SELECT username from  user where username = ?1", nativeQuery = true)
     String existsByUserName(String username);
@@ -34,20 +37,6 @@ public interface IUserRepository extends JpaRepository<User, String> {
             "where username =:username", nativeQuery = true)
     Optional<IUserEmailDto> findByUsernameDto(String username);
 
-    @Modifying
-    @Transactional
-    @Query(value = "update user set password =:newPassword where username =:username", nativeQuery = true)
-    void saveNewPassword(@Param("newPassword") String newPassword, @Param("username") String username);
-
-
-    @Query(value = "SELECT username, email " +
-            "from  employee where username =:username " +
-            "union all " +
-            "select  username, email " +
-            "from  customer " +
-            "where username =:username", nativeQuery = true)
-    Optional<IUserEmailDto> findByUsernameDto(String username);
-
 
     @Modifying
     @Transactional
@@ -55,12 +44,4 @@ public interface IUserRepository extends JpaRepository<User, String> {
     void saveNewPassword(@Param("newPassword") String newPassword, @Param("username") String username);
 
 
-
-    @Query(value = "select * from user where username like %:username%", nativeQuery = true)
-    Optional<User> findUserByUsername(@Param("username") String username);
-    @Modifying
-    @Transactional
-    @Query(value = " update user set password =:#{#u.password} where username =:username", nativeQuery = true)
-    void saveUser(@Param("u") User user, @Param("username") String username);
 }
-

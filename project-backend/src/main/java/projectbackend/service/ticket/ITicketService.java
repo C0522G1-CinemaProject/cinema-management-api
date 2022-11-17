@@ -19,9 +19,9 @@ public interface ITicketService {
 
     Page<ITicketDto> findAllHistoryPoint(String username, String startTime, String endTime, Pageable pageable);
 
-    Page<ITicketDto> findAllBigPoint(String username, String startTime, String endTime, Pageable pageable);
+    Page<ITicketDto> findAllOfPointsAdded(String username, String startTime, String endTime, Pageable pageable);
 
-    Page<ITicketDto> findAllSmallPoint(String username, String startTime, String endTime, Pageable pageable);
+    Page<ITicketDto> findAllOfUsePoints(String username, String startTime, String endTime, Pageable pageable);
 
 
     void deleteTicket(Integer id);
@@ -43,4 +43,3 @@ public interface ITicketService {
 
 
 }
-
