@@ -28,7 +28,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
     @Query(value = "SELECT * \n" +
             "FROM ticket\n" +
             "JOIN customer ON ticket.customer_id = customer.id\n" +
-            "WHERE ticket.status_ticket = 0 AND ticket.is_delete = 0 AND customer.username =:userName", nativeQuery = true)
+            "WHERE ticket.status_ticket = 0 AND ticket.is_delete = 0 AND customer.username =:userName limit 1", nativeQuery = true)
     Optional<Ticket> findTicketCustomerByUserName(@Param("userName") String userName);
 
     @Query(value = "SELECT id, is_delete, customer_id, seat_detail_id, status_ticket, ticket_booking_time FROM ticket WHERE id =:id AND is_delete = 0", nativeQuery = true)
