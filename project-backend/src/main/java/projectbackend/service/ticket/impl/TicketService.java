@@ -12,6 +12,7 @@ import projectbackend.repository.ticket.ISeatDetailRepository;
 import projectbackend.repository.ticket.ITicketRepository;
 import projectbackend.service.ticket.ITicketService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -29,13 +30,18 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public void updateTicketById(int id) {
-        ticketRepository.updateTicketById(id);
+    public void updateTicketByUserName(String userNameUpdate) {
+        ticketRepository.updateTicketByUserName(userNameUpdate);
     }
 
     @Override
-    public Optional<ITicketDto> findTicketById(int id) {
-        return ticketRepository.findTicketById(id);
+    public Optional<Ticket> findTicketCustomerByUserName(String userName) {
+        return ticketRepository.findTicketCustomerByUserName(userName);
+    }
+
+    @Override
+    public List<ITicketDto> findTicketByUsername(String findTicketByUserName) {
+        return ticketRepository.findTicketByUsername(findTicketByUserName);
     }
 
     @Override
@@ -46,13 +52,19 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Page<ITicketManagerDto> findAllByQuery(Pageable pageable, Integer ticketId, Integer customerId,
+    public Page<ITicketManagerDto> findAllByTicketManagerDto(Pageable pageable,
+//                                                             Integer ticketId,
+//                                                             Integer customerId,
                                                   String idCard, String phoneNumber) {
-        return ticketRepository.findAllByQuery(pageable, ticketId, customerId, idCard, phoneNumber);
+        return ticketRepository.findAllByTicketManagerDto(
+                pageable,
+//                ticketId,
+//                customerId,
+                idCard, phoneNumber);
     }
 
     @Override
-    public Optional<ITicketManagerDto> findTicketManagerById(Integer id) {
+    public Optional<ITicketManagerDto> findTicketManagerById(int id) {
         return ticketRepository.findTicketManagerById(id);
     }
 
@@ -60,4 +72,5 @@ public class TicketService implements ITicketService {
     public void editTicketManager(Integer id) {
         ticketRepository.editTicketManager(id);
     }
+
 }

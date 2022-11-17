@@ -58,7 +58,7 @@ public class SecurityController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenUtil.generateJwtToken(loginRequest.getUsername());
         MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        System.out.println(myUserDetails);
+        System.out.println(myUserDetails);
         List<String> roles = myUserDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
@@ -72,13 +72,13 @@ public class SecurityController {
     @GetMapping("/forgot-password")
     public ResponseEntity<MessageResponse> forgotPassword(@RequestParam String email){
         Optional<IUserEmailDto> iUserEmailDto = userService.findByEmail(email);
-//        System.out.println(iUserEmailDto.get().getUsername());
+        System.out.println(iUserEmailDto.get().getUsername());
         if (!iUserEmailDto.isPresent()) {
             return new ResponseEntity<>(new MessageResponse("Email không tồn tại trong hệ thống"), HttpStatus.NOT_FOUND);
         }
         IUserEmailDto userEmailDto = iUserEmailDto.get();
         String token = this.jwtTokenUtil.generateJwtToken(userEmailDto.getUsername());
-//        System.out.println(token);
+        System.out.println(token);
         String resetPasswordLink = "http://localhost:4200/confirm-reset-password/" + token;
         if (iEmailService.sendEmail(email, resetPasswordLink)) {
             return new ResponseEntity<>(new MessageResponse("Gửi email thành công"), HttpStatus.OK);
@@ -89,7 +89,7 @@ public class SecurityController {
     @PostMapping("/comfirm-reset-password")
     public ResponseEntity<MessageResponse> resetPassword(@RequestBody ResetPassRequest request) {
         String username = jwtTokenUtil.getUsernameFromJwtToken(request.getToken());
-//        System.out.println(username);
+        System.out.println(username);
         Optional<IUserEmailDto> iUserEmailDto = userService.findByUsernameDto(username);
         if (!iUserEmailDto.isPresent()) {
             return new ResponseEntity<>(new MessageResponse("Link đổi mật khẩu đã hết hiệu lực"), HttpStatus.BAD_REQUEST);

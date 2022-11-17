@@ -46,21 +46,27 @@ public class TicketRestController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PutMapping("/update-ticket/{id}")
-    public ResponseEntity<Ticket> updateStatusTicket(@PathVariable int id) {
-        Optional<Ticket> ticket = ticketService.findById(id);
+    @PutMapping("/update-ticket")
+    public ResponseEntity<Ticket> updateStatusTicket(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        String userNameUpdate = jwtTokenUtil.getUsernameFromJwtToken(headerAuth.substring(7));
+        Optional<Ticket> ticket = ticketService.findTicketCustomerByUserName(userNameUpdate);
         if (ticket.isPresent()) {
-            ticketService.updateTicketById(id);
+            ticketService.updateTicketByUserName(userNameUpdate);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping(value = "/list-ticket/{id}")
-    public ResponseEntity<Optional<ITicketDto>> showInformationTicket(@PathVariable Integer id) {
-        Optional<ITicketDto> ticketDto = ticketService.findTicketById(id);
-        if (!ticketDto.isPresent()) {
+    @GetMapping(value = "/list-ticket")
+    public ResponseEntity<List<ITicketDto>> showInformationTicket(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        String username = jwtTokenUtil.getUsernameFromJwtToken(headerAuth.substring(7));
+        List<ITicketDto> ticketDto = ticketService.findTicketByUsername(username);
+        if (ticketDto.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(ticketDto, HttpStatus.OK);
@@ -107,7 +113,6 @@ public class TicketRestController {
         if (seatDetails.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(seatDetails, HttpStatus.OK);
     }
 
@@ -138,16 +143,20 @@ public class TicketRestController {
     @GetMapping("/list-ticket-manager")
     public ResponseEntity<Page<ITicketManagerDto>> findAllTicket(
             Pageable pageable,
-            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
-            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
+//            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
+//            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
             @RequestParam(value = "idCard", defaultValue = "") String idCard,
             @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber) {
-        Page<ITicketManagerDto> iTicketManagerDtos = this.ticketService.findAllByQuery(pageable, ticketId, customerId,
-                idCard, phoneNumber);
-        if (iTicketManagerDtos.isEmpty()) {
+        Page<ITicketManagerDto> iTicketManagerDtoList = ticketService.findAllByTicketManagerDto(
+                pageable
+//                , ticketId
+//                , customerId
+                , idCard
+                , phoneNumber);
+        if (iTicketManagerDtoList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(iTicketManagerDtos, HttpStatus.OK);
+            return new ResponseEntity<>(iTicketManagerDtoList, HttpStatus.OK);
         }
     }
 
@@ -170,4 +179,7 @@ public class TicketRestController {
         }
         return new ResponseEntity<>(ticketManagerDto, HttpStatus.OK);
     }
+
+//    @GetMapping("/list-ticket-pending")
+//    public ResponseEntity<List<>>
 }
