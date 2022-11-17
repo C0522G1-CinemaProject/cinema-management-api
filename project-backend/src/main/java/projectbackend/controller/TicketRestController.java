@@ -46,8 +46,11 @@ public class TicketRestController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PutMapping("/update-ticket/{userNameUpdate}")
-    public ResponseEntity<Ticket> updateStatusTicket(@PathVariable String userNameUpdate) {
+    @PutMapping("/update-ticket")
+    public ResponseEntity<Ticket> updateStatusTicket(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        String userNameUpdate = jwtTokenUtil.getUsernameFromJwtToken(headerAuth.substring(7));
         Optional<Ticket> ticket = ticketService.findTicketCustomerByUserName(userNameUpdate);
         if (ticket.isPresent()) {
             ticketService.updateTicketByUserName(userNameUpdate);
