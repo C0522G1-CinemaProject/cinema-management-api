@@ -22,14 +22,14 @@ public interface ITicketService {
 
     void saveTicket(Ticket ticket);
 
-    Page<ITicketManagerDto> findAllByQuery(Pageable pageable,
-                                           Integer ticketId,
-                                           Integer customerId,
+    Page<ITicketManagerDto> findAllByTicketManagerDto(Pageable pageable,
+//                                           Integer ticketId,
+//                                           Integer customerId,
                                            String idCard,
                                            String phoneNumber
                                            );
 
-    Optional<ITicketManagerDto> findTicketManagerById(Integer id);
+    Optional<ITicketManagerDto> findTicketManagerById(int id);
 
     void editTicketManager(Integer id);
 
