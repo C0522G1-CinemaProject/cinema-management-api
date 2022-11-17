@@ -11,16 +11,26 @@ import java.util.List;
 @Service
 public class RoleService implements IRoleService {
     @Autowired
-    private IRoleRepository iRoleRepository;
+    private IRoleRepository roleRepository;
 
 
     @Override
     public List<Role> findAllRole() {
-        return iRoleRepository.findAll();
+        return roleRepository.findAll();
     }
 
     public List<Role> getAllRoles() {
-        return iRoleRepository.finAllRole();
+        return roleRepository.finAllRole();
 
+    }
+
+    @Override
+    public void saveCreateGmail(String email) {
+        roleRepository.insertRoleGmail(email);
+    }
+
+    @Override
+    public List<Role> getRoleByUsername(String email) {
+        return roleRepository.findRoleByUsername(email);
     }
 }

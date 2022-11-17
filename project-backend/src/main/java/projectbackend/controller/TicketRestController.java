@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ticket")
 @CrossOrigin("*")
+@RequestMapping("/api/ticket")
 public class TicketRestController {
     @Autowired
     private IShowTimesService showTimesService;

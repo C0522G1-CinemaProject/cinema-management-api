@@ -11,11 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import projectbackend.jwt.JwtFilter;
 import projectbackend.service.decentralization.impl.MyUserDetailService;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin("*")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -43,25 +45,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
-                .disable()
-                .authorizeRequests()
+                .disable();
+        http.authorizeRequests()
                 .antMatchers("/api/public/**",
                         "/api/customer/add",
                         "/api/customer",
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
-                        "/api/customer/find/{id}")
-                .permitAll()
-                .antMatchers("/api/user/**",
-                        "/api/ticket/**").hasAnyRole("ROLE_ADMIN","ROLE_EMPLOYEE", "ROLE_CUSTOMER")
-                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                        "/api/customer/find/{id}",
+                        "/api/promotion/**"
+                )
+                .permitAll().and()
+                .authorizeRequests().antMatchers("/api/user/**","/api/booking-ticket/**","api/booking-ticket/movie").access("hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')")
+                .and()
+                .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60*60*24);
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(60 * 60 * 24);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
