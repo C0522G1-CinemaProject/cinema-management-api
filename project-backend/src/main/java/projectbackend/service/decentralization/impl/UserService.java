@@ -24,22 +24,17 @@ public class UserService implements IUserService {
         iUserRepository.save(user);
     }
 
-//    @Override
-//    public Optional<User> findByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//    }
-
-    @Override
-    public void updateUser(User user) {
-        iUserRepository.save(user);
-    }
-
-
 
     @Override
     public String existsByUserName(String username) {
         return iUserRepository.existsByUserName(username);
     }
+
+    @Override
+    public User findByUsername(String name) {
+        return iUserRepository.findByUsername(name);
+    }
+
 
     @Override
     public List<User> findAll() {
@@ -67,5 +62,15 @@ public class UserService implements IUserService {
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
         iUserRepository.saveNewPassword(encodedPassword,user.getUsername());
+}
+
+    @Override
+    public Optional<User> findUserByUsername(String username) {
+        return iUserRepository.findUserByUsername(username);
+    }
+
+    @Override
+    public void updateUser(User user, String username) {
+        iUserRepository.saveUser(user, username);
     }
 }

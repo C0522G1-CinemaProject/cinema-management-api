@@ -20,6 +20,10 @@ public interface ICustomerService {
 
     Optional<Customer> findByIdCustomer(Integer id);
 
+    void update(Customer customer, String username);
+
+    Optional<Customer> findByIdCustomer(Integer id);
+
     void update(Customer customer);
 
     Page<Customer> searchCustomer(String nameSearch, String addressSearch, String phoneSearch, Pageable pageable);

@@ -60,4 +60,15 @@ public class DecentralizationRestController {
 
 
 
+//    @PostMapping("/add")
+//    public ResponseEntity<List<FieldError>> saveUser(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+//                    HttpStatus.BAD_REQUEST);
+//        }
+//        User user = new User();
+//        BeanUtils.copyProperties(userDto, user);
+//        userService.updateUser(user);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }

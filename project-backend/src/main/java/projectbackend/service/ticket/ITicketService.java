@@ -38,8 +38,6 @@ public interface ITicketService {
 
     void saveTicket(Ticket ticket);
 
-    //    List<ITicketDto> findByCustomerNameAndPoint(String username);
     Optional<ITicketDto> findByCustomerNameAndPoint(String username);
-
 
 }

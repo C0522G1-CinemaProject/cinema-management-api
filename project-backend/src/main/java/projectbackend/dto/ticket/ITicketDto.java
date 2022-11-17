@@ -3,17 +3,6 @@ package projectbackend.dto.ticket;
 public interface ITicketDto {
     String getTicketId();
 
-
-    String getPoint();
-
-    String getBookingTime();
-
-    String getPrice();
-
-    String getIsDeleteTicket();
-
-    String getTotalPoint();
-
     String getCustomerId();
 
     String getCustomerName();
@@ -33,4 +22,14 @@ public interface ITicketDto {
     String getSeatName();
 
     String getStatusTicket();
+
+    String getPoint();
+
+    String getBookingTime();
+
+    String getPrice();
+
+    String getIsDeleteTicket();
+
+    String getTotalPoint();
 }

@@ -14,10 +14,8 @@ import java.util.Optional;
 @Service
 public class TicketService implements ITicketService {
 
-
     @Autowired
     ITicketRepository iTicketRepository;
-
 
     /**
      * creator
@@ -86,6 +84,7 @@ public class TicketService implements ITicketService {
         iTicketRepository.deleteTicket(id);
     }
 
+
     @Override
     public Page<ITicketDto> findAllByQuery(Integer ticketId,
                                            Integer customerId,
@@ -114,5 +113,6 @@ public class TicketService implements ITicketService {
     public Optional<ITicketDto> findByCustomerNameAndPoint(String username) {
         return iTicketRepository.findByCustomerNameAndPoint(username);
     }
+
 
 }

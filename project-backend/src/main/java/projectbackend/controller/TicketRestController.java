@@ -186,6 +186,6 @@ public class TicketRestController {
         iTicketService.saveTicket(ticket);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
 
+}

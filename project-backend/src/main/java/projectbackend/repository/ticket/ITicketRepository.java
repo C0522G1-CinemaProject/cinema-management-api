@@ -20,6 +20,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
      * Võ Văn Tý
      * vé đã đặt
      */
+
     @Query(value = "select movie.name as movieName, ticket.ticket_booking_time as bookingTime," +
             "ticket.status_ticket as statusTicket, seat_type.price as price, ticket.id as ticketId " +
             "from ticket " +
@@ -50,6 +51,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
      * Võ Văn Tý
      * Lấy điểm và lấy tên khách hàng
      */
+
     @Query(value = "select sum(saving_point.point ) as totalPoint, customer.name as customerName " +
             "from customer left join saving_point on saving_point.customer_id = customer.id where customer.username =:username " +
             "group by saving_point.customer_id ", nativeQuery = true)
@@ -126,6 +128,8 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                                            @Param("endTime") String endTime,
                                            Pageable pageable);
 
+                                          
+
 
     /**
      * creator
@@ -146,6 +150,8 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                                              @Param("startTime") String startTime,
                                              @Param("endTime") String endTime,
                                              Pageable pageable);
+
+                                      
 
     /**
      * creator
@@ -243,4 +249,3 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
 
 
 }
-
