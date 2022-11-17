@@ -25,9 +25,9 @@ public interface ITicketService {
     Page<ITicketManagerDto> findAllByTicketManagerDto(Pageable pageable,
 //                                           Integer ticketId,
 //                                           Integer customerId,
-                                           String idCard,
-                                           String phoneNumber
-                                           );
+                                                      String idCard,
+                                                      String phoneNumber
+    );
 
     Optional<ITicketManagerDto> findTicketManagerById(int id);
 

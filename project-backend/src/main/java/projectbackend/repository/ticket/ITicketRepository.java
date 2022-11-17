@@ -95,39 +95,39 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "AND ticket.status_ticket BETWEEN 1 AND 2 " +
             "ORDER BY show_times.date_projection DESC"
             ,countQuery = "SELECT " +
-                    "count(*) " +
-                    "FROM " +
-                    "ticket " +
-                    "JOIN " +
-                    "customer ON ticket.customer_id = customer.id " +
-                    "JOIN " +
-                    "seat_detail ON ticket.seat_detail_id = seat_detail.id " +
-                    "JOIN " +
-                    "show_times ON seat_detail.show_time_id = show_times.id " +
-                    "JOIN " +
-                    "movie ON show_times.movie_id = movie.id " +
-                    "JOIN " +
-                    "times ON show_times.times_id = times.id " +
-                    "JOIN " +
-                    "room ON show_times.room_id = room.id " +
-                    "JOIN " +
-                    "seat_room ON seat_detail.seat_room_id = seat_room.id " +
-                    "JOIN " +
-                    "seat ON seat_room.seat_id = seat.id " +
-                    "WHERE " +
+            "count(*) " +
+            "FROM " +
+            "ticket " +
+            "JOIN " +
+            "customer ON ticket.customer_id = customer.id " +
+            "JOIN " +
+            "seat_detail ON ticket.seat_detail_id = seat_detail.id " +
+            "JOIN " +
+            "show_times ON seat_detail.show_time_id = show_times.id " +
+            "JOIN " +
+            "movie ON show_times.movie_id = movie.id " +
+            "JOIN " +
+            "times ON show_times.times_id = times.id " +
+            "JOIN " +
+            "room ON show_times.room_id = room.id " +
+            "JOIN " +
+            "seat_room ON seat_detail.seat_room_id = seat_room.id " +
+            "JOIN " +
+            "seat ON seat_room.seat_id = seat.id " +
+            "WHERE " +
 //                    "ticket.id like %:ticketCodeSearch% " +
 //                    "AND customer.id like %:customerCodeSearch% " +
-                    "customer.id_card like %:idCardSearch% " +
-                    "AND customer.phone_number like %:phoneSearch% " +
-                    "AND ticket.is_delete = 0 " +
-                    "AND ticket.status_ticket BETWEEN 1 AND 2 " +
-                    "ORDER BY show_times.date_projection DESC "
+            "customer.id_card like %:idCardSearch% " +
+            "AND customer.phone_number like %:phoneSearch% " +
+            "AND ticket.is_delete = 0 " +
+            "AND ticket.status_ticket BETWEEN 1 AND 2 " +
+            "ORDER BY show_times.date_projection DESC "
             , nativeQuery = true)
     Page<ITicketManagerDto> findAllByTicketManagerDto(Pageable pageable,
 //                                                              @Param("ticketCodeSearch") Integer ticketId,
 //                                                              @Param("customerCodeSearch") Integer customerId,
-                                                              @Param("idCardSearch") String idCard,
-                                                              @Param("phoneSearch") String phoneNumber);
+                                                      @Param("idCardSearch") String idCard,
+                                                      @Param("phoneSearch") String phoneNumber);
 
     @Query(value = "SELECT " +
             "ticket.id AS ticketId, " +

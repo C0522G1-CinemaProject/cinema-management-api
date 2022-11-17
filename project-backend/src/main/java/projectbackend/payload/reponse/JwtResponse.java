@@ -1,5 +1,8 @@
 package projectbackend.payload.reponse;
 
+import projectbackend.model.customer.Customer;
+import projectbackend.model.decentralization.User;
+
 import java.util.List;
 
 
@@ -10,17 +13,31 @@ public class JwtResponse {
     private Integer id;
     private String username;
     private List<String> roles;
+    private Customer customer;
 
-    public JwtResponse(String accessToken, Integer id, String username, List<String> roles) {
-        this.token = accessToken;
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public JwtResponse(String token, String type, Integer id, String username, List<String> roles, Customer customer) {
+        this.token = token;
+        this.type = type;
         this.id = id;
         this.username = username;
         this.roles = roles;
+        this.customer = customer;
     }
 
     public JwtResponse() {
     }
 
+    public JwtResponse(String jwtToken) {
+        this.token = jwtToken;
+    }
 
     public String getAccessToken() {
         return token;

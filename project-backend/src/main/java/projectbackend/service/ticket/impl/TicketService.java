@@ -55,7 +55,7 @@ public class TicketService implements ITicketService {
     public Page<ITicketManagerDto> findAllByTicketManagerDto(Pageable pageable,
 //                                                             Integer ticketId,
 //                                                             Integer customerId,
-                                                  String idCard, String phoneNumber) {
+                                                             String idCard, String phoneNumber) {
         return ticketRepository.findAllByTicketManagerDto(
                 pageable,
 //                ticketId,

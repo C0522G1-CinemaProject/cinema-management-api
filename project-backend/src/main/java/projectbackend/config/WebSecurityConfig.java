@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyUserDetailService userDetailService;
+
     @Autowired
     private JwtFilter jwtFilter;
 
@@ -53,14 +54,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
-                        "/api/promotion/**"
-                        )
+                        "/api/promotion/**","/api/booking-ticket/**","api/booking-ticket/movie"
+                )
                 .permitAll().and()
                 .authorizeRequests()
-                .antMatchers("/api/user/**", "/api/ticket/**")
-                .access("hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')")
+                .antMatchers("/api/user/**")
+                .access("hasAnyRole('ROLE_Customer', 'ROLE_Admin', 'ROLE_Employee')")
                 .and()
-                .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_ADMIN')")
+                .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_Admin')")
                 .anyRequest()
                 .authenticated()
                 .and().cors().and()
