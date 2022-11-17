@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/booking-ticket")
+@RequestMapping("/api/ticket")
 @CrossOrigin("*")
 public class TicketRestController {
     @Autowired
@@ -109,7 +109,6 @@ public class TicketRestController {
         if (seatDetails.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(seatDetails, HttpStatus.OK);
     }
 
@@ -127,7 +126,7 @@ public class TicketRestController {
 
         String username = jwtTokenUtil.getUsernameFromJwtToken(headerAuth.substring(7));
         Customer customer = customerService.findByUsername(username);
-        return  new ResponseEntity<>(customer, HttpStatus.OK);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @GetMapping("/seat/{idSeatDetail}")
@@ -140,16 +139,20 @@ public class TicketRestController {
     @GetMapping("/list-ticket-manager")
     public ResponseEntity<Page<ITicketManagerDto>> findAllTicket(
             Pageable pageable,
-            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
-            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
+//            @RequestParam(value = "ticketId", defaultValue = "") Integer ticketId,
+//            @RequestParam(value = "customerId", defaultValue = "") Integer customerId,
             @RequestParam(value = "idCard", defaultValue = "") String idCard,
             @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber) {
-        Page<ITicketManagerDto> iTicketManagerDtos = this.ticketService.findAllByQuery(pageable, ticketId, customerId,
-                idCard, phoneNumber);
-        if (iTicketManagerDtos.isEmpty()) {
+        Page<ITicketManagerDto> iTicketManagerDtoList = ticketService.findAllByTicketManagerDto(
+                pageable
+//                , ticketId
+//                , customerId
+                , idCard
+                , phoneNumber);
+        if (iTicketManagerDtoList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(iTicketManagerDtos, HttpStatus.OK);
+            return new ResponseEntity<>(iTicketManagerDtoList, HttpStatus.OK);
         }
     }
 

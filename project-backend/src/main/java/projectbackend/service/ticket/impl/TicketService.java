@@ -52,13 +52,19 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Page<ITicketManagerDto> findAllByQuery(Pageable pageable, Integer ticketId, Integer customerId,
+    public Page<ITicketManagerDto> findAllByTicketManagerDto(Pageable pageable,
+//                                                             Integer ticketId,
+//                                                             Integer customerId,
                                                   String idCard, String phoneNumber) {
-        return ticketRepository.findAllByQuery(pageable, ticketId, customerId, idCard, phoneNumber);
+        return ticketRepository.findAllByTicketManagerDto(
+                pageable,
+//                ticketId,
+//                customerId,
+                idCard, phoneNumber);
     }
 
     @Override
-    public Optional<ITicketManagerDto> findTicketManagerById(Integer id) {
+    public Optional<ITicketManagerDto> findTicketManagerById(int id) {
         return ticketRepository.findTicketManagerById(id);
     }
 

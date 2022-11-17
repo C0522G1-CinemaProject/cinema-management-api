@@ -32,13 +32,13 @@ import java.util.stream.Collectors;
 @RequestMapping("api/public")
 public class SecurityController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private PasswordEncoder encoder;
+//    @Autowired
+//    private PasswordEncoder encoder;
 
     @Autowired
     private IEmailService iEmailService;
@@ -51,54 +51,54 @@ public class SecurityController {
         return "/index";
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtTokenUtil.generateJwtToken(loginRequest.getUsername());
-        MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        System.out.println(myUserDetails);
-        List<String> roles = myUserDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(
-                new LoginResponse(
-                        jwt,
-                        myUserDetails.getUsername(),
-                        roles));
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        String jwt = jwtTokenUtil.generateJwtToken(loginRequest.getUsername());
+//        MyUserDetails myUserDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+////        System.out.println(myUserDetails);
+//        List<String> roles = myUserDetails.getAuthorities().stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(Collectors.toList());
+//        return ResponseEntity.ok(
+//                new LoginResponse(
+//                        jwt,
+//                        myUserDetails.getUsername(),
+//                        roles));
+//    }
 
-    @GetMapping("/forgot-password")
-    public ResponseEntity<MessageResponse> forgotPassword(@RequestParam String email){
-        Optional<IUserEmailDto> iUserEmailDto = userService.findByEmail(email);
-//        System.out.println(iUserEmailDto.get().getUsername());
-        if (!iUserEmailDto.isPresent()) {
-            return new ResponseEntity<>(new MessageResponse("Email không tồn tại trong hệ thống"), HttpStatus.NOT_FOUND);
-        }
-        IUserEmailDto userEmailDto = iUserEmailDto.get();
-        String token = this.jwtTokenUtil.generateJwtToken(userEmailDto.getUsername());
-//        System.out.println(token);
-        String resetPasswordLink = "http://localhost:4200/confirm-reset-password/" + token;
-        if (iEmailService.sendEmail(email, resetPasswordLink)) {
-            return new ResponseEntity<>(new MessageResponse("Gửi email thành công"), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(new MessageResponse("Gửi email thất bại"), HttpStatus.BAD_REQUEST);
-    }
+//    @GetMapping("/forgot-password")
+//    public ResponseEntity<MessageResponse> forgotPassword(@RequestParam String email){
+//        Optional<IUserEmailDto> iUserEmailDto = userService.findByEmail(email);
+////        System.out.println(iUserEmailDto.get().getUsername());
+//        if (!iUserEmailDto.isPresent()) {
+//            return new ResponseEntity<>(new MessageResponse("Email không tồn tại trong hệ thống"), HttpStatus.NOT_FOUND);
+//        }
+//        IUserEmailDto userEmailDto = iUserEmailDto.get();
+//        String token = this.jwtTokenUtil.generateJwtToken(userEmailDto.getUsername());
+////        System.out.println(token);
+//        String resetPasswordLink = "http://localhost:4200/confirm-reset-password/" + token;
+//        if (iEmailService.sendEmail(email, resetPasswordLink)) {
+//            return new ResponseEntity<>(new MessageResponse("Gửi email thành công"), HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(new MessageResponse("Gửi email thất bại"), HttpStatus.BAD_REQUEST);
+//    }
 
-    @PostMapping("/comfirm-reset-password")
-    public ResponseEntity<MessageResponse> resetPassword(@RequestBody ResetPassRequest request) {
-        String username = jwtTokenUtil.getUsernameFromJwtToken(request.getToken());
-//        System.out.println(username);
-        Optional<IUserEmailDto> iUserEmailDto = userService.findByUsernameDto(username);
-        if (!iUserEmailDto.isPresent()) {
-            return new ResponseEntity<>(new MessageResponse("Link đổi mật khẩu đã hết hiệu lực"), HttpStatus.BAD_REQUEST);
-        }
-        if (!request.getPassword().equals(request.getConfirmPassword())) {
-            return new ResponseEntity<>(new MessageResponse("Mật khẩu không trùng khớp"), HttpStatus.BAD_REQUEST);
-        }
-        User user = new User(username,request.getPassword());
-        userService.updatePassword(user , request.getPassword());
-        return new ResponseEntity<>(new MessageResponse("Đổi mật khẩu thành công"), HttpStatus.OK);
-    }
+//    @PostMapping("/comfirm-reset-password")
+//    public ResponseEntity<MessageResponse> resetPassword(@RequestBody ResetPassRequest request) {
+//        String username = jwtTokenUtil.getUsernameFromJwtToken(request.getToken());
+////        System.out.println(username);
+//        Optional<IUserEmailDto> iUserEmailDto = userService.findByUsernameDto(username);
+//        if (!iUserEmailDto.isPresent()) {
+//            return new ResponseEntity<>(new MessageResponse("Link đổi mật khẩu đã hết hiệu lực"), HttpStatus.BAD_REQUEST);
+//        }
+//        if (!request.getPassword().equals(request.getConfirmPassword())) {
+//            return new ResponseEntity<>(new MessageResponse("Mật khẩu không trùng khớp"), HttpStatus.BAD_REQUEST);
+//        }
+//        User user = new User(username,request.getPassword());
+//        userService.updatePassword(user , request.getPassword());
+//        return new ResponseEntity<>(new MessageResponse("Đổi mật khẩu thành công"), HttpStatus.OK);
+//    }
 }

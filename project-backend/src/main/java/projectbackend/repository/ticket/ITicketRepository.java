@@ -87,13 +87,14 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "JOIN " +
             "seat ON seat_room.seat_id = seat.id " +
             "WHERE " +
-            "ticket.id like %:ticketCodeSearch% " +
-            "AND customer.id like %:customerCodeSearch% " +
-            "AND customer.id_card like %:idCardSearch% " +
+//            "ticket.id like %:ticketCodeSearch% " +
+//            "AND customer.id like %:customerCodeSearch% " +
+            "customer.id_card like %:idCardSearch% " +
             "AND customer.phone_number like %:phoneSearch% " +
             "AND ticket.is_delete = 0 " +
-            "AND ticket.status_ticket between 1 and 2 order by show_times.date_projection desc ",
-            countQuery = "SELECT " +
+            "AND ticket.status_ticket BETWEEN 1 AND 2 " +
+            "ORDER BY show_times.date_projection DESC"
+            ,countQuery = "SELECT " +
                     "count(*) " +
                     "FROM " +
                     "ticket " +
@@ -114,19 +115,19 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                     "JOIN " +
                     "seat ON seat_room.seat_id = seat.id " +
                     "WHERE " +
-                    "ticket.id like %:ticketCodeSearch% " +
-                    "AND customer.id like %:customerCodeSearch% " +
-                    "AND customer.id_card like %:idCardSearch% " +
+//                    "ticket.id like %:ticketCodeSearch% " +
+//                    "AND customer.id like %:customerCodeSearch% " +
+                    "customer.id_card like %:idCardSearch% " +
                     "AND customer.phone_number like %:phoneSearch% " +
                     "AND ticket.is_delete = 0 " +
-                    "AND ticket.status_ticket between 1 and 2 order by show_times.date_projection desc "
+                    "AND ticket.status_ticket BETWEEN 1 AND 2 " +
+                    "ORDER BY show_times.date_projection DESC "
             , nativeQuery = true)
-    Page<ITicketManagerDto> findAllByQuery(Pageable pageable,
-                                           @Param("ticketCodeSearch") Integer ticketId,
-                                           @Param("customerCodeSearch") Integer customerId,
-                                           @Param("idCardSearch") String idCard,
-                                           @Param("phoneSearch") String phoneNumber
-    );
+    Page<ITicketManagerDto> findAllByTicketManagerDto(Pageable pageable,
+//                                                              @Param("ticketCodeSearch") Integer ticketId,
+//                                                              @Param("customerCodeSearch") Integer customerId,
+                                                              @Param("idCardSearch") String idCard,
+                                                              @Param("phoneSearch") String phoneNumber);
 
     @Query(value = "SELECT " +
             "ticket.id AS ticketId, " +
@@ -161,9 +162,9 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
             "WHERE " +
             "ticket.id =:id " +
             "AND ticket.is_delete = 0 limit 1 ", nativeQuery = true)
-    Optional<ITicketManagerDto> findTicketManagerById(@Param("id") Integer id);
+    Optional<ITicketManagerDto> findTicketManagerById(@Param("id") int id);
 
     @Modifying
     @Query(value = "UPDATE ticket SET status_ticket = 2 WHERE id =:idEdit ", nativeQuery = true)
-    void editTicketManager(@Param("idEdit") Integer id);
+    void editTicketManager(@Param("idEdit") int id);
 }
