@@ -20,4 +20,5 @@ public interface IUserService {
 
     void updatePassword(User user, String newPassword);
 
+    void saveCreateGmail(User user);
 }

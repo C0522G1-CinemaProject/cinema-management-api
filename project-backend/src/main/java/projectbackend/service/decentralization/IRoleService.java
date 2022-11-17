@@ -10,4 +10,7 @@ public interface IRoleService {
 
     List<Role> getAllRoles();
 
+    void saveCreateGmail(String email);
+
+    List<Role> getRoleByUsername(String email);
 }
