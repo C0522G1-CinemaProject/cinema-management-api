@@ -1,0 +1,22 @@
+insert into promotion(`name`,image,start_time,end_time,detail,discount)
+values
+('Khuyến mãi năm mới','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-11-10','2022-11-15','giảm giá chương trình','5'),
+('Khuyến mãi Valentine','https://static.mservice.io/blogscontents/momo-upload-api-200528143622-637262733826352434.jpg','2022-11-16','2022-11-18','giảm giá vé','10'),
+('Khuyến mãi sinh nhật','https://static.mservice.io/cinema/momo-upload-api-210823085323-637653056030054568.jpg','2022-11-19','2022-11-23','giảm giá chương trình','6'),
+('Khuyến mãi ngày quốc tế phụ nữ','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-03-08','2022-03-09','giảm giá chương trình','10'),
+('Khuyến mãi mồng 10 tháng 3','https://media.foody.vn/res/g5/44199/prof/s/foody-upload-api-foody-mobile-cover-galaxy-cinema-210313150403.jpg?compress=85','2022-04-08','2022-04-09','giảm giá chương trình','5'),
+('Khuyến mãi 30 tháng 4','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-04-30','2022-04-01','giảm giá chương trình','5'),
+('Khuyến mãi thứ tư vui vẻ','https://www.galaxycine.vn/media/2019/2/12/c-users-nghiepnt-appdata-local-packages-microsoft-skypeapp-kzf8qxf38zg5c-localstate-43123d97-4a1e-4695-a693-42ec212462a0_1549944569451.jpg','2022-05-20','2022-05-21','giảm giá chương trình','6'),
+('Khuyến mãi thứ hai vui vẻ','https://cdn.jamja.vn/blog/wp-content/uploads/2018/05/happy-day-tai-galaxy-quang-trung.png','2022-05-22','2022-05-23','giảm giá chương trình','7'),
+('Khuyến mãi năm mới','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-11-10','2022-11-15','giảm giá chương trình','5'),
+('Khuyến mãi Valentine','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-11-16','2022-11-18','giảm giá chương trình','7'),
+('Khuyến mãi sinh nhật','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-11-19','2022-11-23','giảm giá chương trình','6'),
+('Khuyến mãi ngày quốc tế phụ nữ','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-03-08','2022-03-09','giảm giá chương trình','10'),
+('Khuyến mãi mồng 10 tháng 3','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-04-08','2022-04-09','giảm giá chương trình','5'),
+('Khuyến mãi quốc khánh','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-09-02','2022-09-03','giảm giá chương trình','10'),
+('Khuyến mãi 20/11','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-11-20','2022-11-21','giảm giá chương trình','18'),
+('Khuyến mãi thứ tư vui vẻ','https://www.galaxycine.vn/media/2019/2/12/c-users-nghiepnt-appdata-local-packages-microsoft-skypeapp-kzf8qxf38zg5c-localstate-43123d97-4a1e-4695-a693-42ec212462a0_1549944569451.jpg','2022-05-20','2022-05-21','giảm giá chương trình','6'),
+('Khuyến mãi thứ hai vui vẻ','https://cdn.jamja.vn/blog/wp-content/uploads/2018/05/happy-day-tai-galaxy-quang-trung.png','2022-05-22','2022-05-23','giảm giá chương trình','7'),
+('Khuyến mãi 22/12','https://img.websosanh.vn/v10/users/review/images/71lfkzep6qyvw/cvdgvxp-770x403.jpg?compress=85','2022-12-22','2022-12-23','giảm giá chương trình','7'),
+('Khuyến mãi tết dương','https://www.galaxycine.vn/media/2021/3/1/1135x660_1614586717260.jpg','2023-01-01','2023-01-01','giảm giá chương trình','10'),
+('Khuyến mãi tết nguyên đán','https://www.galaxycine.vn/media/2021/3/1/1135x660_1614586717260.jpg','2023-02-22','2023-02-22','giảm giá chương trình','10');

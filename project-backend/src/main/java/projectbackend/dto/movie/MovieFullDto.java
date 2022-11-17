@@ -11,44 +11,45 @@ import java.util.List;
 public class MovieFullDto {
     private Integer id;
 
-//    @NotBlank(message = "Vui lòng nhập tên phim")
-//    @Size(min = 15, max = 50)
+    @NotBlank(message = "Vui lòng nhập tên phim")
+    @Size(max = 50)
     private String name;
     private boolean isDelete;
 
-//    @NotBlank(message = "Vui lòng tải lên hình ảnh")
+    @NotBlank(message = "Vui lòng tải lên hình ảnh")
     private String image;
 
-//    @NotBlank(message = "Vui lòng nhập ngày bắt đầu")
+    @NotBlank(message = "Vui lòng nhập ngày bắt đầu")
     private String startDay;
 
-//    @NotBlank(message = "Vui lòng nhập ngày kết thúc")
+    @NotBlank(message = "Vui lòng nhập ngày kết thúc")
     private String endDay;
 
-//    @NotBlank(message = "Vui lòng nhập tên đạo diễn")
-//    @Size(min = 2, max = 35)
-//    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$")
+    @NotBlank(message = "Vui lòng nhập tên đạo diễn")
+    @Size(max = 35)
+    @Pattern(regexp = "^^([A-Z][^0-9@*&%#!<>]+[ ][^0-9@*&%#!<>]+)$")
     private String director;
 
-//    @NotNull(message = "Vui lòng nhập thời lượng phim")
-//    @Max(value = 180)
+    @NotNull(message = "Vui lòng nhập thời lượng phim")
+//    @Max(value = 120)
+//    @Pattern(regexp = "^([0-9]{3})")
     private Integer filmTime;
 
-//    @NotBlank(message = "Vui lòng nhập trailer")
+    @NotBlank(message = "Vui lòng nhập trailer")
     private String trailer;
 
     private String content;
 
-//    @NotBlank(message = "Vui lòng nhập hãng phim")
-//    @Size(min = 10, max = 25)
+    @NotBlank(message = "Vui lòng nhập hãng phim")
+    @Size(max = 25)
     private String filmStudio;
 
-//    @NotBlank(message = "Vui lòng nhập tên diễn viên")
-//    @Size(min = 2, max = 35)
-//    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$")
+    @NotBlank(message = "Vui lòng nhập tên diễn viên")
+    @Size(max = 35)
+    @Pattern(regexp = "^([A-Z][^0-9@*&%#!<>]+[ ][^0-9@*&%#!<>]+)$")
     private String actor;
 
-//    @NotNull(message = "Vui lòng chọn phiên bản")
+    @NotNull(message = "Vui lòng chọn phiên bản")
     private Integer version;
 
 //    @NotNull(message = "Vui lòng chọn chọn thể loại")
