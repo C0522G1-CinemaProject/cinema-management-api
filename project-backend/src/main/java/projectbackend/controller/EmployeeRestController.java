@@ -32,8 +32,8 @@ public class EmployeeRestController {
     public ResponseEntity<Page<Employee>> findAllEmployee(@PageableDefault(size = 5) Pageable pageable,
                                                           @RequestParam(value = "name", defaultValue = "") String nameSearch,
                                                           @RequestParam(value = "idCard", defaultValue = "") String idCardSearch,
-                                                          @RequestParam(value = "phoneNumber",defaultValue = "") String phoneNumberSearch) {
-        Page<Employee> employeePage = employeeService.findAllEmployee(pageable,nameSearch, idCardSearch, phoneNumberSearch);
+                                                          @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumberSearch) {
+        Page<Employee> employeePage = employeeService.findAllEmployee(pageable, nameSearch, idCardSearch, phoneNumberSearch);
         if (employeePage.hasContent()) {
             return new ResponseEntity<>(employeePage, HttpStatus.OK);
         } else
@@ -46,12 +46,19 @@ public class EmployeeRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    ;
+
     @PostMapping("/create")
     public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeDto employeeDto,
-                                            BindingResult bindingResult) {
+                                            BindingResult bindingResult,
+                                            String username) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
+        }
+        Optional<Employee> employees = employeeService.findUser(username);
+        if (employees.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
@@ -80,11 +87,10 @@ public class EmployeeRestController {
         }
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> getEmployee(@PathVariable Integer id) {
         Optional<Employee> employee = employeeService.findEmployeeById(id);
-        if(!employee.isPresent()){
+        if (!employee.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         EmployeeDto employeeDto = new EmployeeDto();

@@ -43,8 +43,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "select e.id, e.address, e.day_of_birth, e.email, e.gender, " +
             " e.id_card,  e.image , e.name, e.phone_number, is_delete, e.username "
             + " from employee as e where id =:id and is_delete = 0 ", nativeQuery = true)
-//            + " join `user` as u on e.username = u.username "
-//            + " where e.is_delete = 0 and e.id = :keyId ", nativeQuery = true)
     Optional<Employee> findEmployeeById(@Param("id") Integer id);
 
 
@@ -70,5 +68,8 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     @Modifying
     @Query(value = "update user set  password =:password where username = :username and is_delete = 0 ", nativeQuery = true)
     void updatePassword(@Param("password") String password, @Param("username") String username);
+
+    @Query(value = "select * from employee where employee.username =:username and is_delete = 0", nativeQuery = true)
+    Optional<Employee> findByUsername(@Param("username") String username);
 }
 

@@ -26,7 +26,7 @@ public class EmployeeDto {
     private String phoneNumber;
 
     @NotBlank
-    @Pattern(regexp = "\\d{9}|\\d{12}", message = "Identity card must be in the correct format of 9 and 12 numbers")
+    @Pattern(regexp = "^(\\d{9}|\\d{12})$", message = "Identity card must be in the correct format of 9 and 12 numbers")
     private String idCard;
 
     @NotBlank
