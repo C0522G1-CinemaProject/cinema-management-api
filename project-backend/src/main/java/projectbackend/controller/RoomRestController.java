@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "api/roomRest")
+@RequestMapping(value = "api/admin/roomRest")
 public class RoomRestController {
 
     @Autowired
