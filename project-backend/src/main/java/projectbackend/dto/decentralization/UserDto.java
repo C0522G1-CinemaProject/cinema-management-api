@@ -4,8 +4,6 @@ package projectbackend.dto.decentralization;
 public class UserDto {
     private String username;
     private String password;
-    //    @Enumerated(EnumType.STRING)
-//    private AuthenticationProvider authProvider;
     private boolean isDelete;
 
     public UserDto() {

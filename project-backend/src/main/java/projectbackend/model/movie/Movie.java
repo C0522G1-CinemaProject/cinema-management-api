@@ -1,5 +1,6 @@
 package projectbackend.model.movie;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import projectbackend.model.employee.Employee;
 
 import javax.persistence.*;

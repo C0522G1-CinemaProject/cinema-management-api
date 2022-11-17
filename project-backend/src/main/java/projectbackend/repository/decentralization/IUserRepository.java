@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import projectbackend.dto.decentralization.IUserEmailDto;
 import projectbackend.dto.decentralization.UserDto;
 import projectbackend.model.decentralization.User;
-
 import java.util.List;
 import java.util.Optional;
 

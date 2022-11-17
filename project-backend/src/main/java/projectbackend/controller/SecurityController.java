@@ -12,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import projectbackend.common.IEmailService;
@@ -22,7 +21,6 @@ import projectbackend.model.customer.Customer;
 import projectbackend.model.decentralization.Role;
 import projectbackend.model.decentralization.SocialResponse;
 import projectbackend.model.decentralization.User;
-import projectbackend.payload.reponse.JwtResponse;
 import projectbackend.payload.reponse.MessageResponse;
 import projectbackend.payload.request.LoginRequest;
 import projectbackend.payload.request.LoginResponse;
@@ -31,7 +29,6 @@ import projectbackend.service.customer.impl.CustomerService;
 import projectbackend.service.decentralization.IRoleService;
 import projectbackend.service.decentralization.impl.MyUserDetailService;
 import projectbackend.service.decentralization.impl.MyUserDetails;
-import projectbackend.service.decentralization.impl.RoleService;
 import projectbackend.service.decentralization.impl.UserService;
 
 import javax.validation.Valid;
@@ -143,7 +140,7 @@ public class SecurityController {
             loginResponse.setAccessToken(jwtTokenUtil.generateJwtToken(customer.getEmail()));
             List<Role> roles = roleService.getRoleByUsername(customer.getEmail());
             List<String> nameRole = new ArrayList<>();
-            for(Role role: roles) {
+            for (Role role : roles) {
                 nameRole.add(role.getName());
             }
             loginResponse.setRoles(nameRole);
@@ -156,7 +153,7 @@ public class SecurityController {
             loginResponse.setUsername(customer.getEmail());
             List<Role> roles = roleService.getRoleByUsername(customer.getEmail());
             List<String> nameRole = new ArrayList<>();
-            for(Role role: roles) {
+            for (Role role : roles) {
                 nameRole.add(role.getName());
             }
             loginResponse.setRoles(nameRole);

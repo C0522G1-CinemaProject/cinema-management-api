@@ -1,46 +1,63 @@
 package projectbackend.dto.movie;
 
+import projectbackend.dto.show_times.ShowTimesDto;
 import projectbackend.model.employee.Employee;
 import projectbackend.model.movie.MovieType;
+import projectbackend.model.show_times.ShowTimes;
+
+import java.util.List;
 
 public class MovieDto {
     private Integer id;
+
+    //    @NotBlank(message = "Vui lòng nhập tên phim")
+//    @Size(min = 15, max = 50)
     private String name;
     private boolean isDelete;
+
+    //    @NotBlank(message = "Vui lòng tải lên hình ảnh")
     private String image;
+
+    //    @NotBlank(message = "Vui lòng nhập ngày bắt đầu")
     private String startDay;
+
+    //    @NotBlank(message = "Vui lòng nhập ngày kết thúc")
     private String endDay;
+
+    //    @NotBlank(message = "Vui lòng nhập tên đạo diễn")
+//    @Size(min = 2, max = 35)
+//    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$")
     private String director;
+
+    //    @NotNull(message = "Vui lòng nhập thời lượng phim")
+//    @Max(value = 180)
     private Integer filmTime;
+
+    //    @NotBlank(message = "Vui lòng nhập trailer")
     private String trailer;
+
     private String content;
+
+    //    @NotBlank(message = "Vui lòng nhập hãng phim")
+//    @Size(min = 10, max = 25)
     private String filmStudio;
+
+    //    @NotBlank(message = "Vui lòng nhập tên diễn viên")
+//    @Size(min = 2, max = 35)
+//    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$")
     private String actor;
+
+    //    @NotNull(message = "Vui lòng chọn phiên bản")
     private Integer version;
-    private MovieType movieType;
+
+    //    @NotNull(message = "Vui lòng chọn chọn thể loại")
+    private MovieType movieTypeDto;
+
+    private List<ShowTimes> showTimeDto;
+
     private Employee employee;
 
     public MovieDto() {
-    }
-
-    public MovieDto(Integer id, String name, boolean isDelete, String image, String startDay, String endDay,
-                    String director, Integer filmTime, String trailer, String content, String filmStudio,
-                    String actor, Integer version, MovieType movieType, Employee employee) {
-        this.id = id;
-        this.name = name;
-        this.isDelete = isDelete;
-        this.image = image;
-        this.startDay = startDay;
-        this.endDay = endDay;
-        this.director = director;
-        this.filmTime = filmTime;
-        this.trailer = trailer;
-        this.content = content;
-        this.filmStudio = filmStudio;
-        this.actor = actor;
-        this.version = version;
-        this.movieType = movieType;
-        this.employee = employee;
     }
 
     public Integer getId() {
@@ -147,19 +164,23 @@ public class MovieDto {
         this.version = version;
     }
 
-    public MovieType getMovieType() {
-        return movieType;
-    }
-
-    public void setMovieType(MovieType movieType) {
-        this.movieType = movieType;
-    }
-
     public Employee getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public MovieType getMovieType() {
+        return movieTypeDto;
+    }
+
+    public List<ShowTimes> getShowTimeDto() {
+        return showTimeDto;
+    }
+
+    public void setShowTimesDto(List<ShowTimes> showTimeDto) {
+        this.showTimeDto = showTimeDto;
     }
 }
