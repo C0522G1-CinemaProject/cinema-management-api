@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable().
-        authorizeRequests()
+                authorizeRequests()
                 .antMatchers("/api/public/**",
                         "/api/customer/add",
                         "/api/customer",
@@ -54,10 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
                         "/api/promotion/**"
-                        )
+                )
                 .permitAll().and()
                 .authorizeRequests()
-                .antMatchers("/api/user/**","/api/booking-ticket/**","api/booking-ticket/movie")
+                .antMatchers("/api/user/**", "/api/booking-ticket/**")
                 .access("hasAnyRole('ROLE_Customer', 'ROLE_Admin', 'ROLE_Employee')")
                 .and()
                 .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_Admin')")
