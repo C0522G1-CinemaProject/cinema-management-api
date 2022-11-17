@@ -3,26 +3,16 @@ package projectbackend.repository.ticket;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-<<<<<<< HEAD
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-=======
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
 import projectbackend.dto.ticket.ITicketDto;
->>>>>>> 1a83e5008e5de991e35f34f1054772e2067509ba
+
 import projectbackend.model.ticket.Ticket;
 
 @Transactional
 public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
-<<<<<<< HEAD
-    @Modifying
-    @Query(value = "insert into ticket (is_delete, customer_id, seat_detail_id, status_ticket, ticket_booking_time) " +
-            "values (0, :idCustomer, :idSeatDetail, 0, now());", nativeQuery = true)
-    void addPendingTicket(@Param("idCustomer") Integer idCustomer, @Param("idSeatDetail") Integer idSeatDetail);
-=======
 
     @Query(value = "SELECT " +
             "ticket.id AS ticketId, " +
@@ -94,5 +84,4 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer> {
                                     @Param("idCardSearch") String idCard,
                                     @Param("phoneSearch") String phoneNumber,
                                     Pageable pageable);
->>>>>>> 1a83e5008e5de991e35f34f1054772e2067509ba
 }
