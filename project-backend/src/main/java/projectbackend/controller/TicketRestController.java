@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/booking-ticket")
+@RequestMapping("/api/ticket")
 @CrossOrigin("*")
 public class TicketRestController {
     @Autowired
@@ -88,9 +88,10 @@ public class TicketRestController {
         return new ResponseEntity<>(showDates, HttpStatus.OK);
     }
 
-    @GetMapping("/showtime/{showDate}")
-    public ResponseEntity<List<IShowTimes>> showTimeByShowDate(@PathVariable String showDate) {
-        List<IShowTimes> showTimes = showTimesService.findAllShowTimesInDay(showDate);
+    @GetMapping("/showtime/{showDate}&{idMovie}")
+    public ResponseEntity<List<IShowTimes>> showTimeByShowDate(@PathVariable("showDate") String showDate,
+                                                               @PathVariable("idMovie") Integer idMovie) {
+        List<IShowTimes> showTimes = showTimesService.findAllShowTimesInDay(showDate, idMovie);
 
         if (showTimes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -124,7 +125,7 @@ public class TicketRestController {
 
         String username = jwtTokenUtil.getUsernameFromJwtToken(headerAuth.substring(7));
         Customer customer = customerService.findByUsername(username);
-        return  new ResponseEntity<>(customer, HttpStatus.OK);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @GetMapping("/seat/{idSeatDetail}")

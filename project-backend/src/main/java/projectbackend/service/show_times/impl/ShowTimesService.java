@@ -32,7 +32,7 @@ public class ShowTimesService implements IShowTimesService {
     }
 
     @Override
-    public List<IShowTimes> findAllShowTimesInDay(String showDate) {
-        return showTimesRepository.findAllShowTimesInDay(showDate);
+    public List<IShowTimes> findAllShowTimesInDay(String showDate, Integer idMovie) {
+        return showTimesRepository.findAllShowTimesInDay(showDate, idMovie);
     }
 }

@@ -17,10 +17,13 @@ public interface IShowTimesRepository extends JpaRepository<ShowTimes, Integer> 
     List<IShowDates> findAllShowDate(@Param("idMovie") Integer idMovie);
 
     @Query(value = "select show_times.id as id, times.start_time as times, room.name as room " +
-            "from show_times join times on times.id = show_times.times_id join room on room.id = show_times.room_id " +
-            "where show_times.date_projection = :showDate and show_times.is_delete = 0;",
+            "from show_times " +
+            "join times on times.id = show_times.times_id " +
+            "join room on room.id = show_times.room_id " +
+            "where show_times.date_projection = :showDate and show_times.is_delete = 0 " +
+            "and show_times.movie_id = :idMovie ",
             nativeQuery = true)
-    List<IShowTimes> findAllShowTimesInDay(@Param("showDate") String showDate);
+    List<IShowTimes> findAllShowTimesInDay(@Param("showDate") String showDate, @Param("idMovie") Integer idMovie);
 
     @Query(value = "select movie.id as id, movie.name as name from movie " +
             "join show_times on show_times.movie_id = movie.id " +
