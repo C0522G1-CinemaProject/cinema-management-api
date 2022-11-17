@@ -53,11 +53,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/customer/{username}",
                         "/api/user/find/{username}",
                         "/api/customer/find/{id}",
-                        "/api/promotion/**"
+                        "api/booking-ticket/list-ticket-manager",
+                        "/api/promotion/**",
+                        "/api/booking-ticket/**"
                         )
                 .permitAll().and()
                 .authorizeRequests()
-                .antMatchers("/api/user/**","/api/booking-ticket/**","api/booking-ticket/movie")
+                .antMatchers("/api/user/**")
                 .access("hasAnyRole('ROLE_Customer', 'ROLE_Admin', 'ROLE_Employee')")
                 .and()
                 .authorizeRequests().antMatchers("api/admin/**").access("hasRole('ROLE_Admin')")
